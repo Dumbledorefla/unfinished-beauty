@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Sparkles, Menu, X, LogOut, Star, Calculator, Sun,
-  Users, BookOpen, ShoppingBag, User, ChevronDown
+  Users, BookOpen, ShoppingBag, User, ChevronDown, Shield
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
@@ -26,7 +26,7 @@ const navItems = [
 
 export default function Header() {
   const location = useLocation();
-  const { isAuthenticated, profile, signOut } = useAuth();
+  const { isAuthenticated, isAdmin, profile, signOut } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSubmenu, setActiveSubmenu] = useState<string | null>(null);
 
@@ -97,6 +97,14 @@ export default function Header() {
                   <span className="text-primary font-semibold">{profile.display_name || profile.email?.split('@')[0]}</span>
                 </span>
               </Link>
+              {isAdmin && (
+                <Link to="/admin">
+                  <Button size="sm" variant="ghost" className="text-primary hover:bg-primary/10">
+                    <Shield className="w-4 h-4 mr-1" />
+                    Admin
+                  </Button>
+                </Link>
+              )}
               <Button size="sm" variant="outline" className="border-foreground/30 text-foreground hover:bg-foreground/10" onClick={signOut}>
                 <LogOut className="w-4 h-4 mr-2" />
                 Sair

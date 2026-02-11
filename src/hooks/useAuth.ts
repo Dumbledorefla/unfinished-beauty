@@ -7,6 +7,7 @@ interface AuthState {
   session: Session | null;
   isAuthenticated: boolean;
   isLoading: boolean;
+  isAdmin: boolean;
   profile: { display_name: string | null; email: string | null; avatar_url: string | null } | null;
 }
 
@@ -16,54 +17,39 @@ export function useAuth() {
     session: null,
     isAuthenticated: false,
     isLoading: true,
+    isAdmin: false,
     profile: null,
   });
 
   useEffect(() => {
+    const fetchProfileAndRole = async (user: User | null) => {
+      let profile = null;
+      let isAdmin = false;
+
+      if (user) {
+        const [profileRes, roleRes] = await Promise.all([
+          supabase.from("profiles").select("display_name, email, avatar_url").eq("user_id", user.id).single(),
+          supabase.from("user_roles").select("role").eq("user_id", user.id).eq("role", "admin").maybeSingle(),
+        ]);
+        profile = profileRes.data;
+        isAdmin = !!roleRes.data;
+      }
+
+      return { profile, isAdmin };
+    };
+
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (_event, session) => {
         const user = session?.user ?? null;
-        let profile = null;
-
-        if (user) {
-          const { data } = await supabase
-            .from("profiles")
-            .select("display_name, email, avatar_url")
-            .eq("user_id", user.id)
-            .single();
-          profile = data;
-        }
-
-        setState({
-          user,
-          session,
-          isAuthenticated: !!session,
-          isLoading: false,
-          profile,
-        });
+        const { profile, isAdmin } = await fetchProfileAndRole(user);
+        setState({ user, session, isAuthenticated: !!session, isLoading: false, isAdmin, profile });
       }
     );
 
     supabase.auth.getSession().then(async ({ data: { session } }) => {
       const user = session?.user ?? null;
-      let profile = null;
-
-      if (user) {
-        const { data } = await supabase
-          .from("profiles")
-          .select("display_name, email, avatar_url")
-          .eq("user_id", user.id)
-          .single();
-        profile = data;
-      }
-
-      setState({
-        user,
-        session,
-        isAuthenticated: !!session,
-        isLoading: false,
-        profile,
-      });
+      const { profile, isAdmin } = await fetchProfileAndRole(user);
+      setState({ user, session, isAuthenticated: !!session, isLoading: false, isAdmin, profile });
     });
 
     return () => subscription.unsubscribe();
