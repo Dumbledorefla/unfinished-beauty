@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Users, Star, Clock, Award } from "lucide-react";
+import { Users, Star, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Header from "@/components/Header";
+import BookingDialog from "@/components/BookingDialog";
 import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/hooks/useAuth";
 import heroBg from "@/assets/hero-bg.jpg";
 
 interface Taromante {
@@ -16,6 +19,7 @@ interface Taromante {
   rating: number | null;
   experience: number | null;
   price_per_session: number | null;
+  price_per_hour: number;
   specialties: any;
   is_active: boolean | null;
 }
@@ -23,6 +27,10 @@ interface Taromante {
 export default function Consultas() {
   const [taromantes, setTaromantes] = useState<Taromante[]>([]);
   const [loading, setLoading] = useState(true);
+  const [selectedTaromante, setSelectedTaromante] = useState<Taromante | null>(null);
+  const [bookingOpen, setBookingOpen] = useState(false);
+  const { user, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     supabase.from("taromantes").select("*").eq("is_active", true).then(({ data }) => {
@@ -30,6 +38,15 @@ export default function Consultas() {
       setLoading(false);
     });
   }, []);
+
+  const handleBook = (t: Taromante) => {
+    if (!isAuthenticated) {
+      navigate("/auth");
+      return;
+    }
+    setSelectedTaromante(t);
+    setBookingOpen(true);
+  };
 
   return (
     <div className="min-h-screen relative">
@@ -72,6 +89,13 @@ export default function Consultas() {
                     <h3 className="font-serif text-xl font-bold text-foreground text-center">{t.name}</h3>
                     {t.title && <p className="text-primary text-sm text-center">{t.title}</p>}
                     {t.short_bio && <p className="text-foreground/60 text-sm mt-2 text-center">{t.short_bio}</p>}
+                    {Array.isArray(t.specialties) && t.specialties.length > 0 && (
+                      <div className="flex flex-wrap justify-center gap-1 mt-3">
+                        {(t.specialties as string[]).slice(0, 3).map((s) => (
+                          <span key={s} className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full">{s}</span>
+                        ))}
+                      </div>
+                    )}
                     <div className="flex justify-center gap-4 mt-4 text-xs text-foreground/50">
                       {t.rating && <span className="flex items-center gap-1"><Star className="w-3 h-3 text-primary" />{t.rating}</span>}
                       {t.experience && <span className="flex items-center gap-1"><Clock className="w-3 h-3" />{t.experience} anos</span>}
@@ -82,7 +106,9 @@ export default function Consultas() {
                         <span className="text-foreground/50 text-sm"> / sessão</span>
                       </div>
                     )}
-                    <Button className="w-full mt-4 bg-primary text-primary-foreground hover:bg-primary/90">Agendar Consulta</Button>
+                    <Button className="w-full mt-4" onClick={() => handleBook(t)}>
+                      Agendar Consulta
+                    </Button>
                   </CardContent>
                 </Card>
               </motion.div>
@@ -90,6 +116,13 @@ export default function Consultas() {
           </div>
         )}
       </main>
+
+      <BookingDialog
+        open={bookingOpen}
+        onOpenChange={setBookingOpen}
+        taromante={selectedTaromante}
+        userId={user?.id || ""}
+      />
     </div>
   );
 }
