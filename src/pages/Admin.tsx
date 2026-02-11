@@ -40,32 +40,36 @@ export default function Admin() {
   }, [isAdmin]);
 
   const loadData = async () => {
-    const [profilesRes, readingsRes, productsRes, ordersRes, coursesRes, taromantesRes, consultationsRes, settingsRes] = await Promise.all([
-      supabase.from("profiles").select("*"),
-      supabase.from("tarot_readings").select("id", { count: "exact", head: true }),
-      supabase.from("products").select("*"),
-      supabase.from("orders").select("*").order("created_at", { ascending: false }),
-      supabase.from("courses").select("*"),
-      supabase.from("taromantes").select("*"),
-      supabase.from("consultations").select("*").order("created_at", { ascending: false }),
-      supabase.from("site_settings").select("*"),
-    ]);
+    try {
+      const [profilesRes, readingsRes, productsRes, ordersRes, coursesRes, taromantesRes, consultationsRes, settingsRes] = await Promise.all([
+        supabase.from("profiles").select("*"),
+        supabase.from("tarot_readings").select("id", { count: "exact", head: true }),
+        supabase.from("products").select("*"),
+        supabase.from("orders").select("*").order("created_at", { ascending: false }),
+        supabase.from("courses").select("*"),
+        supabase.from("taromantes").select("*"),
+        supabase.from("consultations").select("*").order("created_at", { ascending: false }),
+        supabase.from("site_settings").select("*"),
+      ]);
 
-    setUsers(profilesRes.data || []);
-    setProducts(productsRes.data || []);
-    setOrders(ordersRes.data || []);
-    setCourses(coursesRes.data || []);
-    setTaromantes(taromantesRes.data || []);
-    setConsultations(consultationsRes.data || []);
-    setSiteSettings(settingsRes.data || []);
-    setStats({
-      users: profilesRes.data?.length || 0,
-      readings: readingsRes.count || 0,
-      products: productsRes.data?.length || 0,
-      orders: ordersRes.data?.length || 0,
-      courses: coursesRes.data?.length || 0,
-      taromantes: taromantesRes.data?.length || 0,
-    });
+      setUsers(profilesRes.data || []);
+      setProducts(productsRes.data || []);
+      setOrders(ordersRes.data || []);
+      setCourses(coursesRes.data || []);
+      setTaromantes(taromantesRes.data || []);
+      setConsultations(consultationsRes.data || []);
+      setSiteSettings(settingsRes.data || []);
+      setStats({
+        users: profilesRes.data?.length || 0,
+        readings: readingsRes.count || 0,
+        products: productsRes.data?.length || 0,
+        orders: ordersRes.data?.length || 0,
+        courses: coursesRes.data?.length || 0,
+        taromantes: taromantesRes.data?.length || 0,
+      });
+    } catch (err) {
+      console.error("Admin loadData error:", err);
+    }
   };
 
   if (isLoading) return <div className="min-h-screen flex items-center justify-center text-foreground">Carregando...</div>;
