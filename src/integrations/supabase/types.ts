@@ -14,16 +14,559 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      consultations: {
+        Row: {
+          consultation_type: string
+          created_at: string
+          duration: number
+          id: string
+          notes: string | null
+          paid_at: string | null
+          price: number
+          scheduled_at: string
+          status: string
+          taromante_id: string
+          topic: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          consultation_type?: string
+          created_at?: string
+          duration?: number
+          id?: string
+          notes?: string | null
+          paid_at?: string | null
+          price: number
+          scheduled_at: string
+          status?: string
+          taromante_id: string
+          topic?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          consultation_type?: string
+          created_at?: string
+          duration?: number
+          id?: string
+          notes?: string | null
+          paid_at?: string | null
+          price?: number
+          scheduled_at?: string
+          status?: string
+          taromante_id?: string
+          topic?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "consultations_taromante_id_fkey"
+            columns: ["taromante_id"]
+            isOneToOne: false
+            referencedRelation: "taromantes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      course_enrollments: {
+        Row: {
+          completed_at: string | null
+          completed_lessons: number | null
+          course_id: string
+          enrolled_at: string
+          id: string
+          progress: number | null
+          status: string | null
+          user_id: string
+        }
+        Insert: {
+          completed_at?: string | null
+          completed_lessons?: number | null
+          course_id: string
+          enrolled_at?: string
+          id?: string
+          progress?: number | null
+          status?: string | null
+          user_id: string
+        }
+        Update: {
+          completed_at?: string | null
+          completed_lessons?: number | null
+          course_id?: string
+          enrolled_at?: string
+          id?: string
+          progress?: number | null
+          status?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "course_enrollments_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      courses: {
+        Row: {
+          category: string
+          created_at: string
+          description: string | null
+          enrollment_count: number | null
+          id: string
+          image_url: string | null
+          instructor_name: string | null
+          is_active: boolean | null
+          is_featured: boolean | null
+          is_free: boolean | null
+          level: string | null
+          price: number | null
+          short_description: string | null
+          slug: string
+          title: string
+          total_duration: number | null
+          total_lessons: number | null
+          total_modules: number | null
+          updated_at: string
+        }
+        Insert: {
+          category?: string
+          created_at?: string
+          description?: string | null
+          enrollment_count?: number | null
+          id?: string
+          image_url?: string | null
+          instructor_name?: string | null
+          is_active?: boolean | null
+          is_featured?: boolean | null
+          is_free?: boolean | null
+          level?: string | null
+          price?: number | null
+          short_description?: string | null
+          slug: string
+          title: string
+          total_duration?: number | null
+          total_lessons?: number | null
+          total_modules?: number | null
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          description?: string | null
+          enrollment_count?: number | null
+          id?: string
+          image_url?: string | null
+          instructor_name?: string | null
+          is_active?: boolean | null
+          is_featured?: boolean | null
+          is_free?: boolean | null
+          level?: string | null
+          price?: number | null
+          short_description?: string | null
+          slug?: string
+          title?: string
+          total_duration?: number | null
+          total_lessons?: number | null
+          total_modules?: number | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      order_items: {
+        Row: {
+          id: string
+          order_id: string
+          price: number
+          product_id: string
+          product_name: string
+          quantity: number
+        }
+        Insert: {
+          id?: string
+          order_id: string
+          price: number
+          product_id: string
+          product_name: string
+          quantity?: number
+        }
+        Update: {
+          id?: string
+          order_id?: string
+          price?: number
+          product_id?: string
+          product_name?: string
+          quantity?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "order_items_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "order_items_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      orders: {
+        Row: {
+          created_at: string
+          id: string
+          paid_at: string | null
+          payment_intent_id: string | null
+          payment_method: string | null
+          payment_session_id: string | null
+          status: string
+          total_amount: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          paid_at?: string | null
+          payment_intent_id?: string | null
+          payment_method?: string | null
+          payment_session_id?: string | null
+          status?: string
+          total_amount: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          paid_at?: string | null
+          payment_intent_id?: string | null
+          payment_method?: string | null
+          payment_session_id?: string | null
+          status?: string
+          total_amount?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      products: {
+        Row: {
+          category: string
+          combo_products: Json | null
+          created_at: string
+          description: string | null
+          has_sample: boolean | null
+          id: string
+          image_url: string | null
+          is_active: boolean | null
+          is_combo: boolean | null
+          is_featured: boolean | null
+          life_area: string | null
+          name: string
+          original_price: number | null
+          price: number
+          sample_description: string | null
+          short_description: string | null
+          slug: string
+          updated_at: string
+        }
+        Insert: {
+          category?: string
+          combo_products?: Json | null
+          created_at?: string
+          description?: string | null
+          has_sample?: boolean | null
+          id?: string
+          image_url?: string | null
+          is_active?: boolean | null
+          is_combo?: boolean | null
+          is_featured?: boolean | null
+          life_area?: string | null
+          name: string
+          original_price?: number | null
+          price?: number
+          sample_description?: string | null
+          short_description?: string | null
+          slug: string
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          combo_products?: Json | null
+          created_at?: string
+          description?: string | null
+          has_sample?: boolean | null
+          id?: string
+          image_url?: string | null
+          is_active?: boolean | null
+          is_combo?: boolean | null
+          is_featured?: boolean | null
+          life_area?: string | null
+          name?: string
+          original_price?: number | null
+          price?: number
+          sample_description?: string | null
+          short_description?: string | null
+          slug?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          bio: string | null
+          birth_date: string | null
+          created_at: string
+          display_name: string | null
+          email: string | null
+          full_name: string | null
+          id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          bio?: string | null
+          birth_date?: string | null
+          created_at?: string
+          display_name?: string | null
+          email?: string | null
+          full_name?: string | null
+          id?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          avatar_url?: string | null
+          bio?: string | null
+          birth_date?: string | null
+          created_at?: string
+          display_name?: string | null
+          email?: string | null
+          full_name?: string | null
+          id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      site_settings: {
+        Row: {
+          category: string
+          created_at: string
+          description: string | null
+          id: string
+          key: string
+          label: string | null
+          updated_at: string
+          updated_by: string | null
+          value: string
+        }
+        Insert: {
+          category?: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          key: string
+          label?: string | null
+          updated_at?: string
+          updated_by?: string | null
+          value: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          key?: string
+          label?: string | null
+          updated_at?: string
+          updated_by?: string | null
+          value?: string
+        }
+        Relationships: []
+      }
+      taromantes: {
+        Row: {
+          bio: string | null
+          created_at: string
+          experience: number | null
+          id: string
+          is_active: boolean | null
+          is_featured: boolean | null
+          name: string
+          photo_url: string | null
+          price_per_hour: number
+          price_per_session: number | null
+          rating: number | null
+          short_bio: string | null
+          slug: string
+          specialties: Json | null
+          title: string | null
+          total_consultations: number | null
+          total_reviews: number | null
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          bio?: string | null
+          created_at?: string
+          experience?: number | null
+          id?: string
+          is_active?: boolean | null
+          is_featured?: boolean | null
+          name: string
+          photo_url?: string | null
+          price_per_hour?: number
+          price_per_session?: number | null
+          rating?: number | null
+          short_bio?: string | null
+          slug: string
+          specialties?: Json | null
+          title?: string | null
+          total_consultations?: number | null
+          total_reviews?: number | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          bio?: string | null
+          created_at?: string
+          experience?: number | null
+          id?: string
+          is_active?: boolean | null
+          is_featured?: boolean | null
+          name?: string
+          photo_url?: string | null
+          price_per_hour?: number
+          price_per_session?: number | null
+          rating?: number | null
+          short_bio?: string | null
+          slug?: string
+          specialties?: Json | null
+          title?: string | null
+          total_consultations?: number | null
+          total_reviews?: number | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      tarot_readings: {
+        Row: {
+          cards: Json
+          created_at: string
+          id: string
+          interpretation: string | null
+          reading_type: string
+          user_id: string
+          user_name: string | null
+        }
+        Insert: {
+          cards: Json
+          created_at?: string
+          id?: string
+          interpretation?: string | null
+          reading_type: string
+          user_id: string
+          user_name?: string | null
+        }
+        Update: {
+          cards?: Json
+          created_at?: string
+          id?: string
+          interpretation?: string | null
+          reading_type?: string
+          user_id?: string
+          user_name?: string | null
+        }
+        Relationships: []
+      }
+      user_products: {
+        Row: {
+          expires_at: string | null
+          granted_at: string
+          id: string
+          order_id: string | null
+          product_id: string
+          user_id: string
+        }
+        Insert: {
+          expires_at?: string | null
+          granted_at?: string
+          id?: string
+          order_id?: string | null
+          product_id: string
+          user_id: string
+        }
+        Update: {
+          expires_at?: string | null
+          granted_at?: string
+          id?: string
+          order_id?: string | null
+          product_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_products_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_products_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "moderator" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +693,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "moderator", "user"],
+    },
   },
 } as const
