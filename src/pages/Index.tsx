@@ -7,6 +7,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Header from "@/components/Header";
+import heroBg from "@/assets/hero-bg.jpg";
+import featuresBg from "@/assets/features-bg.jpg";
 
 const services = [
   {
@@ -82,7 +84,10 @@ export default function Home() {
   return (
     <div className="min-h-screen relative">
       {/* Global mystical background */}
-      <div className="fixed inset-0 z-0 bg-gradient-to-b from-background via-purple-950/30 to-background" />
+      <div className="fixed inset-0 z-0">
+        <img src={heroBg} alt="" className="w-full h-full object-cover opacity-40" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/40 to-background" />
+      </div>
       <AnimatedStars />
       <Header />
 
@@ -239,7 +244,10 @@ export default function Home() {
 
       {/* Features Section */}
       <section className="py-24 relative z-10 overflow-hidden">
-        <div className="absolute inset-0 z-0 bg-background/70" />
+        <div className="absolute inset-0 z-0">
+          <img src={featuresBg} alt="" className="w-full h-full object-cover opacity-30" />
+          <div className="absolute inset-0 bg-background/60" />
+        </div>
         <div className="container mx-auto relative z-10 px-4">
           <div className="text-center mb-16">
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
