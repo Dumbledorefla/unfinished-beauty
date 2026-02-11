@@ -13,10 +13,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 
 export default function Admin() {
-  const { user, isAuthenticated, isLoading } = useAuth();
+  const { user, isAuthenticated, isLoading, isAdmin } = useAuth();
   const navigate = useNavigate();
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [checking, setChecking] = useState(true);
 
   // Stats
   const [stats, setStats] = useState({ users: 0, readings: 0, products: 0, orders: 0, courses: 0, taromantes: 0 });
@@ -27,21 +25,19 @@ export default function Admin() {
   const [orders, setOrders] = useState<any[]>([]);
   const [consultations, setConsultations] = useState<any[]>([]);
   const [siteSettings, setSiteSettings] = useState<any[]>([]);
+  const [dataLoaded, setDataLoaded] = useState(false);
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated) navigate("/auth");
-  }, [isLoading, isAuthenticated]);
+    if (!isLoading && isAuthenticated && !isAdmin) navigate("/");
+  }, [isLoading, isAuthenticated, isAdmin]);
 
   useEffect(() => {
-    if (user) {
-      supabase.from("user_roles").select("role").eq("user_id", user.id).eq("role", "admin").then(({ data }) => {
-        const admin = (data && data.length > 0);
-        setIsAdmin(admin);
-        setChecking(false);
-        if (admin) loadData();
-      });
+    if (isAdmin && !dataLoaded) {
+      loadData();
+      setDataLoaded(true);
     }
-  }, [user]);
+  }, [isAdmin]);
 
   const loadData = async () => {
     const [profilesRes, readingsRes, productsRes, ordersRes, coursesRes, taromantesRes, consultationsRes, settingsRes] = await Promise.all([
@@ -72,7 +68,7 @@ export default function Admin() {
     });
   };
 
-  if (isLoading || checking) return <div className="min-h-screen flex items-center justify-center text-foreground">Carregando...</div>;
+  if (isLoading) return <div className="min-h-screen flex items-center justify-center text-foreground">Carregando...</div>;
   if (!isAdmin) return (
     <div className="min-h-screen flex items-center justify-center text-foreground">
       <Card className="bg-card/80 border-destructive/30 max-w-md">
