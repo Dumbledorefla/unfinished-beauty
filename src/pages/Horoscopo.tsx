@@ -1,0 +1,66 @@
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Sun, RotateCcw } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import OracleLayout from "@/components/OracleLayout";
+import UserDataForm from "@/components/UserDataForm";
+import { getZodiacSign, zodiacEmojis } from "@/lib/tarot-cards";
+import { supabase } from "@/integrations/supabase/client";
+
+export default function Horoscopo() {
+  const [step, setStep] = useState<"form" | "loading" | "result">("form");
+  const [interpretation, setInterpretation] = useState("");
+  const [sign, setSign] = useState("");
+
+  const handleStart = async (data: { userName: string; birthDate: string }) => {
+    const userSign = getZodiacSign(data.birthDate);
+    setSign(userSign);
+    setStep("loading");
+    try {
+      const { data: result } = await supabase.functions.invoke("oracle-interpret", {
+        body: { type: "horoscopo", data: { ...data, sign: userSign } },
+      });
+      setInterpretation(result?.interpretation || "Interpretação indisponível.");
+    } catch { setInterpretation("Erro ao consultar."); }
+    setStep("result");
+  };
+
+  return (
+    <OracleLayout title="Horóscopo" icon={<Sun className="w-5 h-5" />}>
+      <AnimatePresence mode="wait">
+        {step === "form" && (
+          <UserDataForm key="form" title="Seus Dados para Horóscopo" description="Para personalizar suas previsões astrológicas, precisamos do seu nome completo e data de nascimento." onSubmit={handleStart} />
+        )}
+        {step === "loading" && (
+          <motion.div key="loading" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="text-center py-16">
+            <motion.div animate={{ rotate: 360 }} transition={{ duration: 3, repeat: Infinity, ease: "linear" }} className="text-8xl mb-6">☀️</motion.div>
+            <p className="text-foreground/70 text-lg">Consultando os astros...</p>
+          </motion.div>
+        )}
+        {step === "result" && (
+          <motion.div key="result" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
+            <Card className="bg-card/80 backdrop-blur-md border-primary/20 text-center">
+              <CardContent className="pt-6">
+                <div className="text-6xl mb-2">{zodiacEmojis[sign] || "⭐"}</div>
+                <h2 className="font-serif text-3xl font-bold gold-text">{sign}</h2>
+                <p className="text-foreground/60 text-sm mt-1">Horóscopo do dia - {new Date().toLocaleDateString("pt-BR")}</p>
+              </CardContent>
+            </Card>
+            <Card className="bg-card/80 backdrop-blur-md border-primary/20">
+              <CardContent className="pt-6">
+                <h3 className="font-serif text-xl font-bold gold-text mb-4">☀️ Previsões do Dia</h3>
+                <div className="text-foreground/80 leading-relaxed whitespace-pre-line">{interpretation}</div>
+              </CardContent>
+            </Card>
+            <div className="text-center">
+              <Button onClick={() => { setStep("form"); setInterpretation(""); }} variant="outline" className="border-primary/30">
+                <RotateCcw className="w-4 h-4 mr-2" /> Nova Consulta
+              </Button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </OracleLayout>
+  );
+}
