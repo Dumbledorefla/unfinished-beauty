@@ -1,9 +1,57 @@
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+import { z } from 'https://esm.sh/zod@3.23.8';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version',
 };
+
+const cardSchema = z.object({
+  name: z.string().max(100),
+  upright: z.boolean(),
+});
+
+const requestSchema = z.discriminatedUnion('type', [
+  z.object({
+    type: z.literal('tarot-dia'),
+    data: z.object({
+      userName: z.string().max(100).optional().default('Anônimo'),
+      birthDate: z.string().max(20).optional().default('data não informada'),
+      card: cardSchema,
+    }),
+  }),
+  z.object({
+    type: z.literal('tarot-amor'),
+    data: z.object({
+      userName: z.string().max(100).optional().default('Anônimo'),
+      birthDate: z.string().max(20).optional().default('data não informada'),
+      cards: z.array(cardSchema).length(3),
+    }),
+  }),
+  z.object({
+    type: z.literal('tarot-completo'),
+    data: z.object({
+      userName: z.string().max(100).optional().default('Anônimo'),
+      birthDate: z.string().max(20).optional().default('data não informada'),
+      cards: z.array(cardSchema).length(6),
+    }),
+  }),
+  z.object({
+    type: z.literal('numerologia'),
+    data: z.object({
+      userName: z.string().max(100),
+      birthDate: z.string().max(20),
+    }),
+  }),
+  z.object({
+    type: z.literal('horoscopo'),
+    data: z.object({
+      userName: z.string().max(100).optional().default('Anônimo'),
+      birthDate: z.string().max(20),
+      sign: z.string().max(30),
+    }),
+  }),
+]);
 
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') {
@@ -33,7 +81,17 @@ Deno.serve(async (req) => {
       });
     }
 
-    const { type, data } = await req.json();
+    // Validate input
+    const body = await req.json();
+    const parseResult = requestSchema.safeParse(body);
+    if (!parseResult.success) {
+      return new Response(JSON.stringify({ error: 'Invalid input', details: parseResult.error.flatten() }), {
+        status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
+
+    const { type, data } = parseResult.data;
+
     const apiKey = Deno.env.get('LOVABLE_API_KEY');
     if (!apiKey) {
       return new Response(JSON.stringify({ error: 'API key not configured' }), { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
@@ -47,14 +105,14 @@ Deno.serve(async (req) => {
 Use linguagem mística, poética e acolhedora em português do Brasil. 
 Estruture a resposta com: Significado Geral, Amor, Trabalho, Saúde e Conselho do Dia.
 Personalize usando o nome e data de nascimento quando fornecidos.`;
-      userPrompt = `Consulente: ${data.userName || 'Anônimo'}, nascido em ${data.birthDate || 'data não informada'}.
+      userPrompt = `Consulente: ${data.userName}, nascido em ${data.birthDate}.
 Carta sorteada: ${data.card.name} (${data.card.upright ? 'posição normal' : 'invertida'}).
 Faça uma interpretação completa e detalhada desta carta para o dia de hoje.`;
     } else if (type === 'tarot-amor') {
       systemPrompt = `Você é uma taromante especialista em questões amorosas. Interprete as 3 cartas de tarot sorteadas para o consulente.
 Use linguagem mística, poética e acolhedora em português do Brasil.
 As 3 cartas representam: Passado, Presente e Futuro do amor.`;
-      userPrompt = `Consulente: ${data.userName || 'Anônimo'}, nascido em ${data.birthDate || 'data não informada'}.
+      userPrompt = `Consulente: ${data.userName}, nascido em ${data.birthDate}.
 Cartas sorteadas:
 - Passado: ${data.cards[0].name} (${data.cards[0].upright ? 'normal' : 'invertida'})
 - Presente: ${data.cards[1].name} (${data.cards[1].upright ? 'normal' : 'invertida'})
@@ -64,9 +122,9 @@ Faça uma interpretação profunda sobre a vida amorosa.`;
       systemPrompt = `Você é uma taromante experiente fazendo uma leitura completa de Cruz Celta. Interprete as 6 cartas de tarot sorteadas.
 Use linguagem mística, poética e profunda em português do Brasil.
 As posições são: 1-Situação Atual, 2-Desafio, 3-Base, 4-Passado Recente, 5-Melhor Resultado Possível, 6-Futuro Próximo.`;
-      userPrompt = `Consulente: ${data.userName || 'Anônimo'}, nascido em ${data.birthDate || 'data não informada'}.
+      userPrompt = `Consulente: ${data.userName}, nascido em ${data.birthDate}.
 Cartas:
-${data.cards.map((c: any, i: number) => `- Posição ${i + 1}: ${c.name} (${c.upright ? 'normal' : 'invertida'})`).join('\n')}
+${data.cards.map((c, i) => `- Posição ${i + 1}: ${c.name} (${c.upright ? 'normal' : 'invertida'})`).join('\n')}
 Faça uma leitura profunda e completa.`;
     } else if (type === 'numerologia') {
       systemPrompt = `Você é um numerólogo experiente. Calcule e interprete o mapa numerológico completo do consulente.
@@ -79,7 +137,7 @@ Calcule todos os números e faça uma interpretação completa e personalizada.`
 Use linguagem mística e acolhedora em português do Brasil.
 Inclua previsões para: Amor, Trabalho, Saúde e Dica do Dia.
 Data de hoje: ${new Date().toLocaleDateString('pt-BR')}.`;
-      userPrompt = `Consulente: ${data.userName || 'Anônimo'}, nascido em ${data.birthDate}.
+      userPrompt = `Consulente: ${data.userName}, nascido em ${data.birthDate}.
 Signo: ${data.sign}.
 Faça o horóscopo detalhado para hoje.`;
     }
@@ -108,7 +166,6 @@ Faça o horóscopo detalhado para hoje.`;
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
   } catch (error) {
-    console.error('Error:', error);
     return new Response(JSON.stringify({ success: false, error: 'Failed to interpret' }), {
       status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
