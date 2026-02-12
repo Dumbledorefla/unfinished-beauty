@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Compass, Sparkles, Loader2 } from "lucide-react";
+import ReactMarkdown from "react-markdown";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -154,8 +155,8 @@ export default function MapaAstral() {
                   <Compass className="w-5 h-5 text-primary" />
                   <h2 className="font-serif text-2xl font-bold text-foreground">Seu Mapa Astral</h2>
                 </div>
-                <div className="prose prose-invert prose-sm max-w-none text-foreground/80 whitespace-pre-line leading-relaxed">
-                  {interpretation}
+                <div className="prose prose-invert prose-sm max-w-none text-foreground/80 leading-relaxed [&_h1]:text-primary [&_h2]:text-primary/90 [&_h3]:text-primary/80 [&_strong]:text-foreground [&_ul]:list-disc [&_ol]:list-decimal">
+                  <ReactMarkdown>{interpretation}</ReactMarkdown>
                 </div>
               </CardContent>
             </Card>
