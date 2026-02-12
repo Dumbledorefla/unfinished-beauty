@@ -39,17 +39,33 @@ export function useAuth() {
     };
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (_event, session) => {
+      (_event, session) => {
         const user = session?.user ?? null;
-        const { profile, isAdmin } = await fetchProfileAndRole(user);
-        setState({ user, session, isAuthenticated: !!session, isLoading: false, isAdmin, profile });
+        // Set authenticated immediately, then fetch profile in background
+        setState(prev => ({ ...prev, user, session, isAuthenticated: !!session, isLoading: false }));
+        
+        if (user) {
+          // Fetch profile data in background without blocking
+          setTimeout(() => {
+            fetchProfileAndRole(user).then(({ profile, isAdmin }) => {
+              setState(prev => ({ ...prev, profile, isAdmin }));
+            });
+          }, 0);
+        } else {
+          setState(prev => ({ ...prev, profile: null, isAdmin: false }));
+        }
       }
     );
 
-    supabase.auth.getSession().then(async ({ data: { session } }) => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
       const user = session?.user ?? null;
-      const { profile, isAdmin } = await fetchProfileAndRole(user);
-      setState({ user, session, isAuthenticated: !!session, isLoading: false, isAdmin, profile });
+      setState(prev => ({ ...prev, user, session, isAuthenticated: !!session, isLoading: false }));
+      
+      if (user) {
+        fetchProfileAndRole(user).then(({ profile, isAdmin }) => {
+          setState(prev => ({ ...prev, profile, isAdmin }));
+        });
+      }
     });
 
     return () => subscription.unsubscribe();
