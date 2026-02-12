@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
-import { User, Mail, Calendar, Clock, Star, LogOut } from "lucide-react";
+import { User, Mail, Calendar, Clock, Star, LogOut, CalendarCheck, CalendarX, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -10,16 +10,26 @@ import Header from "@/components/Header";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
+import { getCalendarAuthUrl, getCalendarStatus, disconnectCalendar } from "@/lib/google-calendar";
 import heroBg from "@/assets/hero-bg.jpg";
 
 export default function Perfil() {
   const { user, isAuthenticated, isLoading, profile, signOut } = useAuth();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const { toast } = useToast();
   const [displayName, setDisplayName] = useState("");
   const [birthDate, setBirthDate] = useState("");
   const [readings, setReadings] = useState<any[]>([]);
   const [saving, setSaving] = useState(false);
+  const [calendarStatus, setCalendarStatus] = useState<{ connected: boolean; email: string | null }>({ connected: false, email: null });
+  const [calendarLoading, setCalendarLoading] = useState(false);
+
+  useEffect(() => {
+    if (searchParams.get("calendar") === "connected") {
+      toast({ title: "Google Calendar conectado com sucesso!" });
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated) navigate("/auth");
@@ -40,6 +50,36 @@ export default function Perfil() {
         .then(({ data }) => { if (data?.birth_date) setBirthDate(data.birth_date); });
     }
   }, [user]);
+
+  useEffect(() => {
+    if (user) {
+      getCalendarStatus().then(setCalendarStatus).catch(() => {});
+    }
+  }, [user]);
+
+  const handleConnectCalendar = async () => {
+    setCalendarLoading(true);
+    try {
+      const url = await getCalendarAuthUrl();
+      window.location.href = url;
+    } catch (err: any) {
+      toast({ title: "Erro", description: err.message, variant: "destructive" });
+      setCalendarLoading(false);
+    }
+  };
+
+  const handleDisconnectCalendar = async () => {
+    setCalendarLoading(true);
+    try {
+      await disconnectCalendar();
+      setCalendarStatus({ connected: false, email: null });
+      toast({ title: "Google Calendar desconectado" });
+    } catch (err: any) {
+      toast({ title: "Erro", description: err.message, variant: "destructive" });
+    } finally {
+      setCalendarLoading(false);
+    }
+  };
 
   const handleSave = async () => {
     if (!user) return;
@@ -88,6 +128,35 @@ export default function Perfil() {
                   <LogOut className="w-4 h-4 mr-2" /> Sair
                 </Button>
               </div>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-card/80 backdrop-blur-md border-primary/20 mb-6">
+            <CardHeader>
+              <CardTitle className="gold-text flex items-center gap-2"><Calendar className="w-5 h-5" /> Google Calendar</CardTitle>
+            </CardHeader>
+            <CardContent>
+              {calendarStatus.connected ? (
+                <div className="space-y-3">
+                  <div className="flex items-center gap-2 text-green-400">
+                    <CalendarCheck className="w-4 h-4" />
+                    <span className="text-sm">Conectado como <strong>{calendarStatus.email}</strong></span>
+                  </div>
+                  <p className="text-xs text-foreground/50">Suas consultas serão sincronizadas automaticamente com seu Google Calendar.</p>
+                  <Button variant="outline" size="sm" onClick={handleDisconnectCalendar} disabled={calendarLoading} className="border-destructive/30 text-destructive hover:bg-destructive/10">
+                    {calendarLoading ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <CalendarX className="w-4 h-4 mr-2" />}
+                    Desconectar
+                  </Button>
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  <p className="text-sm text-foreground/60">Conecte seu Google Calendar para sincronizar consultas e receber lembretes automaticamente.</p>
+                  <Button onClick={handleConnectCalendar} disabled={calendarLoading} className="bg-primary text-primary-foreground hover:bg-primary/90">
+                    {calendarLoading ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Calendar className="w-4 h-4 mr-2" />}
+                    Conectar Google Calendar
+                  </Button>
+                </div>
+              )}
             </CardContent>
           </Card>
 
