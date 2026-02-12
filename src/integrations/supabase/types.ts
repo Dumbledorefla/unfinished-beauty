@@ -396,6 +396,51 @@ export type Database = {
         }
         Relationships: []
       }
+      reviews: {
+        Row: {
+          comment: string | null
+          consultation_id: string | null
+          created_at: string
+          id: string
+          rating: number
+          taromante_id: string
+          user_id: string
+        }
+        Insert: {
+          comment?: string | null
+          consultation_id?: string | null
+          created_at?: string
+          id?: string
+          rating?: number
+          taromante_id: string
+          user_id: string
+        }
+        Update: {
+          comment?: string | null
+          consultation_id?: string | null
+          created_at?: string
+          id?: string
+          rating?: number
+          taromante_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "reviews_consultation_id_fkey"
+            columns: ["consultation_id"]
+            isOneToOne: false
+            referencedRelation: "consultations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "reviews_taromante_id_fkey"
+            columns: ["taromante_id"]
+            isOneToOne: false
+            referencedRelation: "taromantes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       site_settings: {
         Row: {
           category: string
