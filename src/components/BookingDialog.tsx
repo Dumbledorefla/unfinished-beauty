@@ -63,7 +63,7 @@ export default function BookingDialog({ open, onOpenChange, taromante, userId }:
 
     setSaving(true);
     try {
-      const { error } = await supabase.from("consultations").insert({
+      const { data: inserted, error } = await supabase.from("consultations").insert({
         user_id: userId,
         taromante_id: taromante.id,
         scheduled_at: scheduledAt.toISOString(),
@@ -72,9 +72,18 @@ export default function BookingDialog({ open, onOpenChange, taromante, userId }:
         topic: topic || null,
         price,
         status: "pending",
-      });
+      }).select("id").single();
 
       if (error) throw error;
+
+      // Fire unified notification (non-blocking)
+      supabase.functions.invoke("notify-consultation", {
+        body: { consultationId: inserted.id },
+      }).then(({ error: notifError }) => {
+        if (notifError) {
+          console.warn("Notificação falhou (não bloqueante):", notifError);
+        }
+      });
 
       toast.success("Consulta agendada com sucesso! Você receberá a confirmação em breve.");
       onOpenChange(false);
