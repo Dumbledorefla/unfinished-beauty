@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ShoppingBag, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -12,6 +13,7 @@ import heroBg from "@/assets/hero-bg.jpg";
 interface Product {
   id: string;
   name: string;
+  slug: string;
   short_description: string | null;
   category: string;
   price: number;
@@ -79,7 +81,7 @@ export default function Produtos() {
                       {p.is_featured && <span className="flex items-center gap-1 px-2 py-0.5 text-xs rounded-full bg-accent/20 text-accent"><Sparkles className="w-3 h-3" />Destaque</span>}
                       {p.is_combo && <span className="px-2 py-0.5 text-xs rounded-full bg-emerald-500/20 text-emerald-400">Combo</span>}
                     </div>
-                    <h3 className="font-serif text-lg font-bold text-foreground mb-1">{p.name}</h3>
+                    <Link to={`/produto/${p.slug}`} className="font-serif text-lg font-bold text-foreground mb-1 hover:text-primary transition-colors">{p.name}</Link>
                     {p.short_description && <p className="text-foreground/60 text-sm mb-3">{p.short_description}</p>}
                     <div className="flex items-center gap-2 mb-4">
                       <span className="text-primary font-bold text-xl">R$ {Number(p.price).toFixed(2)}</span>

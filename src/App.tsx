@@ -18,6 +18,10 @@ import Carrinho from "./pages/Carrinho";
 import Perfil from "./pages/Perfil";
 import Admin from "./pages/Admin";
 import ResetPassword from "./pages/ResetPassword";
+import ProdutoDetalhe from "./pages/ProdutoDetalhe";
+import CursoDetalhe from "./pages/CursoDetalhe";
+import TaromanteDetalhe from "./pages/TaromanteDetalhe";
+import TaromantePainel from "./pages/TaromantePainel";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -44,6 +48,10 @@ const App = () => (
             <Route path="/perfil" element={<Perfil />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="/produto/:slug" element={<ProdutoDetalhe />} />
+            <Route path="/curso/:slug" element={<CursoDetalhe />} />
+            <Route path="/taromante/:slug" element={<TaromanteDetalhe />} />
+            <Route path="/taromante-painel" element={<TaromantePainel />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
