@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { BookOpen, Clock, Users as UsersIcon, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -10,6 +11,7 @@ import heroBg from "@/assets/hero-bg.jpg";
 interface Course {
   id: string;
   title: string;
+  slug: string;
   short_description: string | null;
   category: string;
   level: string | null;
@@ -73,7 +75,7 @@ export default function Cursos() {
                       <span className="px-2 py-0.5 text-xs rounded-full bg-primary/20 text-primary">{c.category}</span>
                       {c.is_free && <span className="px-2 py-0.5 text-xs rounded-full bg-emerald-500/20 text-emerald-400">Grátis</span>}
                     </div>
-                    <h3 className="font-serif text-lg font-bold text-foreground mb-1">{c.title}</h3>
+                    <Link to={`/curso/${c.slug}`} className="font-serif text-lg font-bold text-foreground mb-1 hover:text-primary transition-colors">{c.title}</Link>
                     {c.short_description && <p className="text-foreground/60 text-sm mb-3">{c.short_description}</p>}
                     <div className="flex gap-4 text-xs text-foreground/50 mb-4">
                       {c.total_lessons && <span className="flex items-center gap-1"><BookOpen className="w-3 h-3" />{c.total_lessons} aulas</span>}

@@ -201,6 +201,21 @@ export default function Header() {
                 </div>
               ))}
 
+              {/* Mobile Cart */}
+              <Link
+                to="/carrinho"
+                className="flex items-center gap-3 px-4 py-3 text-foreground/80 hover:text-primary hover:bg-primary/10 rounded-lg transition-colors"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <ShoppingCart className="w-5 h-5" />
+                Carrinho
+                {totalItems > 0 && (
+                  <span className="ml-auto w-5 h-5 rounded-full bg-primary text-primary-foreground text-xs flex items-center justify-center font-bold">
+                    {totalItems}
+                  </span>
+                )}
+              </Link>
+
               <div className="pt-4 mt-4 border-t border-primary/20">
                 {isAuthenticated ? (
                   <button

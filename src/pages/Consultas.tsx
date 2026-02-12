@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Users, Star, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -13,6 +13,7 @@ import heroBg from "@/assets/hero-bg.jpg";
 interface Taromante {
   id: string;
   name: string;
+  slug: string;
   title: string | null;
   short_bio: string | null;
   photo_url: string | null;
@@ -86,7 +87,7 @@ export default function Consultas() {
                     <div className="w-20 h-20 mx-auto rounded-full bg-primary/20 flex items-center justify-center mb-4 border-2 border-primary/30 text-3xl">
                       {t.photo_url ? <img src={t.photo_url} alt={t.name} className="w-full h-full rounded-full object-cover" /> : "🔮"}
                     </div>
-                    <h3 className="font-serif text-xl font-bold text-foreground text-center">{t.name}</h3>
+                    <Link to={`/taromante/${t.slug}`} className="font-serif text-xl font-bold text-foreground text-center hover:text-primary transition-colors">{t.name}</Link>
                     {t.title && <p className="text-primary text-sm text-center">{t.title}</p>}
                     {t.short_bio && <p className="text-foreground/60 text-sm mt-2 text-center">{t.short_bio}</p>}
                     {Array.isArray(t.specialties) && t.specialties.length > 0 && (
