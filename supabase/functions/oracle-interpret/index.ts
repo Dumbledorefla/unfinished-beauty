@@ -51,6 +51,15 @@ const requestSchema = z.discriminatedUnion('type', [
       sign: z.string().max(30),
     }),
   }),
+  z.object({
+    type: z.literal('mapa-astral'),
+    data: z.object({
+      userName: z.string().max(100),
+      birthDate: z.string().max(20),
+      birthTime: z.string().max(10),
+      birthPlace: z.string().max(200),
+    }),
+  }),
 ]);
 
 Deno.serve(async (req) => {
@@ -140,6 +149,25 @@ Data de hoje: ${new Date().toLocaleDateString('pt-BR')}.`;
       userPrompt = `Consulente: ${data.userName}, nascido em ${data.birthDate}.
 Signo: ${data.sign}.
 Faça o horóscopo detalhado para hoje.`;
+    } else if (type === 'mapa-astral') {
+      systemPrompt = `Você é um astrólogo profissional e experiente. Calcule e interprete o mapa astral completo do consulente com base nos dados de nascimento fornecidos.
+Use linguagem mística, profunda e esclarecedora em português do Brasil.
+Estruture a resposta com as seguintes seções:
+1. **Signo Solar** - Personalidade e essência
+2. **Ascendente** (calcule com base na hora e local) - Como se apresenta ao mundo
+3. **Lua** - Emoções e mundo interior
+4. **Mercúrio** - Comunicação e intelecto
+5. **Vênus** - Amor e relacionamentos
+6. **Marte** - Energia, ação e paixão
+7. **Júpiter** - Expansão e sorte
+8. **Saturno** - Lições e responsabilidades
+9. **Síntese Geral** - Visão integrada do mapa
+Seja detalhado e personalizado. Considere as posições planetárias aproximadas para a data, hora e local fornecidos.`;
+      userPrompt = `Nome: ${data.userName}
+Data de nascimento: ${data.birthDate}
+Hora de nascimento: ${data.birthTime}
+Local de nascimento: ${data.birthPlace}
+Faça o mapa astral completo e detalhado.`;
     }
 
     const response = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
