@@ -22,6 +22,7 @@ import ProdutoDetalhe from "./pages/ProdutoDetalhe";
 import CursoDetalhe from "./pages/CursoDetalhe";
 import TaromanteDetalhe from "./pages/TaromanteDetalhe";
 import TaromantePainel from "./pages/TaromantePainel";
+import MapaAstral from "./pages/MapaAstral";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -52,6 +53,7 @@ const App = () => (
             <Route path="/curso/:slug" element={<CursoDetalhe />} />
             <Route path="/taromante/:slug" element={<TaromanteDetalhe />} />
             <Route path="/taromante-painel" element={<TaromantePainel />} />
+            <Route path="/mapa-astral" element={<MapaAstral />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

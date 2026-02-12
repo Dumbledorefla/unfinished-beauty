@@ -51,7 +51,7 @@ const services = [
     description: "Descubra seu ascendente, lua e posições planetárias no momento do seu nascimento.",
     icon: Compass, color: "from-blue-500/20 to-indigo-500/20",
     borderColor: "border-blue-500/30", iconColor: "text-blue-400",
-    href: "/mapa-astral", badge: "Em breve"
+    href: "/mapa-astral", badge: "Grátis"
   }
 ];
 
