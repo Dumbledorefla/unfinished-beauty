@@ -3,10 +3,11 @@ import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Sparkles, Menu, X, LogOut, Star, Calculator, Sun,
-  Users, BookOpen, ShoppingBag, User, ChevronDown, Shield
+  Users, BookOpen, ShoppingBag, ShoppingCart, User, ChevronDown, Shield
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
+import { useCart } from "@/contexts/CartContext";
 
 const navItems = [
   {
@@ -27,6 +28,7 @@ const navItems = [
 export default function Header() {
   const location = useLocation();
   const { isAuthenticated, isAdmin, profile, signOut } = useAuth();
+  const { totalItems } = useCart();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSubmenu, setActiveSubmenu] = useState<string | null>(null);
 
@@ -87,8 +89,16 @@ export default function Header() {
           ))}
         </nav>
 
-        {/* Desktop Auth */}
+        {/* Desktop Cart + Auth */}
         <div className="hidden lg:flex items-center gap-3">
+          <Link to="/carrinho" className="relative p-2 text-foreground/80 hover:text-primary transition-colors">
+            <ShoppingCart className="w-5 h-5" />
+            {totalItems > 0 && (
+              <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-primary text-primary-foreground text-xs flex items-center justify-center font-bold">
+                {totalItems}
+              </span>
+            )}
+          </Link>
           {isAuthenticated && profile ? (
             <>
               <Link to="/perfil">

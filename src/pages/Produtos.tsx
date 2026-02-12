@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Header from "@/components/Header";
 import { supabase } from "@/integrations/supabase/client";
+import { useCart } from "@/contexts/CartContext";
+import { toast } from "@/hooks/use-toast";
 import heroBg from "@/assets/hero-bg.jpg";
 
 interface Product {
@@ -22,6 +24,12 @@ interface Product {
 export default function Produtos() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
+  const { addItem } = useCart();
+
+  const handleAddToCart = (p: Product) => {
+    addItem({ id: p.id, name: p.name, price: p.price, original_price: p.original_price, image_url: p.image_url, category: p.category });
+    toast({ title: "Adicionado ao carrinho!", description: p.name });
+  };
 
   useEffect(() => {
     supabase.from("products").select("*").eq("is_active", true).then(({ data }) => {
@@ -77,7 +85,10 @@ export default function Produtos() {
                       <span className="text-primary font-bold text-xl">R$ {Number(p.price).toFixed(2)}</span>
                       {p.original_price && <span className="text-foreground/40 line-through text-sm">R$ {Number(p.original_price).toFixed(2)}</span>}
                     </div>
-                    <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90">Comprar</Button>
+                    <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90" onClick={() => handleAddToCart(p)}>
+                      <ShoppingBag className="w-4 h-4 mr-2" />
+                      Adicionar ao Carrinho
+                    </Button>
                   </CardContent>
                 </Card>
               </motion.div>
