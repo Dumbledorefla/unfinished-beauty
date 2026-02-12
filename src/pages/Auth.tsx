@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Sparkles, Mail, Lock, User, ArrowLeft } from "lucide-react";
+import { Sparkles, Mail, Lock, User, ArrowLeft, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -17,6 +17,7 @@ export default function Auth() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
+  const [whatsapp, setWhatsapp] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -43,7 +44,7 @@ export default function Auth() {
           email,
           password,
           options: {
-            data: { full_name: fullName },
+            data: { full_name: fullName, whatsapp },
             emailRedirectTo: window.location.origin,
           },
         });
@@ -99,19 +100,35 @@ export default function Auth() {
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-4">
                 {!isLogin && (
-                  <div className="space-y-2">
-                    <Label htmlFor="name" className="text-foreground/80">Nome completo</Label>
-                    <div className="relative">
-                      <User className="absolute left-3 top-3 w-4 h-4 text-muted-foreground" />
-                      <Input
-                        id="name"
-                        placeholder="Seu nome"
-                        value={fullName}
-                        onChange={(e) => setFullName(e.target.value)}
-                        className="pl-10 bg-input/50 border-border/50 focus:border-primary"
-                      />
+                  <>
+                    <div className="space-y-2">
+                      <Label htmlFor="name" className="text-foreground/80">Nome completo</Label>
+                      <div className="relative">
+                        <User className="absolute left-3 top-3 w-4 h-4 text-muted-foreground" />
+                        <Input
+                          id="name"
+                          placeholder="Seu nome"
+                          value={fullName}
+                          onChange={(e) => setFullName(e.target.value)}
+                          className="pl-10 bg-input/50 border-border/50 focus:border-primary"
+                        />
+                      </div>
                     </div>
-                  </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="whatsapp" className="text-foreground/80">WhatsApp</Label>
+                      <div className="relative">
+                        <Phone className="absolute left-3 top-3 w-4 h-4 text-muted-foreground" />
+                        <Input
+                          id="whatsapp"
+                          type="tel"
+                          placeholder="(11) 99999-9999"
+                          value={whatsapp}
+                          onChange={(e) => setWhatsapp(e.target.value)}
+                          className="pl-10 bg-input/50 border-border/50 focus:border-primary"
+                        />
+                      </div>
+                    </div>
+                  </>
                 )}
 
                 <div className="space-y-2">
