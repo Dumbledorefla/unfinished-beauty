@@ -8,6 +8,7 @@ import Header from "@/components/Header";
 import { supabase } from "@/integrations/supabase/client";
 import { useCart } from "@/contexts/CartContext";
 import { toast } from "@/hooks/use-toast";
+import { usePageSEO } from "@/hooks/usePageSEO";
 import heroBg from "@/assets/hero-bg.jpg";
 
 interface Product {
@@ -19,11 +20,12 @@ interface Product {
   price: number;
   original_price: number | null;
   image_url: string | null;
-  is_combo: boolean | null;
   is_featured: boolean | null;
+  is_combo: boolean | null;
 }
 
 export default function Produtos() {
+  usePageSEO({ title: "Loja Esotérica", description: "Produtos esotéricos, leituras digitais e combos exclusivos para sua jornada espiritual.", path: "/produtos" });
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const { addItem } = useCart();

@@ -10,10 +10,12 @@ import UserDataForm from "@/components/UserDataForm";
 import { drawCards, TarotCard } from "@/lib/tarot-cards";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
+import { usePageSEO } from "@/hooks/usePageSEO";
 
 const positions = ["Passado", "Presente", "Futuro"];
 
 export default function TarotAmor() {
+  usePageSEO({ title: "Tarot do Amor", description: "Leitura de Tarot para o amor com 3 cartas — passado, presente e futuro da sua vida amorosa.", path: "/tarot/amor" });
   const { user } = useAuth();
   const [step, setStep] = useState<"form" | "drawing" | "result">("form");
   const [cards, setCards] = useState<TarotCard[]>([]);

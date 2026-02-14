@@ -13,8 +13,10 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { toast } from "@/hooks/use-toast";
 import heroBg from "@/assets/hero-bg.jpg";
+import { usePageSEO } from "@/hooks/usePageSEO";
 
 export default function MapaAstral() {
+  usePageSEO({ title: "Mapa Astral Completo", description: "Descubra seu ascendente, lua e posições planetárias no momento do seu nascimento.", path: "/mapa-astral" });
   const { user, isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const [name, setName] = useState("");

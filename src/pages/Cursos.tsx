@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Header from "@/components/Header";
 import { supabase } from "@/integrations/supabase/client";
+import { usePageSEO } from "@/hooks/usePageSEO";
 import heroBg from "@/assets/hero-bg.jpg";
 
 interface Course {
@@ -19,12 +20,13 @@ interface Course {
   is_free: boolean | null;
   total_lessons: number | null;
   total_duration: number | null;
-  enrollment_count: number | null;
   image_url: string | null;
+  enrollment_count: number | null;
   instructor_name: string | null;
 }
 
 export default function Cursos() {
+  usePageSEO({ title: "Cursos de Tarot e Esoterismo", description: "Aprenda Tarot, Astrologia e Numerologia com cursos online de especialistas.", path: "/cursos" });
   const [courses, setCourses] = useState<Course[]>([]);
   const [loading, setLoading] = useState(true);
 

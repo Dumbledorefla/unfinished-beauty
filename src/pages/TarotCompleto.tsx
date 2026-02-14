@@ -10,10 +10,12 @@ import UserDataForm from "@/components/UserDataForm";
 import { drawCards, TarotCard } from "@/lib/tarot-cards";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
+import { usePageSEO } from "@/hooks/usePageSEO";
 
 const positions = ["Situação Atual", "Desafio", "Base", "Passado Recente", "Melhor Resultado", "Futuro Próximo"];
 
 export default function TarotCompleto() {
+  usePageSEO({ title: "Tarot Completo — Cruz Celta", description: "Leitura profunda de Tarot com 6 cartas e interpretação por IA sobre sua jornada e destino.", path: "/tarot/completo" });
   const { user } = useAuth();
   const [step, setStep] = useState<"form" | "drawing" | "result">("form");
   const [cards, setCards] = useState<TarotCard[]>([]);

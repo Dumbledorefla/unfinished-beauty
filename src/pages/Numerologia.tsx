@@ -8,8 +8,10 @@ import ReactMarkdown from "react-markdown";
 import OracleLayout from "@/components/OracleLayout";
 import UserDataForm from "@/components/UserDataForm";
 import { supabase } from "@/integrations/supabase/client";
+import { usePageSEO } from "@/hooks/usePageSEO";
 
 export default function Numerologia() {
+  usePageSEO({ title: "Mapa Numerológico Grátis", description: "Calcule seus números pessoais e descubra propósito, talentos e desafios pela Numerologia.", path: "/numerologia" });
   const [step, setStep] = useState<"form" | "loading" | "result">("form");
   const [interpretation, setInterpretation] = useState("");
 
