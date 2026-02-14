@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Star, RotateCcw } from "lucide-react";
+import ShareButtons from "@/components/ShareButtons";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import ReactMarkdown from "react-markdown";
@@ -100,6 +101,7 @@ export default function TarotDia() {
               </CardContent>
             </Card>
 
+            <ShareButtons text={interpretation} title={`Tarot do Dia - ${card.name}`} />
             <div className="text-center">
               <Button onClick={reset} variant="outline" className="border-primary/30 text-foreground hover:bg-primary/10">
                 <RotateCcw className="w-4 h-4 mr-2" /> Nova Leitura
