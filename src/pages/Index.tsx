@@ -7,6 +7,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Header from "@/components/Header";
+import { usePageSEO } from "@/hooks/usePageSEO";
 import heroBg from "@/assets/hero-bg.jpg";
 import featuresBg from "@/assets/features-bg.jpg";
 
@@ -81,6 +82,7 @@ function AnimatedStars() {
 }
 
 export default function Home() {
+  usePageSEO({ title: "Tarot Online Grátis, Numerologia e Horóscopo", description: "Tarot online grátis com IA, Mapa Numerológico, Horóscopo do Dia e Mapa Astral. Descubra seu destino no Chave do Oráculo.", path: "/" });
   return (
     <div className="min-h-screen relative">
       {/* Global mystical background */}

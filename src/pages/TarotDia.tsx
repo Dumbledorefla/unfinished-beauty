@@ -10,8 +10,10 @@ import UserDataForm from "@/components/UserDataForm";
 import { drawCards, TarotCard } from "@/lib/tarot-cards";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
+import { usePageSEO } from "@/hooks/usePageSEO";
 
 export default function TarotDia() {
+  usePageSEO({ title: "Tarot do Dia Grátis", description: "Tire sua carta do dia gratuitamente e receba uma interpretação personalizada por IA.", path: "/tarot/dia" });
   const { user } = useAuth();
   const [step, setStep] = useState<"form" | "drawing" | "result">("form");
   const [card, setCard] = useState<TarotCard | null>(null);

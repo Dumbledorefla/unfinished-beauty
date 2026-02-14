@@ -8,6 +8,7 @@ import Header from "@/components/Header";
 import BookingDialog from "@/components/BookingDialog";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
+import { usePageSEO } from "@/hooks/usePageSEO";
 import heroBg from "@/assets/hero-bg.jpg";
 
 interface Taromante {
@@ -18,14 +19,16 @@ interface Taromante {
   short_bio: string | null;
   photo_url: string | null;
   rating: number | null;
-  experience: number | null;
+  total_reviews: number | null;
   price_per_session: number | null;
   price_per_hour: number;
   specialties: any;
   is_active: boolean | null;
+  experience: number | null;
 }
 
 export default function Consultas() {
+  usePageSEO({ title: "Consultas com Taromantes", description: "Agende uma consulta personalizada com taromantes experientes por vídeo, chat ou telefone.", path: "/consultas" });
   const [taromantes, setTaromantes] = useState<Taromante[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedTaromante, setSelectedTaromante] = useState<Taromante | null>(null);

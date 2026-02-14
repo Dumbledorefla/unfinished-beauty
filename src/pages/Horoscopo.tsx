@@ -9,8 +9,10 @@ import OracleLayout from "@/components/OracleLayout";
 import UserDataForm from "@/components/UserDataForm";
 import { getZodiacSign, zodiacEmojis } from "@/lib/tarot-cards";
 import { supabase } from "@/integrations/supabase/client";
+import { usePageSEO } from "@/hooks/usePageSEO";
 
 export default function Horoscopo() {
+  usePageSEO({ title: "Horóscopo do Dia", description: "Previsões diárias personalizadas para amor, trabalho e saúde com base no seu signo.", path: "/horoscopo" });
   const [step, setStep] = useState<"form" | "loading" | "result">("form");
   const [interpretation, setInterpretation] = useState("");
   const [sign, setSign] = useState("");
