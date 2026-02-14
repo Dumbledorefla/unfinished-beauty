@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Sun, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import ReactMarkdown from "react-markdown";
 import OracleLayout from "@/components/OracleLayout";
 import UserDataForm from "@/components/UserDataForm";
 import { getZodiacSign, zodiacEmojis } from "@/lib/tarot-cards";
@@ -50,7 +51,7 @@ export default function Horoscopo() {
             <Card className="bg-card/80 backdrop-blur-md border-primary/20">
               <CardContent className="pt-6">
                 <h3 className="font-serif text-xl font-bold gold-text mb-4">☀️ Previsões do Dia</h3>
-                <div className="text-foreground/80 leading-relaxed whitespace-pre-line">{interpretation}</div>
+                <div className="prose prose-invert max-w-none prose-headings:text-primary prose-strong:text-foreground/90 prose-p:text-foreground/80"><ReactMarkdown>{interpretation}</ReactMarkdown></div>
               </CardContent>
             </Card>
             <div className="text-center">
