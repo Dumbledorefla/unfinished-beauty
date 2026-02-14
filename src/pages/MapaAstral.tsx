@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Compass, Sparkles, Loader2 } from "lucide-react";
+import ShareButtons from "@/components/ShareButtons";
 import ReactMarkdown from "react-markdown";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -157,6 +158,9 @@ export default function MapaAstral() {
                 </div>
                 <div className="prose prose-invert prose-sm max-w-none text-foreground/80 leading-relaxed [&_h1]:text-primary [&_h2]:text-primary/90 [&_h3]:text-primary/80 [&_strong]:text-foreground [&_ul]:list-disc [&_ol]:list-decimal">
                   <ReactMarkdown>{interpretation}</ReactMarkdown>
+                </div>
+                <div className="mt-6">
+                  <ShareButtons text={interpretation} title="Mapa Astral" />
                 </div>
               </CardContent>
             </Card>

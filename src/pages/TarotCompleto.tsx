@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Eye, RotateCcw, Sparkles } from "lucide-react";
+import ShareButtons from "@/components/ShareButtons";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import ReactMarkdown from "react-markdown";
@@ -78,6 +79,7 @@ export default function TarotCompleto() {
                 <div className="prose prose-invert max-w-none prose-headings:text-primary prose-strong:text-foreground/90 prose-p:text-foreground/80"><ReactMarkdown>{interpretation}</ReactMarkdown></div>
               </CardContent>
             </Card>
+            <ShareButtons text={interpretation} title="Tarot Completo" />
             <div className="text-center">
               <Button onClick={() => { setStep("form"); setCards([]); setInterpretation(""); }} variant="outline" className="border-primary/30">
                 <RotateCcw className="w-4 h-4 mr-2" /> Nova Leitura
