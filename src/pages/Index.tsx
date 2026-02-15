@@ -66,8 +66,9 @@ export default function Home() {
     <div className="min-h-screen relative">
       {/* Background */}
       <div className="fixed inset-0 z-0">
-        <img src={heroBg} alt="" className="w-full h-full object-cover opacity-25" />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-background/70 to-background" />
+        <img src={heroBg} alt="" className="w-full h-full object-cover opacity-30" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/60 to-background" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,hsl(265_72%_60%/0.12),transparent_60%)]" />
       </div>
       <Header />
 
