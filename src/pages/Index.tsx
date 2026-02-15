@@ -167,7 +167,7 @@ export default function Home() {
           <div className="text-center mb-12">
             <motion.div initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
               <span className="text-primary/70 text-xs font-semibold tracking-[0.2em] uppercase">Por que escolher</span>
-              <h2 className="text-3xl md:text-4xl font-bold mt-2 text-foreground">O Oráculo Místico</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mt-2 text-foreground">Chave do Oráculo</h2>
             </motion.div>
           </div>
 
@@ -232,7 +232,7 @@ export default function Home() {
               <div className="w-8 h-8 rounded-xl bg-primary/15 border border-primary/20 flex items-center justify-center">
                 <Sparkles className="w-4 h-4 text-primary" />
               </div>
-              <span className="font-serif text-lg font-bold text-foreground">Oráculo Místico</span>
+              <span className="font-serif text-lg font-bold text-foreground">Chave do Oráculo</span>
             </div>
             <nav className="flex items-center gap-5">
               <Link to="/tarot/dia" className="text-sm text-muted-foreground hover:text-primary transition-colors">Tarot</Link>
@@ -240,7 +240,7 @@ export default function Home() {
               <Link to="/horoscopo" className="text-sm text-muted-foreground hover:text-primary transition-colors">Horóscopo</Link>
               <Link to="/consultas" className="text-sm text-muted-foreground hover:text-primary transition-colors">Consultas</Link>
             </nav>
-            <p className="text-sm text-muted-foreground/60">© 2026 Oráculo Místico</p>
+            <p className="text-sm text-muted-foreground/60">© 2026 Chave do Oráculo</p>
           </div>
         </div>
       </footer>

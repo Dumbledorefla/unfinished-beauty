@@ -22,7 +22,7 @@ interface TemplateData {
 function getMessage(type: string, data: TemplateData): string {
   switch (type) {
     case "welcome":
-      return `✨ *Bem-vinda ao Oráculo Místico!* ✨
+      return `✨ *Bem-vinda ao Chave do Oráculo!* ✨
 
 Olá, ${data.userName || "Viajante"}! 🌙
 
