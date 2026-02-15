@@ -60,10 +60,10 @@ export default function Header() {
       <div className="container mx-auto flex items-center justify-between h-16 px-4">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2.5 group">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-primary/40 to-accent/30 flex items-center justify-center border border-primary/30 group-hover:border-primary/50 transition-all duration-300 group-hover:shadow-[0_0_20px_hsl(45_70%_55%/0.2)]">
+          <div className="w-9 h-9 rounded-xl bg-primary/15 border border-primary/25 flex items-center justify-center group-hover:border-primary/40 transition-all duration-300 group-hover:shadow-[0_0_16px_hsl(258_62%_55%/0.2)]">
             <Sparkles className="w-5 h-5 text-primary" />
           </div>
-          <span className="font-serif text-xl font-bold gold-text">Oráculo Místico</span>
+          <span className="font-serif text-xl font-bold text-foreground">Oráculo Místico</span>
         </Link>
 
         {/* Desktop Navigation */}
@@ -116,7 +116,7 @@ export default function Header() {
               <motion.span
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
-                className="absolute -top-0.5 -right-0.5 w-5 h-5 rounded-full bg-accent text-accent-foreground text-xs flex items-center justify-center font-bold shadow-lg"
+                className="absolute -top-0.5 -right-0.5 w-5 h-5 rounded-full bg-primary text-primary-foreground text-xs flex items-center justify-center font-bold shadow-lg"
               >
                 {totalItems}
               </motion.span>
@@ -132,7 +132,7 @@ export default function Header() {
               </Link>
               {isAdmin && (
                 <Link to="/admin">
-                  <Button size="sm" variant="ghost" className="text-accent hover:bg-accent/10 gap-1.5">
+                  <Button size="sm" variant="ghost" className="text-primary hover:bg-primary/10 gap-1.5">
                     <Shield className="w-4 h-4" />
                     Admin
                   </Button>
@@ -244,7 +244,7 @@ export default function Header() {
                 <ShoppingCart className="w-5 h-5" />
                 Carrinho
                 {totalItems > 0 && (
-                  <span className="ml-auto w-5 h-5 rounded-full bg-accent text-accent-foreground text-xs flex items-center justify-center font-bold">
+                  <span className="ml-auto w-5 h-5 rounded-full bg-primary text-primary-foreground text-xs flex items-center justify-center font-bold">
                     {totalItems}
                   </span>
                 )}
