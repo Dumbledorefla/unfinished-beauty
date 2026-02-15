@@ -140,7 +140,7 @@ export default function MapaAstral() {
                   <Compass className="w-5 h-5 text-primary" />
                   <h2 className="font-serif text-2xl font-bold text-foreground">Seu Mapa Astral</h2>
                 </div>
-                <div className="prose prose-invert prose-sm max-w-none text-foreground/80 leading-relaxed [&_h1]:text-primary [&_h2]:text-primary/90 [&_h3]:text-primary/80 [&_strong]:text-foreground [&_ul]:list-disc [&_ol]:list-decimal">
+                <div className="oracle-prose">
                   <ReactMarkdown>{interpretation}</ReactMarkdown>
                 </div>
                 <div className="mt-6">
