@@ -157,7 +157,7 @@ async function handleEvent(_req: Request, userId: string, supabase: any, body: a
     }
 
     const calendarEvent = {
-      summary: eventData.summary || "Consulta - Oráculo Místico",
+      summary: eventData.summary || "Consulta - Chave do Oráculo",
       description: eventData.description || "",
       start: {
         dateTime: eventData.startDateTime,

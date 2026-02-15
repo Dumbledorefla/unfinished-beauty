@@ -114,7 +114,7 @@ export default function Auth() {
                 {mode === "login" ? "Bem-vinda de volta" : mode === "signup" ? "Criar conta" : "Recuperar senha"}
               </CardTitle>
               <CardDescription className="text-foreground/60">
-                {mode === "login" ? "Entre na sua conta para continuar" : mode === "signup" ? "Junte-se ao Oráculo Místico" : "Enviaremos um link para seu e-mail"}
+                {mode === "login" ? "Entre na sua conta para continuar" : mode === "signup" ? "Junte-se ao Chave do Oráculo" : "Enviaremos um link para seu e-mail"}
               </CardDescription>
             </CardHeader>
             <CardContent>

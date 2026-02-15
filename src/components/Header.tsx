@@ -63,7 +63,7 @@ export default function Header() {
           <div className="w-9 h-9 rounded-xl bg-primary/15 border border-primary/25 flex items-center justify-center group-hover:border-primary/40 transition-all duration-300 group-hover:shadow-[0_0_16px_hsl(258_62%_55%/0.2)]">
             <Sparkles className="w-5 h-5 text-primary" />
           </div>
-          <span className="font-serif text-xl font-bold text-foreground">Oráculo Místico</span>
+          <span className="font-serif text-xl font-bold text-foreground">Chave do Oráculo</span>
         </Link>
 
         {/* Desktop Navigation */}

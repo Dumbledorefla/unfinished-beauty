@@ -45,12 +45,12 @@ function wrapTemplate(content: string): string {
         <div style="${cardStyle}">
           <div style="text-align: center; margin-bottom: 24px;">
             <span style="font-size: 28px;">✨</span>
-            <h2 style="color: #d4a843; margin: 8px 0 0;">Oráculo Místico</h2>
+            <h2 style="color: #d4a843; margin: 8px 0 0;">Chave do Oráculo</h2>
           </div>
           ${content}
           <hr style="border: none; border-top: 1px solid rgba(168,130,255,0.15); margin: 32px 0 16px;" />
           <p style="font-size: 12px; color: #8b7faa; text-align: center;">
-            Este e-mail foi enviado pelo Oráculo Místico. Não responda a este e-mail.
+            Este e-mail foi enviado pelo Chave do Oráculo. Não responda a este e-mail.
           </p>
         </div>
       </div>
@@ -76,10 +76,10 @@ function getTemplate(
   switch (type) {
     case "welcome":
       return {
-        subject: "✨ Bem-vinda ao Oráculo Místico!",
+        subject: "✨ Bem-vinda ao Chave do Oráculo!",
         html: wrapTemplate(`
           <h3 style="color: #e2d9f3;">Olá, ${data.userName || "Viajante"}! 🌙</h3>
-          <p>Seja muito bem-vinda ao <strong>Oráculo Místico</strong>! Estamos felizes em tê-la conosco nesta jornada de autoconhecimento.</p>
+          <p>Seja muito bem-vinda ao <strong>Chave do Oráculo</strong>! Estamos felizes em tê-la conosco nesta jornada de autoconhecimento.</p>
           <p>Aqui você encontrará:</p>
           <ul style="color: #c4b5e0;">
             <li>🔮 Leituras de Tarot personalizadas</li>
@@ -209,7 +209,7 @@ serve(async (req) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: Deno.env.get("EMAIL_FROM") || "Oráculo Místico <noreply@resend.dev>",
+        from: Deno.env.get("EMAIL_FROM") || "Chave do Oráculo <noreply@resend.dev>",
         to: [to],
         subject,
         html,
