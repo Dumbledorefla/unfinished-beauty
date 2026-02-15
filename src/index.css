@@ -129,6 +129,59 @@
     50% { box-shadow: 0 0 40px hsl(45 70% 55% / 0.5); }
   }
   .pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+
+  /* Oracle interpretation prose */
+  .oracle-prose {
+    @apply max-w-none text-base leading-relaxed;
+    font-family: 'DM Sans', system-ui, sans-serif;
+  }
+  .oracle-prose h1,
+  .oracle-prose h2 {
+    @apply text-xl font-bold mt-8 mb-3 pb-2 border-b border-primary/20;
+    color: hsl(var(--primary));
+    font-family: 'Playfair Display', Georgia, serif;
+  }
+  .oracle-prose h1:first-child,
+  .oracle-prose h2:first-child {
+    @apply mt-0;
+  }
+  .oracle-prose h3 {
+    @apply text-lg font-semibold mt-6 mb-2;
+    color: hsl(var(--primary) / 0.85);
+    font-family: 'Playfair Display', Georgia, serif;
+  }
+  .oracle-prose p {
+    @apply mb-4;
+    color: hsl(var(--foreground) / 0.8);
+    line-height: 1.8;
+  }
+  .oracle-prose strong {
+    color: hsl(var(--foreground) / 0.95);
+    font-weight: 600;
+  }
+  .oracle-prose em {
+    color: hsl(var(--primary) / 0.7);
+    font-style: italic;
+  }
+  .oracle-prose ul,
+  .oracle-prose ol {
+    @apply mb-4 pl-5 space-y-2;
+    color: hsl(var(--foreground) / 0.8);
+  }
+  .oracle-prose ul { list-style-type: disc; }
+  .oracle-prose ol { list-style-type: decimal; }
+  .oracle-prose li {
+    line-height: 1.7;
+  }
+  .oracle-prose hr {
+    @apply my-6 border-primary/15;
+  }
+  .oracle-prose blockquote {
+    @apply my-4 pl-4 py-2 border-l-2 border-primary/40 italic;
+    color: hsl(var(--foreground) / 0.7);
+    background: hsl(var(--primary) / 0.05);
+    border-radius: 0 0.5rem 0.5rem 0;
+  }
 }
 
 /* Custom scrollbar */

@@ -71,7 +71,7 @@ export default function Numerologia() {
             <Card className="bg-card/80 backdrop-blur-md border-primary/20">
               <CardContent className="pt-6">
                 <h3 className="font-serif text-xl font-bold gold-text mb-4">🔢 Seu Mapa Numerológico</h3>
-                <div className="prose prose-invert max-w-none prose-headings:text-primary prose-strong:text-foreground/90 prose-p:text-foreground/80"><ReactMarkdown>{interpretation}</ReactMarkdown></div>
+                <div className="oracle-prose"><ReactMarkdown>{interpretation}</ReactMarkdown></div>
               </CardContent>
             </Card>
             <ShareButtons text={interpretation} title="Mapa Numerológico" />
