@@ -88,29 +88,29 @@ export default function Admin() {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="border-b border-primary/20 bg-card/50 backdrop-blur-md px-6 py-4">
+      <div className="border-b border-primary/15 bg-card/30 backdrop-blur-xl px-6 py-5">
         <div className="container mx-auto flex items-center justify-between">
-          <h1 className="font-serif text-xl font-bold gold-text flex items-center gap-2"><Shield className="w-5 h-5" /> Painel Admin</h1>
-          <Button variant="outline" size="sm" onClick={() => navigate("/")} className="border-primary/30">Voltar ao Site</Button>
+          <h1 className="font-serif text-xl font-bold gold-text flex items-center gap-2.5"><Shield className="w-5 h-5 text-primary" /> Painel Admin</h1>
+          <Button variant="outline" size="sm" onClick={() => navigate("/")} className="border-primary/20 text-foreground/70 hover:text-primary">Voltar ao Site</Button>
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-6">
+      <div className="container mx-auto px-4 py-8">
         <Tabs defaultValue="dashboard">
-          <TabsList className="bg-card/80 border border-primary/20 mb-6 flex-wrap h-auto gap-1 p-1">
-            <TabsTrigger value="dashboard"><LayoutDashboard className="w-4 h-4 mr-1" />Dashboard</TabsTrigger>
-            <TabsTrigger value="users"><Users className="w-4 h-4 mr-1" />Usuários</TabsTrigger>
-            <TabsTrigger value="products"><ShoppingBag className="w-4 h-4 mr-1" />Produtos</TabsTrigger>
-            <TabsTrigger value="taromantes"><Star className="w-4 h-4 mr-1" />Taromantes</TabsTrigger>
-            <TabsTrigger value="orders"><ShoppingBag className="w-4 h-4 mr-1" />Pedidos</TabsTrigger>
-            <TabsTrigger value="consultations"><Calendar className="w-4 h-4 mr-1" />Consultas</TabsTrigger>
-            <TabsTrigger value="courses"><BookOpen className="w-4 h-4 mr-1" />Cursos</TabsTrigger>
-            <TabsTrigger value="settings"><Settings className="w-4 h-4 mr-1" />Config</TabsTrigger>
-            <TabsTrigger value="debug"><Bug className="w-4 h-4 mr-1" />Debug</TabsTrigger>
+          <TabsList className="bg-card/60 backdrop-blur-md border border-primary/15 mb-8 flex-wrap h-auto gap-1 p-1.5 rounded-xl">
+            <TabsTrigger value="dashboard" className="rounded-lg"><LayoutDashboard className="w-4 h-4 mr-1.5" />Dashboard</TabsTrigger>
+            <TabsTrigger value="users" className="rounded-lg"><Users className="w-4 h-4 mr-1.5" />Usuários</TabsTrigger>
+            <TabsTrigger value="products" className="rounded-lg"><ShoppingBag className="w-4 h-4 mr-1.5" />Produtos</TabsTrigger>
+            <TabsTrigger value="taromantes" className="rounded-lg"><Star className="w-4 h-4 mr-1.5" />Taromantes</TabsTrigger>
+            <TabsTrigger value="orders" className="rounded-lg"><ShoppingBag className="w-4 h-4 mr-1.5" />Pedidos</TabsTrigger>
+            <TabsTrigger value="consultations" className="rounded-lg"><Calendar className="w-4 h-4 mr-1.5" />Consultas</TabsTrigger>
+            <TabsTrigger value="courses" className="rounded-lg"><BookOpen className="w-4 h-4 mr-1.5" />Cursos</TabsTrigger>
+            <TabsTrigger value="settings" className="rounded-lg"><Settings className="w-4 h-4 mr-1.5" />Config</TabsTrigger>
+            <TabsTrigger value="debug" className="rounded-lg"><Bug className="w-4 h-4 mr-1.5" />Debug</TabsTrigger>
           </TabsList>
 
           <TabsContent value="dashboard">
-            <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-5 mb-8">
               <StatCard icon={Users} label="Usuários" value={stats.users} color="bg-primary/20 text-primary" />
               <StatCard icon={Star} label="Leituras" value={stats.readings} color="bg-purple-500/20 text-purple-400" />
               <StatCard icon={ShoppingBag} label="Produtos" value={stats.products} color="bg-emerald-500/20 text-emerald-400" />

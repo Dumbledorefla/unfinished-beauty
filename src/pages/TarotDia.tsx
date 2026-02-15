@@ -96,30 +96,31 @@ export default function TarotDia() {
           </motion.div>
         )}
         {step === "result" && !error && card && (
-          <motion.div key="result" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
-            <Card className="bg-card/80 backdrop-blur-md border-primary/20 text-center">
-              <CardContent className="pt-8 pb-6">
+          <motion.div key="result" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-8">
+            <Card className="glass-card text-center overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent pointer-events-none" />
+              <CardContent className="pt-10 pb-8 relative">
                 <motion.div initial={{ scale: 0, rotateY: 180 }} animate={{ scale: 1, rotateY: 0 }} transition={{ type: "spring", duration: 0.8 }}>
-                  <div className={`text-8xl mb-4 ${!card.upright ? "rotate-180" : ""}`}>{card.image}</div>
+                  <div className={`text-8xl mb-6 ${!card.upright ? "rotate-180" : ""}`}>{card.image}</div>
                 </motion.div>
                 <h2 className="font-serif text-3xl font-bold gold-text mb-2">{card.name}</h2>
-                <p className="text-foreground/60 text-sm">{card.upright ? "Posição Normal" : "Posição Invertida"}</p>
-                <div className="flex gap-2 justify-center mt-3 flex-wrap">
+                <p className="text-muted-foreground text-sm mb-4">{card.upright ? "Posição Normal" : "Posição Invertida"}</p>
+                <div className="flex gap-2 justify-center flex-wrap">
                   {card.keywords.map((kw) => (
-                    <span key={kw} className="px-3 py-1 text-xs rounded-full bg-primary/20 text-primary border border-primary/30">{kw}</span>
+                    <span key={kw} className="px-3 py-1 text-xs rounded-full bg-primary/15 text-primary border border-primary/20 font-medium">{kw}</span>
                   ))}
                 </div>
               </CardContent>
             </Card>
-            <Card className="bg-card/80 backdrop-blur-md border-primary/20">
-              <CardContent className="pt-6">
-                <h3 className="font-serif text-xl font-bold gold-text mb-4">✨ Interpretação</h3>
+            <Card className="glass-card">
+              <CardContent className="pt-8 pb-6">
+                <h3 className="font-serif text-xl font-bold gold-text mb-6 flex items-center gap-2">✨ Interpretação</h3>
                 <div className="oracle-prose"><ReactMarkdown>{interpretation}</ReactMarkdown></div>
               </CardContent>
             </Card>
             <ShareButtons text={interpretation} title={`Tarot do Dia - ${card.name}`} />
-            <div className="text-center">
-              <Button onClick={reset} variant="outline" className="border-primary/30 text-foreground hover:bg-primary/10">
+            <div className="text-center pt-2">
+              <Button onClick={reset} variant="outline" className="border-primary/20 text-foreground/70 hover:text-primary hover:bg-primary/10">
                 <RotateCcw className="w-4 h-4 mr-2" /> Nova Leitura
               </Button>
             </div>

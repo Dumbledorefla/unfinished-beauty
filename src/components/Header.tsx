@@ -25,47 +25,74 @@ const navItems = [
   { label: "Produtos", href: "/produtos", icon: ShoppingBag },
 ];
 
+function NavSubmenu({ items }: { items: { label: string; href: string }[] }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 8 }}
+      transition={{ duration: 0.2 }}
+      className="absolute top-full left-0 mt-2 py-2 bg-popover/95 backdrop-blur-xl rounded-xl border border-primary/20 min-w-[200px] shadow-2xl shadow-black/40"
+    >
+      {items.map((sub) => (
+        <Link
+          key={sub.href}
+          to={sub.href}
+          className="block px-4 py-2.5 text-sm text-foreground/70 hover:text-primary hover:bg-primary/10 transition-all duration-200 first:rounded-t-lg last:rounded-b-lg"
+        >
+          {sub.label}
+        </Link>
+      ))}
+    </motion.div>
+  );
+}
+
 export default function Header() {
   const location = useLocation();
   const { isAuthenticated, isAdmin, profile, signOut } = useAuth();
   const { totalItems } = useCart();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSubmenu, setActiveSubmenu] = useState<string | null>(null);
+  const [hoveredNav, setHoveredNav] = useState<string | null>(null);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/30 backdrop-blur-md border-b border-primary/20">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-background/20 backdrop-blur-xl border-b border-primary/10">
       <div className="container mx-auto flex items-center justify-between h-16 px-4">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-primary/30 flex items-center justify-center border border-primary/30">
+        <Link to="/" className="flex items-center gap-2.5 group">
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-primary/40 to-accent/30 flex items-center justify-center border border-primary/30 group-hover:border-primary/50 transition-all duration-300 group-hover:shadow-[0_0_20px_hsl(45_70%_55%/0.2)]">
             <Sparkles className="w-5 h-5 text-primary" />
           </div>
-          <span className="font-serif text-xl font-bold text-primary">Oráculo Místico</span>
+          <span className="font-serif text-xl font-bold gold-text">Oráculo Místico</span>
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center gap-1">
+        <nav className="hidden lg:flex items-center gap-0.5">
           {navItems.map((item) => (
-            <div key={item.label} className="relative group">
+            <div
+              key={item.label}
+              className="relative"
+              onMouseEnter={() => setHoveredNav(item.label)}
+              onMouseLeave={() => setHoveredNav(null)}
+            >
               {item.submenu ? (
                 <button
-                  className={`flex items-center gap-1 px-3 py-2 text-sm rounded-lg transition-colors ${
+                  className={`flex items-center gap-1.5 px-3.5 py-2 text-sm rounded-lg transition-all duration-200 ${
                     location.pathname.startsWith(item.href)
                       ? "text-primary bg-primary/10"
-                      : "text-foreground/80 hover:text-primary hover:bg-foreground/5"
+                      : "text-foreground/70 hover:text-primary hover:bg-foreground/5"
                   }`}
-                  onClick={() => setActiveSubmenu(activeSubmenu === item.label ? null : item.label)}
                 >
                   {item.label}
-                  <ChevronDown className="w-3 h-3" />
+                  <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${hoveredNav === item.label ? 'rotate-180' : ''}`} />
                 </button>
               ) : (
                 <Link
                   to={item.href}
-                  className={`flex items-center gap-1 px-3 py-2 text-sm rounded-lg transition-colors ${
+                  className={`flex items-center gap-1.5 px-3.5 py-2 text-sm rounded-lg transition-all duration-200 ${
                     location.pathname === item.href || location.pathname.startsWith(item.href)
                       ? "text-primary bg-primary/10"
-                      : "text-foreground/80 hover:text-primary hover:bg-foreground/5"
+                      : "text-foreground/70 hover:text-primary hover:bg-foreground/5"
                   }`}
                 >
                   {item.label}
@@ -73,56 +100,51 @@ export default function Header() {
               )}
 
               {item.submenu && (
-                <div className="absolute top-full left-0 mt-1 py-2 bg-popover/95 backdrop-blur-md rounded-lg border border-primary/20 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all min-w-[180px] shadow-xl">
-                  {item.submenu.map((sub) => (
-                    <Link
-                      key={sub.href}
-                      to={sub.href}
-                      className="block px-4 py-2 text-sm text-foreground/80 hover:text-primary hover:bg-primary/10 transition-colors"
-                    >
-                      {sub.label}
-                    </Link>
-                  ))}
-                </div>
+                <AnimatePresence>
+                  {hoveredNav === item.label && <NavSubmenu items={item.submenu} />}
+                </AnimatePresence>
               )}
             </div>
           ))}
         </nav>
 
         {/* Desktop Cart + Auth */}
-        <div className="hidden lg:flex items-center gap-3">
-          <Link to="/carrinho" className="relative p-2 text-foreground/80 hover:text-primary transition-colors">
+        <div className="hidden lg:flex items-center gap-2">
+          <Link to="/carrinho" className="relative p-2.5 text-foreground/70 hover:text-primary transition-all duration-200 rounded-lg hover:bg-foreground/5">
             <ShoppingCart className="w-5 h-5" />
             {totalItems > 0 && (
-              <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-primary text-primary-foreground text-xs flex items-center justify-center font-bold">
+              <motion.span
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                className="absolute -top-0.5 -right-0.5 w-5 h-5 rounded-full bg-accent text-accent-foreground text-xs flex items-center justify-center font-bold shadow-lg"
+              >
                 {totalItems}
-              </span>
+              </motion.span>
             )}
           </Link>
           {isAuthenticated && profile ? (
             <>
-              <Link to="/perfil">
-                <span className="text-sm text-foreground/70 hover:text-primary transition-colors cursor-pointer flex items-center gap-2">
-                  <User className="w-4 h-4" />
-                  <span className="text-primary font-semibold">{profile.display_name || profile.email?.split('@')[0]}</span>
-                </span>
+              <Link to="/perfil" className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-foreground/5 transition-all duration-200">
+                <div className="w-7 h-7 rounded-full bg-primary/20 flex items-center justify-center border border-primary/30">
+                  <User className="w-3.5 h-3.5 text-primary" />
+                </div>
+                <span className="text-sm text-primary font-medium">{profile.display_name || profile.email?.split('@')[0]}</span>
               </Link>
               {isAdmin && (
                 <Link to="/admin">
-                  <Button size="sm" variant="ghost" className="text-primary hover:bg-primary/10">
-                    <Shield className="w-4 h-4 mr-1" />
+                  <Button size="sm" variant="ghost" className="text-accent hover:bg-accent/10 gap-1.5">
+                    <Shield className="w-4 h-4" />
                     Admin
                   </Button>
                 </Link>
               )}
-              <Button size="sm" variant="outline" className="border-foreground/30 text-foreground hover:bg-foreground/10" onClick={signOut}>
-                <LogOut className="w-4 h-4 mr-2" />
-                Sair
+              <Button size="sm" variant="ghost" className="text-foreground/60 hover:text-destructive hover:bg-destructive/10" onClick={signOut}>
+                <LogOut className="w-4 h-4" />
               </Button>
             </>
           ) : (
             <Link to="/auth">
-              <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90 border border-primary/50">
+              <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90 border border-primary/30 shadow-lg shadow-primary/20">
                 Entrar
               </Button>
             </Link>
@@ -131,10 +153,20 @@ export default function Header() {
 
         {/* Mobile Menu Button */}
         <button
-          className="lg:hidden p-2 text-foreground/80 hover:text-primary transition-colors"
+          className="lg:hidden p-2 text-foreground/80 hover:text-primary transition-colors rounded-lg hover:bg-foreground/5"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
-          {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          <AnimatePresence mode="wait">
+            {mobileMenuOpen ? (
+              <motion.div key="close" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.15 }}>
+                <X className="w-6 h-6" />
+              </motion.div>
+            ) : (
+              <motion.div key="menu" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.15 }}>
+                <Menu className="w-6 h-6" />
+              </motion.div>
+            )}
+          </AnimatePresence>
         </button>
       </div>
 
@@ -145,7 +177,8 @@ export default function Header() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-background/95 backdrop-blur-md border-b border-primary/20 overflow-hidden"
+            transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
+            className="lg:hidden bg-background/95 backdrop-blur-xl border-b border-primary/15 overflow-hidden"
           >
             <nav className="container mx-auto py-4 px-4 space-y-1">
               {navItems.map((item) => (
@@ -153,14 +186,14 @@ export default function Header() {
                   {item.submenu ? (
                     <>
                       <button
-                        className="w-full flex items-center justify-between px-4 py-3 text-foreground/80 hover:text-primary hover:bg-primary/10 rounded-lg transition-colors"
+                        className="w-full flex items-center justify-between px-4 py-3 text-foreground/80 hover:text-primary hover:bg-primary/10 rounded-xl transition-all duration-200"
                         onClick={() => setActiveSubmenu(activeSubmenu === item.label ? null : item.label)}
                       >
                         <span className="flex items-center gap-3">
                           <item.icon className="w-5 h-5" />
                           {item.label}
                         </span>
-                        <ChevronDown className={`w-4 h-4 transition-transform ${activeSubmenu === item.label ? 'rotate-180' : ''}`} />
+                        <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${activeSubmenu === item.label ? 'rotate-180' : ''}`} />
                       </button>
                       <AnimatePresence>
                         {activeSubmenu === item.label && (
@@ -168,13 +201,14 @@ export default function Header() {
                             initial={{ opacity: 0, height: 0 }}
                             animate={{ opacity: 1, height: "auto" }}
                             exit={{ opacity: 0, height: 0 }}
-                            className="pl-8 space-y-1 overflow-hidden"
+                            transition={{ duration: 0.2 }}
+                            className="pl-8 space-y-0.5 overflow-hidden"
                           >
                             {item.submenu.map((sub) => (
                               <Link
                                 key={sub.href}
                                 to={sub.href}
-                                className="block px-4 py-2 text-sm text-foreground/60 hover:text-primary transition-colors"
+                                className="block px-4 py-2.5 text-sm text-foreground/60 hover:text-primary transition-colors rounded-lg"
                                 onClick={() => setMobileMenuOpen(false)}
                               >
                                 {sub.label}
@@ -187,7 +221,7 @@ export default function Header() {
                   ) : (
                     <Link
                       to={item.href}
-                      className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
+                      className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 ${
                         location.pathname.startsWith(item.href)
                           ? "text-primary bg-primary/10"
                           : "text-foreground/80 hover:text-primary hover:bg-primary/10"
@@ -204,22 +238,24 @@ export default function Header() {
               {/* Mobile Cart */}
               <Link
                 to="/carrinho"
-                className="flex items-center gap-3 px-4 py-3 text-foreground/80 hover:text-primary hover:bg-primary/10 rounded-lg transition-colors"
+                className="flex items-center gap-3 px-4 py-3 text-foreground/80 hover:text-primary hover:bg-primary/10 rounded-xl transition-all duration-200"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <ShoppingCart className="w-5 h-5" />
                 Carrinho
                 {totalItems > 0 && (
-                  <span className="ml-auto w-5 h-5 rounded-full bg-primary text-primary-foreground text-xs flex items-center justify-center font-bold">
+                  <span className="ml-auto w-5 h-5 rounded-full bg-accent text-accent-foreground text-xs flex items-center justify-center font-bold">
                     {totalItems}
                   </span>
                 )}
               </Link>
 
-              <div className="pt-4 mt-4 border-t border-primary/20">
+              <div className="section-divider my-4" />
+
+              <div className="space-y-1">
                 {isAuthenticated ? (
                   <button
-                    className="w-full flex items-center gap-3 px-4 py-3 text-destructive hover:bg-destructive/10 rounded-lg transition-colors"
+                    className="w-full flex items-center gap-3 px-4 py-3 text-destructive hover:bg-destructive/10 rounded-xl transition-all duration-200"
                     onClick={() => { signOut(); setMobileMenuOpen(false); }}
                   >
                     <LogOut className="w-5 h-5" />
@@ -227,7 +263,7 @@ export default function Header() {
                   </button>
                 ) : (
                   <Link to="/auth" onClick={() => setMobileMenuOpen(false)}>
-                    <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
+                    <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg shadow-primary/20">
                       Entrar
                     </Button>
                   </Link>
