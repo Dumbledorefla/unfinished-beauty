@@ -20,7 +20,7 @@ import AdminSettings from "@/components/admin/AdminSettings";
 import AdminDebug from "@/components/admin/AdminDebug";
 
 export default function Admin() {
-  const { isAuthenticated, isLoading, isAdmin } = useAuth();
+  const { isAuthenticated, isLoading, isAdmin, isProfileLoaded } = useAuth();
   const navigate = useNavigate();
 
   const [stats, setStats] = useState({ users: 0, readings: 0, products: 0, orders: 0, courses: 0, taromantes: 0 });
@@ -35,8 +35,8 @@ export default function Admin() {
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated) navigate("/auth");
-    if (!isLoading && isAuthenticated && !isAdmin) navigate("/");
-  }, [isLoading, isAuthenticated, isAdmin]);
+    if (!isLoading && isAuthenticated && isProfileLoaded && !isAdmin) navigate("/");
+  }, [isLoading, isAuthenticated, isAdmin, isProfileLoaded]);
 
   useEffect(() => {
     if (isAdmin && !dataLoaded) { loadData(); setDataLoaded(true); }
@@ -72,7 +72,7 @@ export default function Admin() {
     } catch (err) { console.error("Admin loadData error:", err); }
   };
 
-  if (isLoading) return <div className="min-h-screen flex items-center justify-center text-foreground">Carregando...</div>;
+  if (isLoading || !isProfileLoaded) return <div className="min-h-screen flex items-center justify-center text-foreground">Carregando...</div>;
   if (!isAdmin) return (
     <div className="min-h-screen flex items-center justify-center text-foreground">
       <Card className="bg-card/80 border-destructive/30 max-w-md">

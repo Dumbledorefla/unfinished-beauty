@@ -8,6 +8,7 @@ interface AuthState {
   isAuthenticated: boolean;
   isLoading: boolean;
   isAdmin: boolean;
+  isProfileLoaded: boolean;
   profile: { display_name: string | null; email: string | null; avatar_url: string | null } | null;
 }
 
@@ -18,6 +19,7 @@ export function useAuth() {
     isAuthenticated: false,
     isLoading: true,
     isAdmin: false,
+    isProfileLoaded: false,
     profile: null,
   });
 
@@ -45,14 +47,13 @@ export function useAuth() {
         setState(prev => ({ ...prev, user, session, isAuthenticated: !!session, isLoading: false }));
         
         if (user) {
-          // Fetch profile data in background without blocking
           setTimeout(() => {
             fetchProfileAndRole(user).then(({ profile, isAdmin }) => {
-              setState(prev => ({ ...prev, profile, isAdmin }));
+              setState(prev => ({ ...prev, profile, isAdmin, isProfileLoaded: true }));
             });
           }, 0);
         } else {
-          setState(prev => ({ ...prev, profile: null, isAdmin: false }));
+          setState(prev => ({ ...prev, profile: null, isAdmin: false, isProfileLoaded: true }));
         }
       }
     );
@@ -63,8 +64,10 @@ export function useAuth() {
       
       if (user) {
         fetchProfileAndRole(user).then(({ profile, isAdmin }) => {
-          setState(prev => ({ ...prev, profile, isAdmin }));
+          setState(prev => ({ ...prev, profile, isAdmin, isProfileLoaded: true }));
         });
+      } else {
+        setState(prev => ({ ...prev, isProfileLoaded: true }));
       }
     });
 
