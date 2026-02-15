@@ -343,6 +343,7 @@ export type Database = {
           method: string
           order_id: string
           provider: string
+          provider_charge_id: string | null
           provider_transaction_id: string | null
           raw_response: Json | null
           status: string
@@ -355,6 +356,7 @@ export type Database = {
           method?: string
           order_id: string
           provider?: string
+          provider_charge_id?: string | null
           provider_transaction_id?: string | null
           raw_response?: Json | null
           status?: string
@@ -367,6 +369,7 @@ export type Database = {
           method?: string
           order_id?: string
           provider?: string
+          provider_charge_id?: string | null
           provider_transaction_id?: string | null
           raw_response?: Json | null
           status?: string
