@@ -300,9 +300,9 @@ export default function Home() {
             <motion.div className="absolute bottom-10 left-20 text-primary/15 text-3xl" animate={{ rotate: 360 }} transition={{ duration: 25, repeat: Infinity, ease: "linear" }}>✦</motion.div>
 
             <div className="relative text-center max-w-2xl mx-auto">
-              <h2 className="text-4xl md:text-5xl font-bold mb-6 text-foreground leading-tight">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 text-foreground leading-tight break-words">
                 Comece sua jornada de{" "}
-                <span className="gold-text" style={{ filter: "drop-shadow(0 0 20px hsl(45 70% 55% / 0.4))" }}>autoconhecimento</span>
+                <span className="gold-text inline-block" style={{ filter: "drop-shadow(0 0 20px hsl(45 70% 55% / 0.4))" }}>autoconhecimento</span>
               </h2>
               <p className="text-foreground/70 mb-10 text-lg leading-relaxed">
                 Tire sua primeira carta gratuitamente e descubra o que o universo tem a dizer sobre seu caminho.
