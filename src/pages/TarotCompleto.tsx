@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Eye, RotateCcw, Sparkles } from "lucide-react";
 import ShareButtons from "@/components/ShareButtons";
@@ -9,23 +9,41 @@ import OracleLayout from "@/components/OracleLayout";
 import UserDataForm from "@/components/UserDataForm";
 import { drawCards, TarotCard } from "@/lib/tarot-cards";
 import { supabase } from "@/integrations/supabase/client";
-import { useAuth } from "@/hooks/useAuth";
+import { useOracleAuth } from "@/hooks/useOracleAuth";
 import { usePageSEO } from "@/hooks/usePageSEO";
 
 const positions = ["Situação Atual", "Desafio", "Base", "Passado Recente", "Melhor Resultado", "Futuro Próximo"];
 
 export default function TarotCompleto() {
   usePageSEO({ title: "Tarot Completo — Cruz Celta", description: "Leitura profunda de Tarot com 6 cartas e interpretação por IA sobre sua jornada e destino.", path: "/tarot/completo" });
-  const { user } = useAuth();
+  const { restoredState, requireAuth, clearRestored, user } = useOracleAuth({ methodId: "tarot-completo", returnTo: "/tarot/completo" });
   const [step, setStep] = useState<"form" | "drawing" | "result">("form");
   const [cards, setCards] = useState<TarotCard[]>([]);
   const [interpretation, setInterpretation] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [lastData, setLastData] = useState<{ userName: string; birthDate: string } | null>(null);
 
-  const handleStart = async (data: { userName: string; birthDate: string }) => {
-    setLoading(true);
-    setStep("drawing");
+  useEffect(() => {
+    if (restoredState) {
+      const { userData, methodState } = restoredState;
+      clearRestored();
+      runGeneration({ userName: userData.name, birthDate: userData.birthDate }, methodState?.cards as TarotCard[] | undefined);
+    }
+  }, [restoredState]);
+
+  const handleStart = (data: { userName: string; birthDate: string }) => {
     const drawn = drawCards(6);
+    if (!requireAuth({ name: data.userName, birthDate: data.birthDate }, { cards: drawn })) return;
+    runGeneration(data, drawn);
+  };
+
+  const runGeneration = async (data: { userName: string; birthDate: string }, preDrawn?: TarotCard[]) => {
+    setLoading(true);
+    setError(false);
+    setStep("drawing");
+    setLastData(data);
+    const drawn = preDrawn || drawCards(6);
     setCards(drawn);
 
     try {
@@ -39,9 +57,12 @@ export default function TarotCompleto() {
           interpretation: result?.interpretation, user_name: data.userName,
         });
       }
-    } catch { setInterpretation("Erro ao consultar o oráculo."); }
+      setStep("result");
+    } catch {
+      setError(true);
+      setStep("result");
+    }
     setLoading(false);
-    setStep("result");
   };
 
   return (
@@ -53,10 +74,16 @@ export default function TarotCompleto() {
         {step === "drawing" && (
           <motion.div key="drawing" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="text-center py-16">
             <motion.div animate={{ rotateY: [0, 360] }} transition={{ duration: 1.5, repeat: Infinity }} className="text-8xl mb-6">🔮</motion.div>
-            <p className="text-foreground/70 text-lg">Consultando os arcanos...</p>
+            <p className="text-foreground/70 text-lg">Gerando sua interpretação…</p>
           </motion.div>
         )}
-        {step === "result" && cards.length > 0 && (
+        {step === "result" && error && (
+          <motion.div key="error" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center py-16 space-y-4">
+            <p className="text-foreground/70 text-lg">Não foi possível gerar sua interpretação agora.</p>
+            <Button onClick={() => lastData && runGeneration(lastData, cards.length ? cards : undefined)} variant="outline" className="border-primary/30">Tentar novamente</Button>
+          </motion.div>
+        )}
+        {step === "result" && !error && cards.length > 0 && (
           <motion.div key="result" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
             <div className="flex items-center gap-2 justify-center mb-2">
               <Sparkles className="w-5 h-5 text-primary" />
@@ -83,7 +110,7 @@ export default function TarotCompleto() {
             </Card>
             <ShareButtons text={interpretation} title="Tarot Completo" />
             <div className="text-center">
-              <Button onClick={() => { setStep("form"); setCards([]); setInterpretation(""); }} variant="outline" className="border-primary/30">
+              <Button onClick={() => { setStep("form"); setCards([]); setInterpretation(""); setError(false); }} variant="outline" className="border-primary/30">
                 <RotateCcw className="w-4 h-4 mr-2" /> Nova Leitura
               </Button>
             </div>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Star, RotateCcw } from "lucide-react";
 import ShareButtons from "@/components/ShareButtons";
@@ -9,24 +9,42 @@ import OracleLayout from "@/components/OracleLayout";
 import UserDataForm from "@/components/UserDataForm";
 import { drawCards, TarotCard } from "@/lib/tarot-cards";
 import { supabase } from "@/integrations/supabase/client";
-import { useAuth } from "@/hooks/useAuth";
+import { useOracleAuth } from "@/hooks/useOracleAuth";
 import { usePageSEO } from "@/hooks/usePageSEO";
 
 export default function TarotDia() {
   usePageSEO({ title: "Tarot do Dia Grátis", description: "Tire sua carta do dia gratuitamente e receba uma interpretação personalizada por IA.", path: "/tarot/dia" });
-  const { user } = useAuth();
+  const { restoredState, requireAuth, clearRestored, user } = useOracleAuth({ methodId: "tarot-dia", returnTo: "/tarot/dia" });
   const [step, setStep] = useState<"form" | "drawing" | "result">("form");
   const [card, setCard] = useState<TarotCard | null>(null);
   const [interpretation, setInterpretation] = useState("");
   const [loading, setLoading] = useState(false);
-  const [userData, setUserData] = useState({ userName: "", birthDate: "" });
+  const [error, setError] = useState(false);
+  const [lastData, setLastData] = useState<{ userName: string; birthDate: string } | null>(null);
 
-  const handleStart = async (data: { userName: string; birthDate: string }) => {
-    setUserData(data);
+  // Restore pending state after login
+  useEffect(() => {
+    if (restoredState) {
+      const { userData, methodState } = restoredState;
+      clearRestored();
+      const restoredCard = methodState?.card as TarotCard | undefined;
+      runGeneration({ userName: userData.name, birthDate: userData.birthDate }, restoredCard);
+    }
+  }, [restoredState]);
+
+  const handleStart = (data: { userName: string; birthDate: string }) => {
+    const drawnCard = drawCards(1)[0];
+    if (!requireAuth({ name: data.userName, birthDate: data.birthDate }, { card: drawnCard })) return;
+    runGeneration(data, drawnCard);
+  };
+
+  const runGeneration = async (data: { userName: string; birthDate: string }, preDrawnCard?: TarotCard) => {
     setLoading(true);
+    setError(false);
     setStep("drawing");
+    setLastData(data);
 
-    const [drawnCard] = drawCards(1);
+    const drawnCard = preDrawnCard || drawCards(1)[0];
     setCard(drawnCard);
 
     try {
@@ -34,52 +52,50 @@ export default function TarotDia() {
         body: { type: "tarot-dia", data: { userName: data.userName, birthDate: data.birthDate, card: drawnCard } },
       });
       setInterpretation(result?.interpretation || "A interpretação não está disponível no momento.");
-
       if (user) {
         await supabase.from("tarot_readings").insert({
-          user_id: user.id,
-          reading_type: "dia",
-          cards: [drawnCard] as any,
-          interpretation: result?.interpretation,
-          user_name: data.userName,
+          user_id: user.id, reading_type: "dia", cards: [drawnCard] as any,
+          interpretation: result?.interpretation, user_name: data.userName,
         });
       }
+      setStep("result");
     } catch {
-      setInterpretation("Não foi possível conectar ao oráculo. Tente novamente.");
+      setError(true);
+      setInterpretation("");
+      setStep("result");
     }
     setLoading(false);
-    setStep("result");
   };
 
   const reset = () => {
     setStep("form");
     setCard(null);
     setInterpretation("");
+    setError(false);
+    setLastData(null);
   };
 
   return (
     <OracleLayout title="Tarot do Dia" icon={<Star className="w-5 h-5" />}>
       <AnimatePresence mode="wait">
         {step === "form" && (
-          <UserDataForm
-            key="form"
-            title="Seus Dados Pessoais"
-            description="Para personalizar sua leitura de Tarot, precisamos de algumas informações básicas."
-            onSubmit={handleStart}
-            loading={loading}
-          />
+          <UserDataForm key="form" title="Seus Dados Pessoais" description="Para personalizar sua leitura de Tarot, precisamos de algumas informações básicas." onSubmit={handleStart} loading={loading} />
         )}
-
         {step === "drawing" && (
           <motion.div key="drawing" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="text-center py-16">
-            <motion.div animate={{ rotateY: [0, 360] }} transition={{ duration: 1.5, repeat: Infinity }} className="text-8xl mb-6">
-              🃏
-            </motion.div>
-            <p className="text-foreground/70 text-lg">Consultando o universo...</p>
+            <motion.div animate={{ rotateY: [0, 360] }} transition={{ duration: 1.5, repeat: Infinity }} className="text-8xl mb-6">🃏</motion.div>
+            <p className="text-foreground/70 text-lg">Gerando sua interpretação…</p>
           </motion.div>
         )}
-
-        {step === "result" && card && (
+        {step === "result" && error && (
+          <motion.div key="error" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center py-16 space-y-4">
+            <p className="text-foreground/70 text-lg">Não foi possível gerar sua interpretação agora.</p>
+            <Button onClick={() => lastData && runGeneration(lastData, card || undefined)} variant="outline" className="border-primary/30">
+              Tentar novamente
+            </Button>
+          </motion.div>
+        )}
+        {step === "result" && !error && card && (
           <motion.div key="result" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
             <Card className="bg-card/80 backdrop-blur-md border-primary/20 text-center">
               <CardContent className="pt-8 pb-6">
@@ -95,14 +111,12 @@ export default function TarotDia() {
                 </div>
               </CardContent>
             </Card>
-
             <Card className="bg-card/80 backdrop-blur-md border-primary/20">
               <CardContent className="pt-6">
                 <h3 className="font-serif text-xl font-bold gold-text mb-4">✨ Interpretação</h3>
                 <div className="prose prose-invert max-w-none prose-headings:text-primary prose-strong:text-foreground/90 prose-p:text-foreground/80"><ReactMarkdown>{interpretation}</ReactMarkdown></div>
               </CardContent>
             </Card>
-
             <ShareButtons text={interpretation} title={`Tarot do Dia - ${card.name}`} />
             <div className="text-center">
               <Button onClick={reset} variant="outline" className="border-primary/30 text-foreground hover:bg-primary/10">

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { getPendingState } from "@/lib/pending-oracle";
 import { motion } from "framer-motion";
 import { Sparkles, Mail, Lock, User, ArrowLeft, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -23,12 +24,22 @@ export default function Auth() {
   const { toast } = useToast();
   const { isAuthenticated, isLoading } = useAuth();
 
+  const [searchParams] = useSearchParams();
+  const nextUrl = searchParams.get("next");
+
   // Redirect if already authenticated
   useEffect(() => {
     if (!isLoading && isAuthenticated) {
-      navigate("/");
+      const pending = getPendingState();
+      if (pending) {
+        navigate(pending.returnTo);
+      } else if (nextUrl) {
+        navigate(nextUrl);
+      } else {
+        navigate("/");
+      }
     }
-  }, [isAuthenticated, isLoading, navigate]);
+  }, [isAuthenticated, isLoading, navigate, nextUrl]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
