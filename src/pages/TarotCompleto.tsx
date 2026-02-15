@@ -4,12 +4,13 @@ import { Eye, RotateCcw, Sparkles } from "lucide-react";
 import ShareButtons from "@/components/ShareButtons";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import ReactMarkdown from "react-markdown";
 import OracleLayout from "@/components/OracleLayout";
 import UserDataForm from "@/components/UserDataForm";
+import FreemiumPaywall from "@/components/FreemiumPaywall";
 import { drawCards, TarotCard } from "@/lib/tarot-cards";
 import { supabase } from "@/integrations/supabase/client";
 import { useOracleAuth } from "@/hooks/useOracleAuth";
+import { useFreemium } from "@/hooks/useFreemium";
 import { usePageSEO } from "@/hooks/usePageSEO";
 
 const positions = ["Situação Atual", "Desafio", "Base", "Passado Recente", "Melhor Resultado", "Futuro Próximo"];
@@ -17,6 +18,7 @@ const positions = ["Situação Atual", "Desafio", "Base", "Passado Recente", "Me
 export default function TarotCompleto() {
   usePageSEO({ title: "Tarot Completo — Cruz Celta", description: "Leitura profunda de Tarot com 6 cartas e interpretação por IA sobre sua jornada e destino.", path: "/tarot/completo" });
   const { restoredState, requireAuth, clearRestored, user } = useOracleAuth({ methodId: "tarot-completo", returnTo: "/tarot/completo" });
+  const { product, hasAccess, purchaseReading } = useFreemium("tarot-completo");
   const [step, setStep] = useState<"form" | "drawing" | "result">("form");
   const [cards, setCards] = useState<TarotCard[]>([]);
   const [interpretation, setInterpretation] = useState("");
@@ -104,11 +106,19 @@ export default function TarotCompleto() {
             </div>
             <Card className="bg-card/80 backdrop-blur-md border-primary/20">
               <CardContent className="pt-6">
-                <h3 className="font-serif text-xl font-bold gold-text mb-4">🔮 Leitura Completa</h3>
-                <div className="oracle-prose"><ReactMarkdown>{interpretation}</ReactMarkdown></div>
+                <h3 className="font-serif text-xl font-bold text-primary mb-4">🔮 Leitura Completa</h3>
+                <FreemiumPaywall
+                  interpretation={interpretation}
+                  oracleType="tarot-completo"
+                  productName={product?.name || "Tarot Completo"}
+                  price={product?.price || 14.90}
+                  previewLines={product?.preview_lines || 4}
+                  hasAccess={hasAccess}
+                  onPurchase={() => purchaseReading()}
+                />
               </CardContent>
             </Card>
-            <ShareButtons text={interpretation} title="Tarot Completo" />
+            {hasAccess && <ShareButtons text={interpretation} title="Tarot Completo" />}
             <div className="text-center">
               <Button onClick={() => { setStep("form"); setCards([]); setInterpretation(""); setError(false); }} variant="outline" className="border-primary/30">
                 <RotateCcw className="w-4 h-4 mr-2" /> Nova Leitura

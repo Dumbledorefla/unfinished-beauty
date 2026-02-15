@@ -4,16 +4,18 @@ import { Calculator, RotateCcw } from "lucide-react";
 import ShareButtons from "@/components/ShareButtons";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import ReactMarkdown from "react-markdown";
 import OracleLayout from "@/components/OracleLayout";
 import UserDataForm from "@/components/UserDataForm";
+import FreemiumPaywall from "@/components/FreemiumPaywall";
 import { supabase } from "@/integrations/supabase/client";
 import { useOracleAuth } from "@/hooks/useOracleAuth";
+import { useFreemium } from "@/hooks/useFreemium";
 import { usePageSEO } from "@/hooks/usePageSEO";
 
 export default function Numerologia() {
-  usePageSEO({ title: "Mapa Numerológico Grátis", description: "Calcule seus números pessoais e descubra propósito, talentos e desafios pela Numerologia.", path: "/numerologia" });
+  usePageSEO({ title: "Mapa Numerológico", description: "Calcule seus números pessoais e descubra propósito, talentos e desafios pela Numerologia.", path: "/numerologia" });
   const { restoredState, requireAuth, clearRestored } = useOracleAuth({ methodId: "numerologia", returnTo: "/numerologia" });
+  const { product, hasAccess, purchaseReading } = useFreemium("numerologia");
   const [step, setStep] = useState<"form" | "loading" | "result">("form");
   const [interpretation, setInterpretation] = useState("");
   const [error, setError] = useState(false);
@@ -70,11 +72,19 @@ export default function Numerologia() {
           <motion.div key="result" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
             <Card className="bg-card/80 backdrop-blur-md border-primary/20">
               <CardContent className="pt-6">
-                <h3 className="font-serif text-xl font-bold gold-text mb-4">🔢 Seu Mapa Numerológico</h3>
-                <div className="oracle-prose"><ReactMarkdown>{interpretation}</ReactMarkdown></div>
+                <h3 className="font-serif text-xl font-bold text-primary mb-4">🔢 Seu Mapa Numerológico</h3>
+                <FreemiumPaywall
+                  interpretation={interpretation}
+                  oracleType="numerologia"
+                  productName={product?.name || "Mapa Numerológico"}
+                  price={product?.price || 9.90}
+                  previewLines={product?.preview_lines || 4}
+                  hasAccess={hasAccess}
+                  onPurchase={() => purchaseReading()}
+                />
               </CardContent>
             </Card>
-            <ShareButtons text={interpretation} title="Mapa Numerológico" />
+            {hasAccess && <ShareButtons text={interpretation} title="Mapa Numerológico" />}
             <div className="text-center">
               <Button onClick={() => { setStep("form"); setInterpretation(""); setError(false); }} variant="outline" className="border-primary/30">
                 <RotateCcw className="w-4 h-4 mr-2" /> Novo Cálculo

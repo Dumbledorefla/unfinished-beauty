@@ -4,12 +4,13 @@ import { Heart, RotateCcw } from "lucide-react";
 import ShareButtons from "@/components/ShareButtons";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import ReactMarkdown from "react-markdown";
 import OracleLayout from "@/components/OracleLayout";
 import UserDataForm from "@/components/UserDataForm";
+import FreemiumPaywall from "@/components/FreemiumPaywall";
 import { drawCards, TarotCard } from "@/lib/tarot-cards";
 import { supabase } from "@/integrations/supabase/client";
 import { useOracleAuth } from "@/hooks/useOracleAuth";
+import { useFreemium } from "@/hooks/useFreemium";
 import { usePageSEO } from "@/hooks/usePageSEO";
 
 const positions = ["Passado", "Presente", "Futuro"];
@@ -17,6 +18,7 @@ const positions = ["Passado", "Presente", "Futuro"];
 export default function TarotAmor() {
   usePageSEO({ title: "Tarot do Amor", description: "Leitura de Tarot para o amor com 3 cartas — passado, presente e futuro da sua vida amorosa.", path: "/tarot/amor" });
   const { restoredState, requireAuth, clearRestored, user } = useOracleAuth({ methodId: "tarot-amor", returnTo: "/tarot/amor" });
+  const { product, hasAccess, purchaseReading } = useFreemium("tarot-amor");
   const [step, setStep] = useState<"form" | "drawing" | "result">("form");
   const [cards, setCards] = useState<TarotCard[]>([]);
   const [interpretation, setInterpretation] = useState("");
@@ -101,11 +103,19 @@ export default function TarotAmor() {
             </div>
             <Card className="bg-card/80 backdrop-blur-md border-primary/20">
               <CardContent className="pt-6">
-                <h3 className="font-serif text-xl font-bold gold-text mb-4">💕 Interpretação do Amor</h3>
-                <div className="oracle-prose"><ReactMarkdown>{interpretation}</ReactMarkdown></div>
+                <h3 className="font-serif text-xl font-bold text-primary mb-4">💕 Interpretação do Amor</h3>
+                <FreemiumPaywall
+                  interpretation={interpretation}
+                  oracleType="tarot-amor"
+                  productName={product?.name || "Tarot do Amor"}
+                  price={product?.price || 9.90}
+                  previewLines={product?.preview_lines || 4}
+                  hasAccess={hasAccess}
+                  onPurchase={() => purchaseReading()}
+                />
               </CardContent>
             </Card>
-            <ShareButtons text={interpretation} title="Tarot do Amor" />
+            {hasAccess && <ShareButtons text={interpretation} title="Tarot do Amor" />}
             <div className="text-center">
               <Button onClick={() => { setStep("form"); setCards([]); setInterpretation(""); setError(false); }} variant="outline" className="border-primary/30">
                 <RotateCcw className="w-4 h-4 mr-2" /> Nova Leitura

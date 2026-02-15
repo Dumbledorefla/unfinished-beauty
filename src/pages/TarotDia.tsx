@@ -103,7 +103,7 @@ export default function TarotDia() {
                 <motion.div initial={{ scale: 0, rotateY: 180 }} animate={{ scale: 1, rotateY: 0 }} transition={{ type: "spring", duration: 0.8 }}>
                   <div className={`text-8xl mb-6 ${!card.upright ? "rotate-180" : ""}`}>{card.image}</div>
                 </motion.div>
-                <h2 className="font-serif text-3xl font-bold gold-text mb-2">{card.name}</h2>
+                <h2 className="font-serif text-3xl font-bold text-primary mb-2">{card.name}</h2>
                 <p className="text-muted-foreground text-sm mb-4">{card.upright ? "Posição Normal" : "Posição Invertida"}</p>
                 <div className="flex gap-2 justify-center flex-wrap">
                   {card.keywords.map((kw) => (
@@ -114,7 +114,7 @@ export default function TarotDia() {
             </Card>
             <Card className="glass-card">
               <CardContent className="pt-8 pb-6">
-                <h3 className="font-serif text-xl font-bold gold-text mb-6 flex items-center gap-2">✨ Interpretação</h3>
+                <h3 className="font-serif text-xl font-bold text-primary mb-6 flex items-center gap-2">✨ Interpretação</h3>
                 <div className="oracle-prose"><ReactMarkdown>{interpretation}</ReactMarkdown></div>
               </CardContent>
             </Card>

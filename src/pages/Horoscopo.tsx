@@ -4,17 +4,19 @@ import { Sun, RotateCcw } from "lucide-react";
 import ShareButtons from "@/components/ShareButtons";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import ReactMarkdown from "react-markdown";
 import OracleLayout from "@/components/OracleLayout";
 import UserDataForm from "@/components/UserDataForm";
+import FreemiumPaywall from "@/components/FreemiumPaywall";
 import { getZodiacSign, zodiacEmojis } from "@/lib/tarot-cards";
 import { supabase } from "@/integrations/supabase/client";
 import { useOracleAuth } from "@/hooks/useOracleAuth";
+import { useFreemium } from "@/hooks/useFreemium";
 import { usePageSEO } from "@/hooks/usePageSEO";
 
 export default function Horoscopo() {
   usePageSEO({ title: "Horóscopo do Dia", description: "Previsões diárias personalizadas para amor, trabalho e saúde com base no seu signo.", path: "/horoscopo" });
   const { restoredState, requireAuth, clearRestored } = useOracleAuth({ methodId: "horoscopo", returnTo: "/horoscopo" });
+  const { product, hasAccess, purchaseReading } = useFreemium("horoscopo");
   const [step, setStep] = useState<"form" | "loading" | "result">("form");
   const [interpretation, setInterpretation] = useState("");
   const [sign, setSign] = useState("");
@@ -75,17 +77,25 @@ export default function Horoscopo() {
             <Card className="bg-card/80 backdrop-blur-md border-primary/20 text-center">
               <CardContent className="pt-6">
                 <div className="text-6xl mb-2">{zodiacEmojis[sign] || "⭐"}</div>
-                <h2 className="font-serif text-3xl font-bold gold-text">{sign}</h2>
-                <p className="text-foreground/60 text-sm mt-1">Horóscopo do dia - {new Date().toLocaleDateString("pt-BR")}</p>
+                <h2 className="font-serif text-3xl font-bold text-primary">{sign}</h2>
+                <p className="text-muted-foreground text-sm mt-1">Horóscopo do dia — {new Date().toLocaleDateString("pt-BR")}</p>
               </CardContent>
             </Card>
             <Card className="bg-card/80 backdrop-blur-md border-primary/20">
               <CardContent className="pt-6">
-                <h3 className="font-serif text-xl font-bold gold-text mb-4">☀️ Previsões do Dia</h3>
-                <div className="oracle-prose"><ReactMarkdown>{interpretation}</ReactMarkdown></div>
+                <h3 className="font-serif text-xl font-bold text-primary mb-4">☀️ Previsões do Dia</h3>
+                <FreemiumPaywall
+                  interpretation={interpretation}
+                  oracleType="horoscopo"
+                  productName={product?.name || "Horóscopo do Dia"}
+                  price={product?.price || 4.90}
+                  previewLines={product?.preview_lines || 3}
+                  hasAccess={hasAccess}
+                  onPurchase={() => purchaseReading()}
+                />
               </CardContent>
             </Card>
-            <ShareButtons text={interpretation} title={`Horóscopo - ${sign}`} />
+            {hasAccess && <ShareButtons text={interpretation} title={`Horóscopo - ${sign}`} />}
             <div className="text-center">
               <Button onClick={() => { setStep("form"); setInterpretation(""); setError(false); }} variant="outline" className="border-primary/30">
                 <RotateCcw className="w-4 h-4 mr-2" /> Nova Consulta

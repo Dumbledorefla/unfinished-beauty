@@ -210,6 +210,77 @@ export type Database = {
         }
         Relationships: []
       }
+      oracle_products: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          is_free: boolean
+          name: string
+          oracle_type: string
+          preview_lines: number
+          price: number
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_free?: boolean
+          name: string
+          oracle_type: string
+          preview_lines?: number
+          price?: number
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_free?: boolean
+          name?: string
+          oracle_type?: string
+          preview_lines?: number
+          price?: number
+        }
+        Relationships: []
+      }
+      oracle_purchases: {
+        Row: {
+          id: string
+          oracle_type: string
+          order_id: string | null
+          price: number
+          purchased_at: string
+          reading_id: string | null
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          oracle_type: string
+          order_id?: string | null
+          price?: number
+          purchased_at?: string
+          reading_id?: string | null
+          user_id: string
+        }
+        Update: {
+          id?: string
+          oracle_type?: string
+          order_id?: string | null
+          price?: number
+          purchased_at?: string
+          reading_id?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "oracle_purchases_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       order_items: {
         Row: {
           id: string
