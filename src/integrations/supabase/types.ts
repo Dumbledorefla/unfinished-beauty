@@ -259,6 +259,7 @@ export type Database = {
           paid_at: string | null
           payment_intent_id: string | null
           payment_method: string | null
+          payment_provider: string | null
           payment_session_id: string | null
           status: string
           total_amount: number
@@ -271,6 +272,7 @@ export type Database = {
           paid_at?: string | null
           payment_intent_id?: string | null
           payment_method?: string | null
+          payment_provider?: string | null
           payment_session_id?: string | null
           status?: string
           total_amount: number
@@ -283,6 +285,7 @@ export type Database = {
           paid_at?: string | null
           payment_intent_id?: string | null
           payment_method?: string | null
+          payment_provider?: string | null
           payment_session_id?: string | null
           status?: string
           total_amount?: number
@@ -290,6 +293,94 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      payment_proofs: {
+        Row: {
+          file_path: string
+          id: string
+          note: string | null
+          order_id: string
+          review_status: string
+          reviewed_at: string | null
+          reviewed_by: string | null
+          uploaded_at: string
+        }
+        Insert: {
+          file_path: string
+          id?: string
+          note?: string | null
+          order_id: string
+          review_status?: string
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          uploaded_at?: string
+        }
+        Update: {
+          file_path?: string
+          id?: string
+          note?: string | null
+          order_id?: string
+          review_status?: string
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          uploaded_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "payment_proofs_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      payment_transactions: {
+        Row: {
+          amount: number
+          created_at: string
+          id: string
+          method: string
+          order_id: string
+          provider: string
+          provider_transaction_id: string | null
+          raw_response: Json | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          id?: string
+          method?: string
+          order_id: string
+          provider?: string
+          provider_transaction_id?: string | null
+          raw_response?: Json | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          id?: string
+          method?: string
+          order_id?: string
+          provider?: string
+          provider_transaction_id?: string | null
+          raw_response?: Json | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "payment_transactions_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       products: {
         Row: {
@@ -299,6 +390,7 @@ export type Database = {
           description: string | null
           has_sample: boolean | null
           id: string
+          image_path: string | null
           image_url: string | null
           is_active: boolean | null
           is_combo: boolean | null
@@ -319,6 +411,7 @@ export type Database = {
           description?: string | null
           has_sample?: boolean | null
           id?: string
+          image_path?: string | null
           image_url?: string | null
           is_active?: boolean | null
           is_combo?: boolean | null
@@ -339,6 +432,7 @@ export type Database = {
           description?: string | null
           has_sample?: boolean | null
           id?: string
+          image_path?: string | null
           image_url?: string | null
           is_active?: boolean | null
           is_combo?: boolean | null

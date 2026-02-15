@@ -104,9 +104,11 @@ export default function Carrinho() {
                       <span className="text-primary font-bold text-xl">R$ {totalPrice.toFixed(2)}</span>
                     </div>
                   </div>
-                  <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90 h-12 text-base">
-                    Finalizar Compra
-                  </Button>
+                  <Link to="/checkout">
+                    <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90 h-12 text-base">
+                      Finalizar Compra
+                    </Button>
+                  </Link>
                   <Link to="/produtos" className="block mt-3">
                     <Button variant="outline" className="w-full border-primary/30">
                       <ArrowLeft className="w-4 h-4 mr-2" />
