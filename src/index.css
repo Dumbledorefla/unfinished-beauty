@@ -9,52 +9,52 @@
   :root {
     --radius: 0.75rem;
 
-    /* Primary — Deep Violet */
-    --primary: 258 62% 55%;
+    /* Primary — Vibrant Mystic Violet */
+    --primary: 265 72% 60%;
     --primary-foreground: 0 0% 100%;
 
-    /* Background — Near-black with blue-purple undertone */
-    --background: 240 20% 6%;
-    --foreground: 220 15% 90%;
+    /* Background — Deep indigo-purple, not pure black */
+    --background: 255 35% 10%;
+    --foreground: 240 20% 92%;
 
-    /* Card — Dark slate with purple hint */
-    --card: 245 18% 11%;
-    --card-foreground: 220 15% 90%;
+    /* Card — Rich midnight with purple warmth */
+    --card: 258 30% 15%;
+    --card-foreground: 240 20% 92%;
 
     /* Popover */
-    --popover: 245 18% 13%;
-    --popover-foreground: 220 15% 90%;
+    --popover: 258 28% 17%;
+    --popover-foreground: 240 20% 92%;
 
-    /* Secondary — Muted indigo */
-    --secondary: 240 15% 16%;
-    --secondary-foreground: 220 12% 78%;
+    /* Secondary — Soft amethyst */
+    --secondary: 260 22% 20%;
+    --secondary-foreground: 250 18% 80%;
 
     /* Muted */
-    --muted: 240 12% 18%;
-    --muted-foreground: 220 8% 55%;
+    --muted: 258 18% 22%;
+    --muted-foreground: 250 12% 58%;
 
-    /* Accent — Warm gold, used sparingly */
-    --accent: 38 65% 50%;
-    --accent-foreground: 38 20% 10%;
+    /* Accent — Celestial Gold */
+    --accent: 42 78% 55%;
+    --accent-foreground: 40 25% 8%;
 
     /* Destructive */
     --destructive: 0 65% 50%;
     --destructive-foreground: 0 0% 98%;
 
-    /* Border — Subtle cool grey */
-    --border: 240 12% 20%;
-    --input: 240 14% 16%;
-    --ring: 258 50% 50%;
+    /* Border — Soft violet edge */
+    --border: 260 18% 24%;
+    --input: 258 20% 18%;
+    --ring: 265 60% 55%;
 
     /* Sidebar */
-    --sidebar-background: 240 18% 8%;
-    --sidebar-foreground: 220 12% 85%;
-    --sidebar-primary: 258 62% 55%;
+    --sidebar-background: 255 30% 11%;
+    --sidebar-foreground: 240 18% 88%;
+    --sidebar-primary: 265 72% 60%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 14% 18%;
-    --sidebar-accent-foreground: 220 15% 90%;
-    --sidebar-border: 240 12% 18%;
-    --sidebar-ring: 258 50% 50%;
+    --sidebar-accent: 258 20% 22%;
+    --sidebar-accent-foreground: 240 20% 92%;
+    --sidebar-border: 258 18% 22%;
+    --sidebar-ring: 265 60% 55%;
   }
 
   * {
@@ -74,38 +74,38 @@
 }
 
 @layer components {
-  /* Gold text — subtle warm accent for headlines */
+  /* Gold text — warm celestial accent */
   .gold-text {
     background: linear-gradient(135deg,
-      hsl(38 70% 62%) 0%,
-      hsl(33 60% 52%) 50%,
-      hsl(42 65% 58%) 100%
+      hsl(42 80% 65%) 0%,
+      hsl(36 70% 55%) 50%,
+      hsl(48 75% 62%) 100%
     );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
-  /* Glass card — premium frosted panel */
+  /* Glass card — mystical frosted panel */
   .glass-card {
-    background: hsl(var(--card) / 0.65);
-    backdrop-filter: blur(20px) saturate(1.2);
-    border: 1px solid hsl(var(--border) / 0.6);
+    background: linear-gradient(145deg, hsl(var(--card) / 0.7), hsl(var(--card) / 0.45));
+    backdrop-filter: blur(24px) saturate(1.4);
+    border: 1px solid hsl(var(--primary) / 0.12);
     transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   }
   .glass-card:hover {
-    border-color: hsl(var(--primary) / 0.3);
-    box-shadow: 0 8px 40px hsl(0 0% 0% / 0.35), 0 0 24px hsl(var(--primary) / 0.06);
+    border-color: hsl(var(--primary) / 0.35);
+    box-shadow: 0 8px 40px hsl(var(--primary) / 0.12), 0 0 28px hsl(var(--primary) / 0.08);
     transform: translateY(-3px);
   }
 
-  /* Mystical glow — primary purple glow */
+  /* Mystical glow — vibrant purple glow */
   .mystical-glow {
-    box-shadow: 0 0 24px hsl(var(--primary) / 0.15), 0 0 48px hsl(var(--primary) / 0.06);
+    box-shadow: 0 0 28px hsl(var(--primary) / 0.2), 0 0 56px hsl(265 60% 40% / 0.08);
     transition: box-shadow 0.4s ease;
   }
   .mystical-glow:hover {
-    box-shadow: 0 0 32px hsl(var(--primary) / 0.25), 0 0 64px hsl(var(--primary) / 0.1);
+    box-shadow: 0 0 40px hsl(var(--primary) / 0.3), 0 0 80px hsl(265 60% 40% / 0.14);
   }
 
   /* Card hover */
@@ -114,13 +114,13 @@
   }
   .card-hover:hover {
     transform: translateY(-4px);
-    box-shadow: 0 16px 48px hsl(0 0% 0% / 0.4), 0 0 20px hsl(var(--primary) / 0.08);
+    box-shadow: 0 16px 48px hsl(var(--primary) / 0.15), 0 0 24px hsl(var(--primary) / 0.1);
   }
 
   /* Section divider */
   .section-divider {
     height: 1px;
-    background: linear-gradient(90deg, transparent, hsl(var(--border) / 0.5), transparent);
+    background: linear-gradient(90deg, transparent, hsl(var(--primary) / 0.3), hsl(var(--accent) / 0.15), hsl(var(--primary) / 0.3), transparent);
   }
 
   /* Shimmer animation */
@@ -129,7 +129,7 @@
     100% { background-position: 200% 0; }
   }
   .shimmer {
-    background: linear-gradient(90deg, hsl(240 12% 16%) 0%, hsl(240 12% 24%) 50%, hsl(240 12% 16%) 100%);
+    background: linear-gradient(90deg, hsl(258 20% 18%) 0%, hsl(265 25% 28%) 50%, hsl(258 20% 18%) 100%);
     background-size: 200% 100%;
     animation: shimmer 1.5s infinite;
   }
@@ -148,7 +148,7 @@
   }
   .pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
 
-  /* Gradient border — purple only */
+  /* Gradient border — mystical purple + gold */
   .gradient-border {
     position: relative;
   }
@@ -158,7 +158,7 @@
     inset: 0;
     border-radius: inherit;
     padding: 1px;
-    background: linear-gradient(135deg, hsl(var(--primary) / 0.4), hsl(var(--primary) / 0.15), hsl(var(--primary) / 0.3));
+    background: linear-gradient(135deg, hsl(var(--primary) / 0.5), hsl(var(--accent) / 0.2), hsl(var(--primary) / 0.4));
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
@@ -217,12 +217,12 @@
 
 /* Custom scrollbar */
 ::-webkit-scrollbar { width: 7px; height: 7px; }
-::-webkit-scrollbar-track { background: hsl(240 18% 8%); }
-::-webkit-scrollbar-thumb { background: hsl(240 14% 24%); border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: hsl(240 14% 32%); }
+::-webkit-scrollbar-track { background: hsl(255 30% 10%); }
+::-webkit-scrollbar-thumb { background: hsl(265 25% 28%); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: hsl(265 25% 36%); }
 
 /* Selection */
 ::selection {
-  background: hsl(258 62% 55% / 0.3);
-  color: hsl(220 15% 95%);
+  background: hsl(265 72% 60% / 0.35);
+  color: hsl(240 20% 96%);
 }
