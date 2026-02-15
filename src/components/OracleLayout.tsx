@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Home } from "lucide-react";
 import heroBg from "@/assets/hero-bg.jpg";
 
 function AnimatedStars() {
@@ -38,19 +38,20 @@ export default function OracleLayout({ title, icon, children }: OracleLayoutProp
       </div>
       <AnimatedStars />
 
-      <header className="relative z-20 flex items-center justify-between px-6 py-4 border-b border-primary/20 bg-background/30 backdrop-blur-md">
-        <Link to="/" className="flex items-center gap-2 text-foreground/70 hover:text-primary transition-colors">
-          <ArrowLeft className="w-5 h-5" />
-          <span>Voltar</span>
+      <header className="relative z-20 flex items-center justify-between px-6 py-4 border-b border-primary/15 bg-background/20 backdrop-blur-xl">
+        <Link to="/" className="flex items-center gap-2 text-foreground/60 hover:text-primary transition-all duration-200 group">
+          <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
+          <Home className="w-4 h-4" />
+          <span className="text-sm">Início</span>
         </Link>
-        <h1 className="font-serif text-xl font-bold text-primary flex items-center gap-2">
+        <h1 className="font-serif text-xl font-bold text-primary flex items-center gap-2.5">
           {icon}
           {title}
         </h1>
-        <div className="w-20" />
+        <div className="w-24" />
       </header>
 
-      <main className="relative z-10 container mx-auto px-4 py-8 max-w-3xl">
+      <main className="relative z-10 container mx-auto px-4 py-10 max-w-3xl">
         {children}
       </main>
     </div>
