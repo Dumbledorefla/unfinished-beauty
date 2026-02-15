@@ -3,14 +3,15 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Compass, Sparkles, Loader2 } from "lucide-react";
 import ShareButtons from "@/components/ShareButtons";
-import ReactMarkdown from "react-markdown";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Header from "@/components/Header";
+import FreemiumPaywall from "@/components/FreemiumPaywall";
 import { supabase } from "@/integrations/supabase/client";
 import { useOracleAuth } from "@/hooks/useOracleAuth";
+import { useFreemium } from "@/hooks/useFreemium";
 import { toast } from "@/hooks/use-toast";
 import heroBg from "@/assets/hero-bg.jpg";
 import { usePageSEO } from "@/hooks/usePageSEO";
@@ -18,6 +19,7 @@ import { usePageSEO } from "@/hooks/usePageSEO";
 export default function MapaAstral() {
   usePageSEO({ title: "Mapa Astral Completo", description: "Descubra seu ascendente, lua e posições planetárias no momento do seu nascimento.", path: "/mapa-astral" });
   const { restoredState, requireAuth, clearRestored, isAuthenticated } = useOracleAuth({ methodId: "mapa-astral", returnTo: "/mapa-astral" });
+  const { product, hasAccess, purchaseReading } = useFreemium("mapa-astral");
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [birthDate, setBirthDate] = useState("");
@@ -27,7 +29,6 @@ export default function MapaAstral() {
   const [interpretation, setInterpretation] = useState<string | null>(null);
   const [error, setError] = useState(false);
 
-  // Restore pending state after login
   useEffect(() => {
     if (restoredState) {
       const { userData } = restoredState;
@@ -36,7 +37,6 @@ export default function MapaAstral() {
       setBirthDate(userData.birthDate);
       setBirthTime(userData.birthTime || "");
       setBirthPlace(userData.birthPlace || "");
-      // Auto-generate
       runGeneration(userData.name, userData.birthDate, userData.birthTime || "", userData.birthPlace || "");
     }
   }, [restoredState]);
@@ -47,7 +47,6 @@ export default function MapaAstral() {
       toast({ title: "Preencha todos os campos", variant: "destructive" });
       return;
     }
-
     if (!requireAuth({ name, birthDate, birthTime, birthPlace })) return;
     runGeneration(name, birthDate, birthTime, birthPlace);
   };
@@ -56,7 +55,6 @@ export default function MapaAstral() {
     setLoading(true);
     setInterpretation(null);
     setError(false);
-
     try {
       const res = await supabase.functions.invoke("oracle-interpret", {
         body: { type: "mapa-astral", data: { userName: n, birthDate: bd, birthTime: bt, birthPlace: bp } },
@@ -86,7 +84,7 @@ export default function MapaAstral() {
             <span className="text-sm text-primary">Astrologia</span>
           </div>
           <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">Mapa Astral</h1>
-          <p className="text-foreground/70 max-w-2xl mx-auto">
+          <p className="text-muted-foreground max-w-2xl mx-auto">
             Descubra seu ascendente, lua e posições planetárias com base na sua data, hora e local de nascimento
           </p>
         </motion.div>
@@ -140,12 +138,20 @@ export default function MapaAstral() {
                   <Compass className="w-5 h-5 text-primary" />
                   <h2 className="font-serif text-2xl font-bold text-foreground">Seu Mapa Astral</h2>
                 </div>
-                <div className="oracle-prose">
-                  <ReactMarkdown>{interpretation}</ReactMarkdown>
-                </div>
-                <div className="mt-6">
-                  <ShareButtons text={interpretation} title="Mapa Astral" />
-                </div>
+                <FreemiumPaywall
+                  interpretation={interpretation}
+                  oracleType="mapa-astral"
+                  productName={product?.name || "Mapa Astral"}
+                  price={product?.price || 19.90}
+                  previewLines={product?.preview_lines || 4}
+                  hasAccess={hasAccess}
+                  onPurchase={() => purchaseReading()}
+                />
+                {hasAccess && (
+                  <div className="mt-6">
+                    <ShareButtons text={interpretation} title="Mapa Astral" />
+                  </div>
+                )}
               </CardContent>
             </Card>
           </motion.div>
