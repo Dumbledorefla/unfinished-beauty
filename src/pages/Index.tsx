@@ -206,16 +206,16 @@ export default function Home() {
             className="relative overflow-hidden rounded-2xl gradient-border p-8 md:p-14 bg-secondary/60 backdrop-blur-md"
           >
             <div className="relative text-center max-w-xl mx-auto">
-              <h2 className="text-3xl sm:text-4xl font-bold mb-5 text-foreground leading-tight break-words">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-5 text-foreground leading-tight">
                 Comece sua jornada de{" "}
-                <span className="text-primary">autoconhecimento</span>
+                <span className="text-primary">auto&shy;conhecimento</span>
               </h2>
-              <p className="text-muted-foreground mb-8 text-base leading-relaxed">
+              <p className="text-muted-foreground mb-8 text-sm sm:text-base leading-relaxed">
                 Tire sua primeira carta gratuitamente e descubra o que o universo tem a dizer sobre seu caminho.
               </p>
               <Link to="/tarot/dia">
-                <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 text-base px-8 py-5 pulse-glow">
-                  <Sparkles className="w-4 h-4 mr-2" />
+                <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 text-sm sm:text-base px-6 sm:px-8 py-5 pulse-glow w-auto">
+                  <Sparkles className="w-4 h-4 mr-2 shrink-0" />
                   Começar Agora — É Grátis
                 </Button>
               </Link>
