@@ -2,19 +2,20 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   LayoutDashboard, Users, ShoppingBag, Star, Calendar,
-  BookOpen, Settings, Shield, Bug
+  BookOpen, Settings, Shield, Bug, CreditCard
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
-import StatCard from "@/components/admin/StatCard";
+import AdminDashboard from "@/components/admin/AdminDashboard";
 import AdminProducts from "@/components/admin/AdminProducts";
 import AdminTaromantes from "@/components/admin/AdminTaromantes";
 import AdminCourses from "@/components/admin/AdminCourses";
 import AdminUsers from "@/components/admin/AdminUsers";
 import AdminOrders from "@/components/admin/AdminOrders";
+import AdminPayments from "@/components/admin/AdminPayments";
 import AdminConsultations from "@/components/admin/AdminConsultations";
 import AdminSettings from "@/components/admin/AdminSettings";
 import AdminDebug from "@/components/admin/AdminDebug";
@@ -23,9 +24,8 @@ export default function Admin() {
   const { isAuthenticated, isLoading, isAdmin, isProfileLoaded } = useAuth();
   const navigate = useNavigate();
 
-  const [stats, setStats] = useState({ users: 0, readings: 0, products: 0, orders: 0, courses: 0, taromantes: 0 });
-  const [users, setUsers] = useState<any[]>([]);
   const [products, setProducts] = useState<any[]>([]);
+  const [users, setUsers] = useState<any[]>([]);
   const [taromantes, setTaromantes] = useState<any[]>([]);
   const [courses, setCourses] = useState<any[]>([]);
   const [orders, setOrders] = useState<any[]>([]);
@@ -44,9 +44,8 @@ export default function Admin() {
 
   const loadData = async () => {
     try {
-      const [profilesRes, readingsRes, productsRes, ordersRes, coursesRes, taromantesRes, consultationsRes, settingsRes] = await Promise.all([
+      const [profilesRes, productsRes, ordersRes, coursesRes, taromantesRes, consultationsRes, settingsRes] = await Promise.all([
         supabase.from("profiles").select("*"),
-        supabase.from("tarot_readings").select("id", { count: "exact", head: true }),
         supabase.from("products").select("*"),
         supabase.from("orders").select("*").order("created_at", { ascending: false }),
         supabase.from("courses").select("*"),
@@ -61,14 +60,6 @@ export default function Admin() {
       setTaromantes(taromantesRes.data || []);
       setConsultations(consultationsRes.data || []);
       setSiteSettings(settingsRes.data || []);
-      setStats({
-        users: profilesRes.data?.length || 0,
-        readings: readingsRes.count || 0,
-        products: productsRes.data?.length || 0,
-        orders: ordersRes.data?.length || 0,
-        courses: coursesRes.data?.length || 0,
-        taromantes: taromantesRes.data?.length || 0,
-      });
     } catch (err) { console.error("Admin loadData error:", err); }
   };
 
@@ -102,6 +93,7 @@ export default function Admin() {
             <TabsTrigger value="users" className="rounded-lg"><Users className="w-4 h-4 mr-1.5" />Usuários</TabsTrigger>
             <TabsTrigger value="products" className="rounded-lg"><ShoppingBag className="w-4 h-4 mr-1.5" />Produtos</TabsTrigger>
             <TabsTrigger value="taromantes" className="rounded-lg"><Star className="w-4 h-4 mr-1.5" />Taromantes</TabsTrigger>
+            <TabsTrigger value="payments" className="rounded-lg"><CreditCard className="w-4 h-4 mr-1.5" />Pagamentos</TabsTrigger>
             <TabsTrigger value="orders" className="rounded-lg"><ShoppingBag className="w-4 h-4 mr-1.5" />Pedidos</TabsTrigger>
             <TabsTrigger value="consultations" className="rounded-lg"><Calendar className="w-4 h-4 mr-1.5" />Consultas</TabsTrigger>
             <TabsTrigger value="courses" className="rounded-lg"><BookOpen className="w-4 h-4 mr-1.5" />Cursos</TabsTrigger>
@@ -109,20 +101,11 @@ export default function Admin() {
             <TabsTrigger value="debug" className="rounded-lg"><Bug className="w-4 h-4 mr-1.5" />Debug</TabsTrigger>
           </TabsList>
 
-          <TabsContent value="dashboard">
-            <div className="grid grid-cols-2 lg:grid-cols-3 gap-5 mb-8">
-              <StatCard icon={Users} label="Usuários" value={stats.users} color="bg-primary/20 text-primary" />
-              <StatCard icon={Star} label="Leituras" value={stats.readings} color="bg-purple-500/20 text-purple-400" />
-              <StatCard icon={ShoppingBag} label="Produtos" value={stats.products} color="bg-emerald-500/20 text-emerald-400" />
-              <StatCard icon={ShoppingBag} label="Pedidos" value={stats.orders} color="bg-orange-500/20 text-orange-400" />
-              <StatCard icon={BookOpen} label="Cursos" value={stats.courses} color="bg-blue-500/20 text-blue-400" />
-              <StatCard icon={Star} label="Taromantes" value={stats.taromantes} color="bg-pink-500/20 text-pink-400" />
-            </div>
-          </TabsContent>
-
+          <TabsContent value="dashboard"><AdminDashboard /></TabsContent>
           <TabsContent value="users"><AdminUsers users={users} /></TabsContent>
           <TabsContent value="products"><AdminProducts products={products} onRefresh={loadData} /></TabsContent>
           <TabsContent value="taromantes"><AdminTaromantes taromantes={taromantes} onRefresh={loadData} /></TabsContent>
+          <TabsContent value="payments"><AdminPayments onRefresh={loadData} /></TabsContent>
           <TabsContent value="orders"><AdminOrders orders={orders} /></TabsContent>
           <TabsContent value="consultations"><AdminConsultations consultations={consultations} /></TabsContent>
           <TabsContent value="courses"><AdminCourses courses={courses} onRefresh={loadData} /></TabsContent>

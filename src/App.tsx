@@ -15,6 +15,7 @@ import Consultas from "./pages/Consultas";
 import Cursos from "./pages/Cursos";
 import Produtos from "./pages/Produtos";
 import Carrinho from "./pages/Carrinho";
+import Checkout from "./pages/Checkout";
 import Perfil from "./pages/Perfil";
 import Admin from "./pages/Admin";
 import ResetPassword from "./pages/ResetPassword";
@@ -46,6 +47,7 @@ const App = () => (
             <Route path="/cursos" element={<Cursos />} />
             <Route path="/produtos" element={<Produtos />} />
             <Route path="/carrinho" element={<Carrinho />} />
+            <Route path="/checkout" element={<Checkout />} />
             <Route path="/perfil" element={<Perfil />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/reset-password" element={<ResetPassword />} />

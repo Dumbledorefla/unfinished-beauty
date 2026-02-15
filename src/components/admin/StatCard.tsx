@@ -7,9 +7,10 @@ interface StatCardProps {
   label: string;
   value: number;
   color: string;
+  prefix?: string;
 }
 
-export default function StatCard({ icon: Icon, label, value, color }: StatCardProps) {
+export default function StatCard({ icon: Icon, label, value, color, prefix }: StatCardProps) {
   return (
     <motion.div whileHover={{ y: -2 }} transition={{ duration: 0.2 }}>
       <Card className="glass-card">
@@ -19,7 +20,7 @@ export default function StatCard({ icon: Icon, label, value, color }: StatCardPr
           </div>
           <div>
             <p className="text-muted-foreground text-xs uppercase tracking-wider font-medium">{label}</p>
-            <p className="text-3xl font-bold text-foreground mt-0.5">{value}</p>
+            <p className="text-3xl font-bold text-foreground mt-0.5">{prefix ? `${prefix} ${value.toFixed(2)}` : value}</p>
           </div>
         </CardContent>
       </Card>

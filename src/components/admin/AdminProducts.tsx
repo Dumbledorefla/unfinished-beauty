@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Plus, Pencil, Trash2 } from "lucide-react";
+import { useState, useRef } from "react";
+import { Plus, Pencil, Trash2, Upload, X, Image as ImageIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -10,6 +10,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { supabase } from "@/integrations/supabase/client";
+import { uploadProductImage, deleteProductImage } from "@/lib/storage";
 import { toast } from "sonner";
 
 interface Product {
@@ -22,6 +23,7 @@ interface Product {
   description: string | null;
   short_description: string | null;
   image_url: string | null;
+  image_path: string | null;
   is_active: boolean | null;
   is_featured: boolean | null;
   life_area: string | null;
@@ -29,7 +31,8 @@ interface Product {
 
 const emptyProduct = {
   name: "", slug: "", category: "geral", price: 0, original_price: null as number | null,
-  description: "", short_description: "", image_url: "", is_active: true, is_featured: false, life_area: "geral",
+  description: "", short_description: "", image_url: "", image_path: null as string | null,
+  is_active: true, is_featured: false, life_area: "geral",
 };
 
 export default function AdminProducts({ products, onRefresh }: { products: Product[]; onRefresh: () => void }) {
@@ -37,29 +40,73 @@ export default function AdminProducts({ products, onRefresh }: { products: Produ
   const [editing, setEditing] = useState<Product | null>(null);
   const [form, setForm] = useState(emptyProduct);
   const [saving, setSaving] = useState(false);
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const openNew = () => { setEditing(null); setForm(emptyProduct); setOpen(true); };
+  const openNew = () => {
+    setEditing(null); setForm(emptyProduct); setImageFile(null); setImagePreview(null); setOpen(true);
+  };
   const openEdit = (p: Product) => {
     setEditing(p);
     setForm({
       name: p.name, slug: p.slug, category: p.category, price: p.price,
       original_price: p.original_price, description: p.description || "",
       short_description: p.short_description || "", image_url: p.image_url || "",
+      image_path: p.image_path || null,
       is_active: p.is_active ?? true, is_featured: p.is_featured ?? false,
       life_area: p.life_area || "geral",
     });
+    setImageFile(null);
+    setImagePreview(p.image_url || null);
     setOpen(true);
   };
 
   const generateSlug = (name: string) => name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 
+  const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setImageFile(file);
+    const reader = new FileReader();
+    reader.onload = () => setImagePreview(reader.result as string);
+    reader.readAsDataURL(file);
+  };
+
+  const handleRemoveImage = () => {
+    setImageFile(null);
+    setImagePreview(null);
+    setForm({ ...form, image_url: "", image_path: null });
+  };
+
   const handleSave = async () => {
     if (!form.name.trim()) { toast.error("Nome é obrigatório"); return; }
     setSaving(true);
     const slug = form.slug || generateSlug(form.name);
-    const payload = { ...form, slug, price: Number(form.price), original_price: form.original_price ? Number(form.original_price) : null };
+
+    let image_url = form.image_url;
+    let image_path = form.image_path;
 
     try {
+      // Upload new image if selected
+      if (imageFile) {
+        // Delete old image if exists
+        if (editing?.image_path) {
+          try { await deleteProductImage(editing.image_path); } catch { /* ignore */ }
+        }
+        const result = await uploadProductImage(imageFile);
+        image_url = result.url;
+        image_path = result.path;
+      }
+
+      const payload = {
+        name: form.name, slug, category: form.category, price: Number(form.price),
+        original_price: form.original_price ? Number(form.original_price) : null,
+        description: form.description, short_description: form.short_description,
+        image_url, image_path,
+        is_active: form.is_active, is_featured: form.is_featured, life_area: form.life_area,
+      };
+
       if (editing) {
         const { error } = await supabase.from("products").update(payload).eq("id", editing.id);
         if (error) throw error;
@@ -76,9 +123,12 @@ export default function AdminProducts({ products, onRefresh }: { products: Produ
     } finally { setSaving(false); }
   };
 
-  const handleDelete = async (id: string) => {
+  const handleDelete = async (p: Product) => {
     if (!confirm("Tem certeza que deseja excluir este produto?")) return;
-    const { error } = await supabase.from("products").delete().eq("id", id);
+    if (p.image_path) {
+      try { await deleteProductImage(p.image_path); } catch { /* ignore */ }
+    }
+    const { error } = await supabase.from("products").delete().eq("id", p.id);
     if (error) toast.error(error.message);
     else { toast.success("Produto excluído!"); onRefresh(); }
   };
@@ -94,12 +144,21 @@ export default function AdminProducts({ products, onRefresh }: { products: Produ
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Nome</TableHead><TableHead>Categoria</TableHead><TableHead>Preço</TableHead><TableHead>Ativo</TableHead><TableHead className="w-24">Ações</TableHead>
+                <TableHead>Imagem</TableHead><TableHead>Nome</TableHead><TableHead>Categoria</TableHead><TableHead>Preço</TableHead><TableHead>Ativo</TableHead><TableHead className="w-24">Ações</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {products.map((p) => (
                 <TableRow key={p.id}>
+                  <TableCell>
+                    {p.image_url ? (
+                      <img src={p.image_url} alt={p.name} className="w-10 h-10 rounded object-cover" />
+                    ) : (
+                      <div className="w-10 h-10 rounded bg-primary/10 flex items-center justify-center">
+                        <ImageIcon className="w-4 h-4 text-primary/40" />
+                      </div>
+                    )}
+                  </TableCell>
                   <TableCell>{p.name}</TableCell>
                   <TableCell>{p.category}</TableCell>
                   <TableCell>R$ {Number(p.price).toFixed(2)}</TableCell>
@@ -107,7 +166,7 @@ export default function AdminProducts({ products, onRefresh }: { products: Produ
                   <TableCell>
                     <div className="flex gap-1">
                       <Button variant="ghost" size="icon" onClick={() => openEdit(p)}><Pencil className="w-4 h-4" /></Button>
-                      <Button variant="ghost" size="icon" onClick={() => handleDelete(p.id)}><Trash2 className="w-4 h-4 text-destructive" /></Button>
+                      <Button variant="ghost" size="icon" onClick={() => handleDelete(p)}><Trash2 className="w-4 h-4 text-destructive" /></Button>
                     </div>
                   </TableCell>
                 </TableRow>
@@ -121,6 +180,35 @@ export default function AdminProducts({ products, onRefresh }: { products: Produ
         <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto">
           <DialogHeader><DialogTitle>{editing ? "Editar Produto" : "Novo Produto"}</DialogTitle></DialogHeader>
           <div className="grid gap-4 py-2">
+            {/* Image Upload */}
+            <div>
+              <Label>Imagem do Produto</Label>
+              <div className="mt-1">
+                {imagePreview ? (
+                  <div className="relative w-full h-40 rounded-lg overflow-hidden border border-primary/20">
+                    <img src={imagePreview} alt="Preview" className="w-full h-full object-cover" />
+                    <div className="absolute top-2 right-2 flex gap-1">
+                      <Button size="icon" variant="secondary" className="h-7 w-7" onClick={() => fileInputRef.current?.click()}>
+                        <Upload className="w-3 h-3" />
+                      </Button>
+                      <Button size="icon" variant="destructive" className="h-7 w-7" onClick={handleRemoveImage}>
+                        <X className="w-3 h-3" />
+                      </Button>
+                    </div>
+                  </div>
+                ) : (
+                  <div
+                    className="w-full h-40 rounded-lg border-2 border-dashed border-primary/20 flex flex-col items-center justify-center cursor-pointer hover:border-primary/40 transition-colors"
+                    onClick={() => fileInputRef.current?.click()}
+                  >
+                    <Upload className="w-8 h-8 text-foreground/30 mb-2" />
+                    <span className="text-sm text-foreground/50">Clique para enviar imagem</span>
+                  </div>
+                )}
+                <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={handleImageSelect} />
+              </div>
+            </div>
+
             <div><Label>Nome *</Label><Input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value, slug: generateSlug(e.target.value) })} /></div>
             <div><Label>Slug</Label><Input value={form.slug} onChange={(e) => setForm({ ...form, slug: e.target.value })} /></div>
             <div className="grid grid-cols-2 gap-4">
@@ -132,6 +220,7 @@ export default function AdminProducts({ products, onRefresh }: { products: Produ
                     <SelectItem value="tarot">Tarot</SelectItem>
                     <SelectItem value="numerologia">Numerologia</SelectItem>
                     <SelectItem value="astrologia">Astrologia</SelectItem>
+                    <SelectItem value="curso">Curso</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -154,7 +243,6 @@ export default function AdminProducts({ products, onRefresh }: { products: Produ
             </div>
             <div><Label>Descrição Curta</Label><Input value={form.short_description || ""} onChange={(e) => setForm({ ...form, short_description: e.target.value })} /></div>
             <div><Label>Descrição</Label><Textarea rows={3} value={form.description || ""} onChange={(e) => setForm({ ...form, description: e.target.value })} /></div>
-            <div><Label>URL da Imagem</Label><Input value={form.image_url || ""} onChange={(e) => setForm({ ...form, image_url: e.target.value })} /></div>
             <div className="flex items-center gap-6">
               <div className="flex items-center gap-2"><Switch checked={form.is_active} onCheckedChange={(v) => setForm({ ...form, is_active: v })} /><Label>Ativo</Label></div>
               <div className="flex items-center gap-2"><Switch checked={form.is_featured} onCheckedChange={(v) => setForm({ ...form, is_featured: v })} /><Label>Destaque</Label></div>
