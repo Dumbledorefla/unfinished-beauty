@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   LayoutDashboard, Users, ShoppingBag, Star, Calendar,
-  BookOpen, Settings, Shield
+  BookOpen, Settings, Shield, Bug
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -17,6 +17,7 @@ import AdminUsers from "@/components/admin/AdminUsers";
 import AdminOrders from "@/components/admin/AdminOrders";
 import AdminConsultations from "@/components/admin/AdminConsultations";
 import AdminSettings from "@/components/admin/AdminSettings";
+import AdminDebug from "@/components/admin/AdminDebug";
 
 export default function Admin() {
   const { isAuthenticated, isLoading, isAdmin } = useAuth();
@@ -105,6 +106,7 @@ export default function Admin() {
             <TabsTrigger value="consultations"><Calendar className="w-4 h-4 mr-1" />Consultas</TabsTrigger>
             <TabsTrigger value="courses"><BookOpen className="w-4 h-4 mr-1" />Cursos</TabsTrigger>
             <TabsTrigger value="settings"><Settings className="w-4 h-4 mr-1" />Config</TabsTrigger>
+            <TabsTrigger value="debug"><Bug className="w-4 h-4 mr-1" />Debug</TabsTrigger>
           </TabsList>
 
           <TabsContent value="dashboard">
@@ -125,6 +127,7 @@ export default function Admin() {
           <TabsContent value="consultations"><AdminConsultations consultations={consultations} /></TabsContent>
           <TabsContent value="courses"><AdminCourses courses={courses} onRefresh={loadData} /></TabsContent>
           <TabsContent value="settings"><AdminSettings settings={siteSettings} onRefresh={loadData} /></TabsContent>
+          <TabsContent value="debug"><AdminDebug /></TabsContent>
         </Tabs>
       </div>
     </div>
