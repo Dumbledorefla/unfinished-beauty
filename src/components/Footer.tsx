@@ -13,7 +13,7 @@ export default function Footer() {
   return (
     <footer className="relative z-10 border-t border-border/20 bg-secondary/30 backdrop-blur-md">
       <div className="container mx-auto px-4 py-12">
-        <div className="grid md:grid-cols-4 gap-8 mb-10">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 mb-10">
           {/* Brand */}
           <div>
             <Link to="/" className="flex items-center gap-2 mb-4">

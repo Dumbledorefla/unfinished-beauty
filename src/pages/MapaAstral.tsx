@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import DateInputBR from "@/components/DateInputBR";
 import Header from "@/components/Header";
 import FreemiumPaywall from "@/components/FreemiumPaywall";
 import { supabase } from "@/integrations/supabase/client";
@@ -103,7 +104,7 @@ export default function MapaAstral() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <Label htmlFor="birthDate" className="text-foreground/80">Data de nascimento</Label>
-                    <Input id="birthDate" type="date" value={birthDate} onChange={(e) => setBirthDate(e.target.value)} className="bg-background/50 border-primary/20" />
+                    <DateInputBR id="birthDate" value={birthDate} onChange={setBirthDate} className="bg-background/50 border-primary/20" />
                   </div>
                   <div>
                     <Label htmlFor="birthTime" className="text-foreground/80">Hora de nascimento</Label>

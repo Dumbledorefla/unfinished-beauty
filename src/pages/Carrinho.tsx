@@ -39,6 +39,16 @@ export default function Carrinho() {
                     Ver Produtos
                   </Button>
                 </Link>
+                <div className="mt-8 grid sm:grid-cols-2 gap-4 max-w-lg mx-auto text-left">
+                  <Link to="/tarot/dia" className="p-4 rounded-xl bg-secondary/40 border border-border/20 hover:border-primary/30 transition-all">
+                    <p className="font-semibold text-foreground text-sm">🔮 Tarot do Dia</p>
+                    <p className="text-xs text-muted-foreground">Tire sua carta grátis</p>
+                  </Link>
+                  <Link to="/planos" className="p-4 rounded-xl bg-secondary/40 border border-border/20 hover:border-primary/30 transition-all">
+                    <p className="font-semibold text-foreground text-sm">⭐ Planos Premium</p>
+                    <p className="text-xs text-muted-foreground">Leituras ilimitadas</p>
+                  </Link>
+                </div>
               </CardContent>
             </Card>
           </motion.div>
