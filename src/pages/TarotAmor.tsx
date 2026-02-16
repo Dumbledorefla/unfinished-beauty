@@ -21,7 +21,7 @@ import { useStreak } from "@/hooks/useStreak";
 const positions = ["Passado", "Presente", "Futuro"];
 
 export default function TarotAmor() {
-  usePageSEO({ title: "Tarot do Amor — Leitura de 3 Cartas Sobre Sua Vida Amorosa", description: "Descubra o que as cartas revelam sobre o passado, presente e futuro do seu amor. Leitura gratuita com IA personalizada.", path: "/tarot/amor" });
+  usePageSEO({ title: "Tarot do Amor — Leitura de 3 Cartas Sobre Sua Vida Amorosa", description: "Descubra o que as cartas revelam sobre o passado, presente e futuro do seu amor. Leitura gratuita e personalizada.", path: "/tarot/amor" });
   useStructuredData([
     { type: "service", name: "Tarot do Amor", description: "Descubra o que as cartas revelam sobre o passado, presente e futuro do seu amor.", url: `${window.location.origin}/tarot/amor` },
     { type: "breadcrumb", items: [{ name: "Início", url: window.location.origin }, { name: "Tarot do Amor", url: `${window.location.origin}/tarot/amor` }] },

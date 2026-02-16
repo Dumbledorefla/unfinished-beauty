@@ -17,7 +17,7 @@ import heroBg from "@/assets/hero-bg.jpg";
 export default function Compatibilidade() {
   usePageSEO({
     title: "Compatibilidade Amorosa — Descubra a Sintonia Entre Vocês",
-    description: "Compare dois signos ou datas de nascimento e descubra a compatibilidade amorosa entre vocês. Análise gratuita com inteligência artificial.",
+    description: "Compare dois signos ou datas de nascimento e descubra a compatibilidade amorosa entre vocês. Análise gratuita e personalizada.",
     path: "/compatibilidade",
   });
 
@@ -135,7 +135,7 @@ export default function Compatibilidade() {
               <Card className="bg-card/60 backdrop-blur-md border-pink-500/10 p-5">
                 <h3 className="font-semibold text-foreground mb-2 text-sm">💕 Como funciona a análise?</h3>
                 <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                  Nossa inteligência artificial analisa os signos solares de cada pessoa, seus elementos (Fogo, Terra, Ar, Água) e as energias astrológicas para revelar a compatibilidade emocional, intelectual e física entre vocês.
+                  Nossa análise considera os signos solares de cada pessoa, seus elementos (Fogo, Terra, Ar, Água) e as energias astrológicas para revelar a compatibilidade emocional, intelectual e física entre vocês.
                 </p>
               </Card>
               <Card className="bg-card/60 backdrop-blur-md border-pink-500/10 p-5">

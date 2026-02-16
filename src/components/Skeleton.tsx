@@ -88,7 +88,7 @@ export function ProductCardSkeleton() {
   );
 }
 
-/** Skeleton para leitura de tarot (enquanto IA gera) */
+/** Skeleton para leitura de tarot (enquanto a interpretação é gerada) */
 export function TarotReadingSkeleton() {
   return (
     <motion.div

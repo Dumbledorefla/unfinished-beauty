@@ -66,7 +66,7 @@ export default function Horoscopo() {
             <Card className="bg-card/60 backdrop-blur-md border-primary/10 p-6">
               <h3 className="font-semibold text-foreground mb-3">Como funciona o Horóscopo Personalizado?</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                Diferente dos horóscopos genéricos de revista, nosso horóscopo usa inteligência artificial para criar uma previsão única baseada no seu signo solar, data de nascimento e o momento astrológico atual. Cada leitura é exclusiva para você.
+                Diferente dos horóscopos genéricos de revista, nosso sistema cria uma previsão única baseada no seu signo solar, data de nascimento e o momento astrológico atual. Cada leitura é exclusiva para você.
               </p>
             </Card>
             <Card className="bg-card/60 backdrop-blur-md border-primary/10 p-6">

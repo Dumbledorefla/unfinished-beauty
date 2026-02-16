@@ -18,9 +18,9 @@ import { useStructuredData } from "@/hooks/useStructuredData";
 import { useStreak } from "@/hooks/useStreak";
 
 export default function TarotDia() {
-  usePageSEO({ title: "Tarot do Dia Grátis — Tire Sua Carta e Receba uma Mensagem Personalizada", description: "Tire sua carta do dia gratuitamente e receba uma interpretação feita por inteligência artificial, personalizada com seu nome e data de nascimento.", path: "/tarot/dia" });
+  usePageSEO({ title: "Tarot do Dia Grátis — Tire Sua Carta e Receba uma Mensagem Personalizada", description: "Tire sua carta do dia gratuitamente e receba uma interpretação personalizada com seu nome e data de nascimento.", path: "/tarot/dia" });
   useStructuredData([
-    { type: "service", name: "Tarot do Dia Grátis", description: "Tire sua carta do dia gratuitamente e receba uma interpretação personalizada por inteligência artificial.", url: `${window.location.origin}/tarot/dia` },
+    { type: "service", name: "Tarot do Dia Grátis", description: "Tire sua carta do dia gratuitamente e receba uma interpretação personalizada para o seu momento.", url: `${window.location.origin}/tarot/dia` },
     { type: "breadcrumb", items: [{ name: "Início", url: window.location.origin }, { name: "Tarot do Dia", url: `${window.location.origin}/tarot/dia` }] },
   ]);
   const { restoredState, requireAuth, clearRestored, user } = useOracleAuth({ methodId: "tarot-dia", returnTo: "/tarot/dia" });
