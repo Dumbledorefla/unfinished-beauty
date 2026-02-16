@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CartProvider } from "./contexts/CartContext";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { ThemeProvider } from "next-themes";
+import InstallPrompt from "@/components/InstallPrompt";
 
 // Lazy-loaded pages
 const Index = lazy(() => import("./pages/Index"));
@@ -31,6 +32,7 @@ const TaromantePainel = lazy(() => import("./pages/TaromantePainel"));
 const MapaAstral = lazy(() => import("./pages/MapaAstral"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const Afiliado = lazy(() => import("./pages/Afiliado"));
+const ChatAoVivo = lazy(() => import("./pages/ChatAoVivo"));
 
 function PageLoader() {
   return (
@@ -65,6 +67,7 @@ const App = () => (
             <Toaster />
             <Sonner />
             <BrowserRouter>
+              <InstallPrompt />
               <Suspense fallback={<PageLoader />}>
                 <Routes>
                   <Route path="/" element={<Index />} />
@@ -88,6 +91,7 @@ const App = () => (
                   <Route path="/taromante-painel" element={<TaromantePainel />} />
                   <Route path="/mapa-astral" element={<MapaAstral />} />
                   <Route path="/afiliado" element={<Afiliado />} />
+                  <Route path="/chat-ao-vivo" element={<ChatAoVivo />} />
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                   <Route path="*" element={<NotFound />} />
                 </Routes>

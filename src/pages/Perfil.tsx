@@ -12,6 +12,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
 import { getCalendarAuthUrl, getCalendarStatus, disconnectCalendar } from "@/lib/google-calendar";
 import ReadingHistory from "@/components/ReadingHistory";
+import TwoFactorSetup from "@/components/TwoFactorSetup";
 import heroBg from "@/assets/hero-bg.jpg";
 
 export default function Perfil() {
@@ -160,6 +161,8 @@ export default function Perfil() {
               )}
             </CardContent>
           </Card>
+
+          <TwoFactorSetup />
 
           <ReadingHistory readings={readings} />
         </motion.div>
