@@ -8,6 +8,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Header from "@/components/Header";
 import { usePageSEO } from "@/hooks/usePageSEO";
+import { useStructuredData } from "@/hooks/useStructuredData";
+import { useTrackReferral } from "@/hooks/useAffiliate";
 import heroBg from "@/assets/hero-bg.jpg";
 import featuresBg from "@/assets/features-bg.jpg";
 import OnboardingModal from "@/components/OnboardingModal";
@@ -61,6 +63,22 @@ export default function Home() {
     title: "Tarot Online Grátis, Numerologia e Horóscopo",
     description: "Tarot online grátis com IA, Mapa Numerológico, Horóscopo do Dia e Mapa Astral. Descubra seu destino no Chave do Oráculo.",
     path: "/",
+  });
+
+  useTrackReferral();
+
+  useStructuredData({
+    type: "WebSite",
+    data: {
+      name: "Chave do Oráculo",
+      url: "https://chavedooraculo.com.br",
+      description: "Tarot online, numerologia, horóscopo e mapa astral com interpretação por IA.",
+      potentialAction: {
+        "@type": "SearchAction",
+        target: "https://chavedooraculo.com.br/busca?q={search_term_string}",
+        "query-input": "required name=search_term_string",
+      },
+    },
   });
 
   return (

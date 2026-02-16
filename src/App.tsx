@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CartProvider } from "./contexts/CartContext";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
+import { ThemeProvider } from "next-themes";
 
 // Lazy-loaded pages
 const Index = lazy(() => import("./pages/Index"));
@@ -29,6 +30,7 @@ const TaromanteDetalhe = lazy(() => import("./pages/TaromanteDetalhe"));
 const TaromantePainel = lazy(() => import("./pages/TaromantePainel"));
 const MapaAstral = lazy(() => import("./pages/MapaAstral"));
 const NotFound = lazy(() => import("./pages/NotFound"));
+const Afiliado = lazy(() => import("./pages/Afiliado"));
 
 function PageLoader() {
   return (
@@ -55,44 +57,47 @@ const queryClient = new QueryClient({
 });
 
 const App = () => (
-  <ErrorBoundary>
-    <QueryClientProvider client={queryClient}>
-      <CartProvider>
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-            <Suspense fallback={<PageLoader />}>
-              <Routes>
-                <Route path="/" element={<Index />} />
-                <Route path="/auth" element={<Auth />} />
-                <Route path="/tarot/dia" element={<TarotDia />} />
-                <Route path="/tarot/amor" element={<TarotAmor />} />
-                <Route path="/tarot/completo" element={<TarotCompleto />} />
-                <Route path="/numerologia" element={<Numerologia />} />
-                <Route path="/horoscopo" element={<Horoscopo />} />
-                <Route path="/consultas" element={<Consultas />} />
-                <Route path="/cursos" element={<Cursos />} />
-                <Route path="/produtos" element={<Produtos />} />
-                <Route path="/carrinho" element={<Carrinho />} />
-                <Route path="/checkout" element={<Checkout />} />
-                <Route path="/perfil" element={<Perfil />} />
-                <Route path="/admin" element={<Admin />} />
-                <Route path="/reset-password" element={<ResetPassword />} />
-                <Route path="/produto/:slug" element={<ProdutoDetalhe />} />
-                <Route path="/curso/:slug" element={<CursoDetalhe />} />
-                <Route path="/taromante/:slug" element={<TaromanteDetalhe />} />
-                <Route path="/taromante-painel" element={<TaromantePainel />} />
-                <Route path="/mapa-astral" element={<MapaAstral />} />
-                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </Suspense>
-          </BrowserRouter>
-        </TooltipProvider>
-      </CartProvider>
-    </QueryClientProvider>
-  </ErrorBoundary>
+  <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+    <ErrorBoundary>
+      <QueryClientProvider client={queryClient}>
+        <CartProvider>
+          <TooltipProvider>
+            <Toaster />
+            <Sonner />
+            <BrowserRouter>
+              <Suspense fallback={<PageLoader />}>
+                <Routes>
+                  <Route path="/" element={<Index />} />
+                  <Route path="/auth" element={<Auth />} />
+                  <Route path="/tarot/dia" element={<TarotDia />} />
+                  <Route path="/tarot/amor" element={<TarotAmor />} />
+                  <Route path="/tarot/completo" element={<TarotCompleto />} />
+                  <Route path="/numerologia" element={<Numerologia />} />
+                  <Route path="/horoscopo" element={<Horoscopo />} />
+                  <Route path="/consultas" element={<Consultas />} />
+                  <Route path="/cursos" element={<Cursos />} />
+                  <Route path="/produtos" element={<Produtos />} />
+                  <Route path="/carrinho" element={<Carrinho />} />
+                  <Route path="/checkout" element={<Checkout />} />
+                  <Route path="/perfil" element={<Perfil />} />
+                  <Route path="/admin" element={<Admin />} />
+                  <Route path="/reset-password" element={<ResetPassword />} />
+                  <Route path="/produto/:slug" element={<ProdutoDetalhe />} />
+                  <Route path="/curso/:slug" element={<CursoDetalhe />} />
+                  <Route path="/taromante/:slug" element={<TaromanteDetalhe />} />
+                  <Route path="/taromante-painel" element={<TaromantePainel />} />
+                  <Route path="/mapa-astral" element={<MapaAstral />} />
+                  <Route path="/afiliado" element={<Afiliado />} />
+                  {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </Suspense>
+            </BrowserRouter>
+          </TooltipProvider>
+        </CartProvider>
+      </QueryClientProvider>
+    </ErrorBoundary>
+  </ThemeProvider>
 );
 
 export default App;
