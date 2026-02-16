@@ -7,6 +7,9 @@ import { Card, CardContent } from "@/components/ui/card";
 import OracleLayout from "@/components/OracleLayout";
 import UserDataForm from "@/components/UserDataForm";
 import FreemiumPaywall from "@/components/FreemiumPaywall";
+import PersonaSelector, { PERSONAS } from "@/components/PersonaSelector";
+import SoundscapePlayer from "@/components/SoundscapePlayer";
+import SaveToJournal from "@/components/SaveToJournal";
 import { drawCards, TarotCard } from "@/lib/tarot-cards";
 import { supabase } from "@/integrations/supabase/client";
 import { useOracleAuth } from "@/hooks/useOracleAuth";
@@ -27,6 +30,7 @@ export default function TarotCompleto() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [lastData, setLastData] = useState<{ userName: string; birthDate: string } | null>(null);
+  const [persona, setPersona] = useState("");
 
   useEffect(() => {
     if (restoredState) {
@@ -50,9 +54,15 @@ export default function TarotCompleto() {
     const drawn = preDrawn || drawCards(6);
     setCards(drawn);
 
+    const selectedPersona = PERSONAS.find((p) => p.id === persona);
+
     try {
       const { data: result } = await supabase.functions.invoke("oracle-interpret", {
-        body: { type: "tarot-completo", data: { userName: data.userName, birthDate: data.birthDate, cards: drawn } },
+        body: {
+          type: "tarot-completo",
+          data: { userName: data.userName, birthDate: data.birthDate, cards: drawn },
+          persona: selectedPersona?.systemPrompt || "",
+        },
       });
       setInterpretation(result?.interpretation || "Interpretação indisponível.");
       if (user) {
@@ -72,9 +82,13 @@ export default function TarotCompleto() {
 
   return (
     <OracleLayout title="Tarot Completo" icon={<Eye className="w-5 h-5" />}>
+      {step !== "form" && <SoundscapePlayer />}
       <AnimatePresence mode="wait">
         {step === "form" && (
-          <UserDataForm key="form" title="Leitura Completa de Tarot" description="6 cartas, uma história completa. Para quando você precisa de respostas profundas sobre qualquer área da vida." onSubmit={handleStart} loading={loading} />
+          <motion.div key="form" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-6">
+            <PersonaSelector selected={persona} onSelect={setPersona} />
+            <UserDataForm title="Leitura Completa de Tarot" description="6 cartas, uma história completa. Para quando você precisa de respostas profundas sobre qualquer área da vida." onSubmit={handleStart} loading={loading} />
+          </motion.div>
         )}
         {step === "drawing" && (
           <motion.div key="drawing" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="text-center py-16">
@@ -121,7 +135,12 @@ export default function TarotCompleto() {
                 />
               </CardContent>
             </Card>
-            {hasAccess && <ShareButtons text={interpretation} title="Tarot Completo" />}
+            {hasAccess && (
+              <div className="flex flex-wrap gap-3 justify-center">
+                <ShareButtons text={interpretation} title="Tarot Completo" />
+                <SaveToJournal readingType="Tarot Completo" cards={cards} interpretation={interpretation} />
+              </div>
+            )}
             <div className="text-center">
               <Button onClick={() => { setStep("form"); setCards([]); setInterpretation(""); setError(false); }} variant="outline" className="border-primary/30">
                 <RotateCcw className="w-4 h-4 mr-2" /> Nova Leitura

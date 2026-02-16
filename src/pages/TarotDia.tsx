@@ -7,6 +7,9 @@ import { Card, CardContent } from "@/components/ui/card";
 import ReactMarkdown from "react-markdown";
 import OracleLayout from "@/components/OracleLayout";
 import UserDataForm from "@/components/UserDataForm";
+import PersonaSelector, { PERSONAS } from "@/components/PersonaSelector";
+import SoundscapePlayer from "@/components/SoundscapePlayer";
+import SaveToJournal from "@/components/SaveToJournal";
 import { drawCards, TarotCard } from "@/lib/tarot-cards";
 import { supabase } from "@/integrations/supabase/client";
 import { useOracleAuth } from "@/hooks/useOracleAuth";
@@ -28,8 +31,8 @@ export default function TarotDia() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [lastData, setLastData] = useState<{ userName: string; birthDate: string } | null>(null);
+  const [persona, setPersona] = useState("");
 
-  // Restore pending state after login
   useEffect(() => {
     if (restoredState) {
       const { userData, methodState } = restoredState;
@@ -54,9 +57,15 @@ export default function TarotDia() {
     const drawnCard = preDrawnCard || drawCards(1)[0];
     setCard(drawnCard);
 
+    const selectedPersona = PERSONAS.find((p) => p.id === persona);
+
     try {
       const { data: result } = await supabase.functions.invoke("oracle-interpret", {
-        body: { type: "tarot-dia", data: { userName: data.userName, birthDate: data.birthDate, card: drawnCard } },
+        body: {
+          type: "tarot-dia",
+          data: { userName: data.userName, birthDate: data.birthDate, card: drawnCard },
+          persona: selectedPersona?.systemPrompt || "",
+        },
       });
       setInterpretation(result?.interpretation || "A interpretação não está disponível no momento.");
       if (user) {
@@ -85,9 +94,13 @@ export default function TarotDia() {
 
   return (
     <OracleLayout title="Tarot do Dia" icon={<Star className="w-5 h-5" />}>
+      {step !== "form" && <SoundscapePlayer />}
       <AnimatePresence mode="wait">
         {step === "form" && (
-          <UserDataForm key="form" title="Sua Carta do Dia" description="Seu nome e data de nascimento tornam a leitura única — feita só para você." onSubmit={handleStart} loading={loading} />
+          <motion.div key="form" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-6">
+            <PersonaSelector selected={persona} onSelect={setPersona} />
+            <UserDataForm title="Sua Carta do Dia" description="Seu nome e data de nascimento tornam a leitura única — feita só para você." onSubmit={handleStart} loading={loading} />
+          </motion.div>
         )}
         {step === "drawing" && (
           <motion.div key="drawing" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="text-center py-16">
@@ -126,7 +139,10 @@ export default function TarotDia() {
                 <div className="oracle-prose"><ReactMarkdown>{interpretation}</ReactMarkdown></div>
               </CardContent>
             </Card>
-            <ShareButtons text={interpretation} title={`Tarot do Dia - ${card.name}`} />
+            <div className="flex flex-wrap gap-3 justify-center">
+              <ShareButtons text={interpretation} title={`Tarot do Dia - ${card.name}`} />
+              <SaveToJournal readingType="Tarot do Dia" cards={[card]} interpretation={interpretation} />
+            </div>
             <div className="text-center pt-2">
               <Button onClick={reset} variant="outline" className="border-primary/20 text-foreground/70 hover:text-primary hover:bg-primary/10">
                 <RotateCcw className="w-4 h-4 mr-2" /> Nova Leitura
