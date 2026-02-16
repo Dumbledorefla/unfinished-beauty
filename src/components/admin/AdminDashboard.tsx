@@ -76,22 +76,22 @@ export default function AdminDashboard() {
     setLoading(false);
   };
 
-  if (loading) return <p className="text-center text-foreground/50 py-8">Carregando dashboard...</p>;
+  if (loading) return <p className="text-center text-slate-400 py-8">Carregando dashboard...</p>;
 
   return (
     <div className="space-y-8">
       {/* Revenue Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
         <StatCard icon={DollarSign} label="Receita Total" value={stats.totalRevenue} color="bg-emerald-500/20 text-emerald-400" prefix="R$" />
-        <StatCard icon={TrendingUp} label="Receita do Mês" value={stats.monthRevenue} color="bg-primary/20 text-primary" prefix="R$" />
+        <StatCard icon={TrendingUp} label="Receita do Mês" value={stats.monthRevenue} color="bg-amber-500/15 text-amber-400" prefix="R$" />
         <StatCard icon={Clock} label="Pagamentos Pendentes" value={stats.pendingPayments} color="bg-orange-500/20 text-orange-400" />
         <StatCard icon={Calendar} label="Consultas Hoje" value={stats.todayConsultations} color="bg-blue-500/20 text-blue-400" />
       </div>
 
       {/* General Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-3 gap-5">
-        <StatCard icon={Users} label="Usuários" value={stats.users} color="bg-primary/20 text-primary" />
-        <StatCard icon={Star} label="Leituras" value={stats.readings} color="bg-purple-500/20 text-purple-400" />
+        <StatCard icon={Users} label="Usuários" value={stats.users} color="bg-amber-500/15 text-amber-400" />
+        <StatCard icon={Star} label="Leituras" value={stats.readings} color="bg-violet-500/15 text-violet-400" />
         <StatCard icon={ShoppingBag} label="Produtos" value={stats.products} color="bg-emerald-500/20 text-emerald-400" />
         <StatCard icon={ShoppingBag} label="Pedidos" value={stats.orders} color="bg-orange-500/20 text-orange-400" />
         <StatCard icon={BookOpen} label="Cursos" value={stats.courses} color="bg-blue-500/20 text-blue-400" />
@@ -100,17 +100,17 @@ export default function AdminDashboard() {
 
       {/* Top Products */}
       {stats.topProducts.length > 0 && (
-        <Card className="glass-card">
-          <CardHeader><CardTitle className="text-base">Produtos Mais Vendidos</CardTitle></CardHeader>
+        <Card className="bg-slate-900 border border-slate-800 rounded-xl">
+          <CardHeader><CardTitle className="text-base text-slate-200">Produtos Mais Vendidos</CardTitle></CardHeader>
           <CardContent>
             <div className="space-y-3">
               {stats.topProducts.map((p, i) => (
-                <div key={p.name} className="flex items-center justify-between p-3 rounded-lg bg-secondary/30">
+                <div key={p.name} className="flex items-center justify-between p-3 rounded-lg bg-slate-800/50">
                   <div className="flex items-center gap-3">
-                    <span className="w-6 h-6 rounded-full bg-primary/20 text-primary text-xs flex items-center justify-center font-bold">{i + 1}</span>
-                    <span className="text-sm text-foreground">{p.name}</span>
+                    <span className="w-6 h-6 rounded-full bg-amber-500/15 text-amber-400 text-xs flex items-center justify-center font-bold">{i + 1}</span>
+                    <span className="text-sm text-slate-200">{p.name}</span>
                   </div>
-                  <span className="text-sm font-bold text-primary">{p.count} vendas</span>
+                  <span className="text-sm font-bold text-amber-400">{p.count} vendas</span>
                 </div>
               ))}
             </div>

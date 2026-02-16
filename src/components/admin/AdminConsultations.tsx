@@ -11,10 +11,10 @@ const statusColors: Record<string, string> = {
 
 export default function AdminConsultations({ consultations }: { consultations: any[] }) {
   return (
-    <Card className="bg-card/80 border-primary/20">
-      <CardHeader><CardTitle>Consultas ({consultations.length})</CardTitle></CardHeader>
+    <Card className="bg-slate-900 border border-slate-800 rounded-xl">
+      <CardHeader><CardTitle className="text-slate-200">Consultas ({consultations.length})</CardTitle></CardHeader>
       <CardContent>
-        {consultations.length === 0 ? <p className="text-foreground/50 text-center py-8">Nenhuma consulta ainda.</p> : (
+        {consultations.length === 0 ? <p className="text-slate-400 text-center py-8">Nenhuma consulta ainda.</p> : (
           <Table>
             <TableHeader>
               <TableRow><TableHead>Tipo</TableHead><TableHead>Status</TableHead><TableHead>Preço</TableHead><TableHead>Data</TableHead></TableRow>

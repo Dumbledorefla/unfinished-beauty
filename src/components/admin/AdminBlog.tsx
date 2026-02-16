@@ -195,7 +195,7 @@ export default function AdminBlog() {
 
       <div className="space-y-3">
         {filtered.map((post) => (
-          <Card key={post.id} className="bg-card/80 border-primary/10">
+          <Card key={post.id} className="bg-slate-900 border border-slate-800 rounded-xl">
             <CardContent className="p-4 flex items-center justify-between">
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-1">

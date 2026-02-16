@@ -57,18 +57,18 @@ export default function AdminNewsletter() {
   return (
     <div className="space-y-6">
       <div className="grid grid-cols-2 gap-4">
-        <Card className="bg-card/80 border-primary/10">
+        <Card className="bg-slate-900 border border-slate-800 rounded-xl">
           <CardContent className="p-4 text-center">
-            <Users className="w-6 h-6 text-primary mx-auto mb-2" />
-            <p className="text-2xl font-bold text-foreground">{stats.total}</p>
-            <p className="text-xs text-muted-foreground">Total de inscritos</p>
+            <Users className="w-6 h-6 text-amber-400 mx-auto mb-2" />
+            <p className="text-2xl font-bold text-slate-100">{stats.total}</p>
+            <p className="text-xs text-slate-400">Total de inscritos</p>
           </CardContent>
         </Card>
-        <Card className="bg-card/80 border-primary/10">
+        <Card className="bg-slate-900 border border-slate-800 rounded-xl">
           <CardContent className="p-4 text-center">
             <Mail className="w-6 h-6 text-emerald-400 mx-auto mb-2" />
-            <p className="text-2xl font-bold text-foreground">{stats.active}</p>
-            <p className="text-xs text-muted-foreground">Ativos</p>
+            <p className="text-2xl font-bold text-slate-100">{stats.active}</p>
+            <p className="text-xs text-slate-400">Ativos</p>
           </CardContent>
         </Card>
       </div>
@@ -81,7 +81,7 @@ export default function AdminNewsletter() {
 
       <div className="space-y-2">
         {subscribers.map((sub) => (
-          <Card key={sub.id} className={`bg-card/80 border-primary/10 ${!sub.is_active ? "opacity-50" : ""}`}>
+          <Card key={sub.id} className={`bg-slate-900 border border-slate-800 rounded-xl ${!sub.is_active ? "opacity-50" : ""}`}>
             <CardContent className="p-3 flex items-center justify-between">
               <div>
                 <p className="font-medium text-foreground text-sm">{sub.email}</p>

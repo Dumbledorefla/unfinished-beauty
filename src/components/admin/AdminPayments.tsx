@@ -154,9 +154,9 @@ export default function AdminPayments({ onRefresh }: { onRefresh: () => void }) 
   };
 
   return (
-    <Card className="bg-card/80 border-primary/20">
+    <Card className="bg-slate-900 border border-slate-800 rounded-xl">
       <CardHeader className="flex flex-row items-center justify-between flex-wrap gap-4">
-        <CardTitle>Pagamentos</CardTitle>
+        <CardTitle className="text-slate-200">Pagamentos</CardTitle>
         <Select value={filter} onValueChange={setFilter}>
           <SelectTrigger className="w-[200px]"><SelectValue placeholder="Filtrar por status" /></SelectTrigger>
           <SelectContent>
@@ -170,9 +170,9 @@ export default function AdminPayments({ onRefresh }: { onRefresh: () => void }) 
       </CardHeader>
       <CardContent>
         {loading ? (
-          <p className="text-center text-foreground/50 py-8">Carregando...</p>
+          <p className="text-center text-slate-400 py-8">Carregando...</p>
         ) : filtered.length === 0 ? (
-          <p className="text-center text-foreground/50 py-8">Nenhum pedido encontrado.</p>
+          <p className="text-center text-slate-400 py-8">Nenhum pedido encontrado.</p>
         ) : (
           <Table>
             <TableHeader>
@@ -230,7 +230,7 @@ export default function AdminPayments({ onRefresh }: { onRefresh: () => void }) 
                 <div><span className="text-foreground/60">ID:</span> <span className="font-mono">{selectedOrder.id.slice(0, 12)}</span></div>
                 <div><span className="text-foreground/60">Status:</span> <Badge className={statusColors[selectedOrder.status] || ""}>{statusLabels[selectedOrder.status] || selectedOrder.status}</Badge></div>
                 <div><span className="text-foreground/60">Usuário:</span> {selectedOrder.profile?.display_name || selectedOrder.profile?.email}</div>
-                <div><span className="text-foreground/60">Valor:</span> <span className="font-bold text-primary">R$ {Number(selectedOrder.total_amount).toFixed(2)}</span></div>
+                <div><span className="text-foreground/60">Valor:</span> <span className="font-bold text-amber-400">R$ {Number(selectedOrder.total_amount).toFixed(2)}</span></div>
               </div>
 
               {selectedOrder.items && selectedOrder.items.length > 0 && (
@@ -238,7 +238,7 @@ export default function AdminPayments({ onRefresh }: { onRefresh: () => void }) 
                   <Label className="text-foreground/60 text-xs">Itens do pedido</Label>
                   <div className="mt-1 space-y-1">
                     {selectedOrder.items.map((item, i) => (
-                      <div key={i} className="flex justify-between text-sm p-2 rounded bg-secondary/30">
+                      <div key={i} className="flex justify-between text-sm p-2 rounded bg-slate-800/50">
                         <span>{item.product_name} x{item.quantity}</span>
                         <span>R$ {Number(item.price * item.quantity).toFixed(2)}</span>
                       </div>
@@ -250,7 +250,7 @@ export default function AdminPayments({ onRefresh }: { onRefresh: () => void }) 
               {proofUrl && (
                 <div>
                   <Label className="text-foreground/60 text-xs">Comprovante</Label>
-                  <div className="mt-1 rounded-lg overflow-hidden border border-primary/20">
+                  <div className="mt-1 rounded-lg overflow-hidden border border-slate-700">
                     <img src={proofUrl} alt="Comprovante" className="w-full max-h-64 object-contain bg-black/20" />
                   </div>
                   <a href={proofUrl} target="_blank" rel="noopener noreferrer">

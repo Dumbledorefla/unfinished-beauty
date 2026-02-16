@@ -102,13 +102,13 @@ export default function AdminCourses({ courses, onRefresh }: { courses: Course[]
   };
 
   return (
-    <Card className="bg-card/80 border-primary/20">
+    <Card className="bg-slate-900 border border-slate-800 rounded-xl">
       <CardHeader className="flex flex-row items-center justify-between">
-        <CardTitle>Cursos ({courses.length})</CardTitle>
+        <CardTitle className="text-slate-200">Cursos ({courses.length})</CardTitle>
         <Button size="sm" onClick={openNew}><Plus className="w-4 h-4 mr-1" />Novo Curso</Button>
       </CardHeader>
       <CardContent>
-        {courses.length === 0 ? <p className="text-foreground/50 text-center py-8">Nenhum curso cadastrado.</p> : (
+        {courses.length === 0 ? <p className="text-slate-400 text-center py-8">Nenhum curso cadastrado.</p> : (
           <Table>
             <TableHeader>
               <TableRow><TableHead>Título</TableHead><TableHead>Categoria</TableHead><TableHead>Preço</TableHead><TableHead>Ativo</TableHead><TableHead className="w-24">Ações</TableHead></TableRow>
