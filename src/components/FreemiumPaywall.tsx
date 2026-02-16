@@ -80,7 +80,10 @@ export default function FreemiumPaywall({
                 Sua leitura completa está pronta
               </h3>
               <p className="text-muted-foreground text-sm max-w-md mx-auto">
-                As cartas já foram tiradas. Veja o que elas revelam sobre você em <strong className="text-foreground">{productName}</strong> — com insights detalhados e orientações personalizadas.
+                {oracleType === "tarot-completo" 
+                  ? "6 cartas já foram tiradas especialmente para você. A leitura completa inclui análise detalhada de cada carta, conexões entre elas e orientações práticas para os próximos dias."
+                  : `As cartas já foram tiradas. Veja o que elas revelam sobre você em ${productName} — com insights detalhados e orientações personalizadas.`
+                }
               </p>
             </div>
             <div className="flex items-baseline justify-center gap-1">

@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Sun, RotateCcw } from "lucide-react";
+import { Link } from "react-router-dom";
 import ShareButtons from "@/components/ShareButtons";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Link } from "react-router-dom";
 import OracleLayout from "@/components/OracleLayout";
 import UserDataForm from "@/components/UserDataForm";
 import FreemiumPaywall from "@/components/FreemiumPaywall";
@@ -71,13 +71,13 @@ export default function Horoscopo() {
       extraContent={
         step === "form" ? (
           <div className="space-y-6 mt-8">
-             <Card className="bg-card/60 backdrop-blur-md border-white/8 p-6">
+            <Card className="bg-card/60 backdrop-blur-md border-white/8 p-6">
               <h3 className="font-semibold text-foreground mb-3">Como funciona o Horóscopo Personalizado?</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 Diferente dos horóscopos genéricos de revista, nosso sistema cria uma previsão única baseada no seu signo solar, data de nascimento e o momento astrológico atual. Cada leitura é exclusiva para você.
               </p>
             </Card>
-             <Card className="bg-card/60 backdrop-blur-md border-white/8 p-6">
+            <Card className="bg-card/60 backdrop-blur-md border-white/8 p-6">
               <h3 className="font-semibold text-foreground mb-3">O que você vai receber</h3>
               <ul className="text-sm text-muted-foreground space-y-2">
                 <li>✨ Previsão personalizada para amor, trabalho e saúde</li>
@@ -127,7 +127,7 @@ export default function Horoscopo() {
                 <p className="text-muted-foreground text-sm mt-1">Horóscopo do dia — {new Date().toLocaleDateString("pt-BR")}</p>
               </CardContent>
             </Card>
-             <Card className="bg-card/80 backdrop-blur-md border-white/12">
+            <Card className="bg-card/80 backdrop-blur-md border-white/12">
               <CardContent className="pt-6">
                 <h3 className="font-serif text-xl font-bold text-amber-400 mb-4">☀️ O que os astros dizem para você hoje</h3>
                 <FreemiumPaywall
@@ -135,13 +135,26 @@ export default function Horoscopo() {
                   oracleType="horoscopo"
                   productName={product?.name || "Horóscopo do Dia"}
                   price={product?.price || 4.90}
-                  previewLines={product?.preview_lines || 3}
+                  previewLines={product?.preview_lines || 2}
                   hasAccess={hasAccess}
                   onPurchase={() => purchaseReading()}
                 />
               </CardContent>
             </Card>
-            {hasAccess && <ShareButtons text={interpretation} title={`Horóscopo - ${sign}`} />}
+            {hasAccess && (
+              <>
+                <ShareButtons text={interpretation} title={`Horóscopo - ${sign}`} />
+                <Card className="glass-card border-amber-500/20">
+                  <CardContent className="py-6 text-center space-y-3">
+                    <h3 className="font-serif text-lg font-bold text-foreground">Quer ir além do signo solar?</h3>
+                    <p className="text-muted-foreground text-sm">Seu Mapa Astral revela ascendente, lua, Vênus e muito mais — uma visão completa de quem você é.</p>
+                    <Link to="/mapa-astral">
+                      <Button className="bg-amber-500 text-slate-900 hover:bg-amber-400 font-semibold">Gerar meu Mapa Astral</Button>
+                    </Link>
+                  </CardContent>
+                </Card>
+              </>
+            )}
             <div className="text-center">
               <Button onClick={() => { setStep("form"); setInterpretation(""); setError(false); }} variant="outline" className="border-white/25 text-white hover:bg-white/5">
                 <RotateCcw className="w-4 h-4 mr-2" /> Nova Consulta
