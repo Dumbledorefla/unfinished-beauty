@@ -15,11 +15,13 @@ import { useFreemium } from "@/hooks/useFreemium";
 import { toast } from "@/hooks/use-toast";
 import heroBg from "@/assets/hero-bg.jpg";
 import { usePageSEO } from "@/hooks/usePageSEO";
+import { useStreak } from "@/hooks/useStreak";
 
 export default function MapaAstral() {
   usePageSEO({ title: "Mapa Astral Completo e Grátis — Ascendente, Lua e Posições Planetárias", description: "Descubra quem você é além do signo solar. Mapa Astral completo com ascendente, lua e todas as posições planetárias do momento do seu nascimento.", path: "/mapa-astral" });
   const { restoredState, requireAuth, clearRestored, isAuthenticated } = useOracleAuth({ methodId: "mapa-astral", returnTo: "/mapa-astral" });
   const { product, hasAccess, purchaseReading } = useFreemium("mapa-astral");
+  const { recordActivity } = useStreak();
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [birthDate, setBirthDate] = useState("");
@@ -62,6 +64,7 @@ export default function MapaAstral() {
       if (res.error) throw new Error(res.error.message);
       if (res.data?.error) throw new Error(res.data.error);
       setInterpretation(res.data.interpretation);
+      recordActivity();
     } catch (err: any) {
       setError(true);
       toast({ title: "Não conseguimos ler as estrelas agora. Tente novamente.", description: err.message, variant: "destructive" });

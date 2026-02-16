@@ -16,6 +16,7 @@ import { useTrackReferral } from "@/hooks/useAffiliate";
 import heroBg from "@/assets/hero-bg.jpg";
 import featuresBg from "@/assets/features-bg.jpg";
 import OnboardingModal from "@/components/OnboardingModal";
+import NewsletterSignup from "@/components/NewsletterSignup";
 
 const services = [
   {
@@ -274,6 +275,13 @@ export default function Home() {
 
       {/* Testimonials */}
       <Testimonials />
+
+      {/* Newsletter */}
+      <section className="py-12 relative z-10">
+        <div className="container mx-auto px-4 max-w-xl">
+          <NewsletterSignup source="homepage" />
+        </div>
+      </section>
 
       {/* CTA */}
       <section className="py-16 relative z-10">

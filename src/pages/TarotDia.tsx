@@ -12,6 +12,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useOracleAuth } from "@/hooks/useOracleAuth";
 import { usePageSEO } from "@/hooks/usePageSEO";
 import { useStructuredData } from "@/hooks/useStructuredData";
+import { useStreak } from "@/hooks/useStreak";
 
 export default function TarotDia() {
   usePageSEO({ title: "Tarot do Dia Grátis — Tire Sua Carta e Receba uma Mensagem Personalizada", description: "Tire sua carta do dia gratuitamente e receba uma interpretação feita por inteligência artificial, personalizada com seu nome e data de nascimento.", path: "/tarot/dia" });
@@ -20,6 +21,7 @@ export default function TarotDia() {
     { type: "breadcrumb", items: [{ name: "Início", url: window.location.origin }, { name: "Tarot do Dia", url: `${window.location.origin}/tarot/dia` }] },
   ]);
   const { restoredState, requireAuth, clearRestored, user } = useOracleAuth({ methodId: "tarot-dia", returnTo: "/tarot/dia" });
+  const { recordActivity } = useStreak();
   const [step, setStep] = useState<"form" | "drawing" | "result">("form");
   const [card, setCard] = useState<TarotCard | null>(null);
   const [interpretation, setInterpretation] = useState("");
@@ -63,6 +65,7 @@ export default function TarotDia() {
           interpretation: result?.interpretation, user_name: data.userName,
         });
       }
+      recordActivity();
       setStep("result");
     } catch {
       setError(true);

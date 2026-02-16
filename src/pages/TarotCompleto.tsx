@@ -12,6 +12,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useOracleAuth } from "@/hooks/useOracleAuth";
 import { useFreemium } from "@/hooks/useFreemium";
 import { usePageSEO } from "@/hooks/usePageSEO";
+import { useStreak } from "@/hooks/useStreak";
 
 const positions = ["Situação Atual", "Desafio", "Base", "Passado Recente", "Melhor Resultado", "Futuro Próximo"];
 
@@ -19,6 +20,7 @@ export default function TarotCompleto() {
   usePageSEO({ title: "Tarot Completo — Leitura Profunda com 6 Cartas", description: "Uma leitura completa de Tarot com 6 cartas e interpretação detalhada por IA. Para quando você precisa de respostas profundas sobre qualquer área da vida.", path: "/tarot/completo" });
   const { restoredState, requireAuth, clearRestored, user } = useOracleAuth({ methodId: "tarot-completo", returnTo: "/tarot/completo" });
   const { product, hasAccess, purchaseReading } = useFreemium("tarot-completo");
+  const { recordActivity } = useStreak();
   const [step, setStep] = useState<"form" | "drawing" | "result">("form");
   const [cards, setCards] = useState<TarotCard[]>([]);
   const [interpretation, setInterpretation] = useState("");
@@ -59,6 +61,7 @@ export default function TarotCompleto() {
           interpretation: result?.interpretation, user_name: data.userName,
         });
       }
+      recordActivity();
       setStep("result");
     } catch {
       setError(true);

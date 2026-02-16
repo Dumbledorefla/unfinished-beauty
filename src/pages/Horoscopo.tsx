@@ -12,11 +12,13 @@ import { supabase } from "@/integrations/supabase/client";
 import { useOracleAuth } from "@/hooks/useOracleAuth";
 import { useFreemium } from "@/hooks/useFreemium";
 import { usePageSEO } from "@/hooks/usePageSEO";
+import { useStreak } from "@/hooks/useStreak";
 
 export default function Horoscopo() {
   usePageSEO({ title: "Horóscopo do Dia Personalizado — Previsões de Amor, Trabalho e Saúde", description: "Receba previsões diárias personalizadas para amor, trabalho e saúde. Horóscopo feito sob medida para o seu signo e momento de vida.", path: "/horoscopo" });
   const { restoredState, requireAuth, clearRestored } = useOracleAuth({ methodId: "horoscopo", returnTo: "/horoscopo" });
   const { product, hasAccess, purchaseReading } = useFreemium("horoscopo");
+  const { recordActivity } = useStreak();
   const [step, setStep] = useState<"form" | "loading" | "result">("form");
   const [interpretation, setInterpretation] = useState("");
   const [sign, setSign] = useState("");
@@ -47,6 +49,7 @@ export default function Horoscopo() {
         body: { type: "horoscopo", data: { ...data, sign: userSign } },
       });
       setInterpretation(result?.interpretation || "Interpretação indisponível.");
+      recordActivity();
       setStep("result");
     } catch {
       setError(true);

@@ -39,6 +39,7 @@ const Compatibilidade = lazy(() => import("./pages/Compatibilidade"));
 const CalendarioLunar = lazy(() => import("./pages/CalendarioLunar"));
 const Signos = lazy(() => import("./pages/Signos"));
 const Signo = lazy(() => import("./pages/Signo"));
+const Planos = lazy(() => import("./pages/Planos"));
 
 function PageLoader() {
   return (
@@ -104,6 +105,7 @@ const App = () => (
                   <Route path="/calendario-lunar" element={<CalendarioLunar />} />
                   <Route path="/signos" element={<Signos />} />
                   <Route path="/signo/:slug" element={<Signo />} />
+                  <Route path="/planos" element={<Planos />} />
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                   <Route path="*" element={<NotFound />} />
                 </Routes>
