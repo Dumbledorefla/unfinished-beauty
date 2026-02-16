@@ -97,26 +97,26 @@ export default function ChatAoVivo() {
                         )}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2 mb-1">
-                          <h3 className="font-serif font-bold text-foreground truncate">{t.name}</h3>
-                          <span className="flex items-center gap-0.5">
+                        <div className="flex items-center gap-2 mb-1 flex-wrap">
+                          <h3 className="font-serif font-bold text-foreground truncate max-w-[140px]">{t.name}</h3>
+                          <span className="flex items-center gap-0.5 shrink-0">
                             <Wifi className="w-3 h-3 text-emerald-400" />
                             <span className="text-[10px] text-emerald-400">Online</span>
                           </span>
                         </div>
-                        {t.short_bio && <p className="text-xs text-foreground/50 line-clamp-2 mb-2">{t.short_bio}</p>}
+                        {t.short_bio && <p className="text-xs text-foreground/50 line-clamp-2 mb-2 break-words">{t.short_bio}</p>}
                         {t.rating && (
                           <div className="flex items-center gap-1 mb-2">
                             <Star className="w-3 h-3 text-amber-400 fill-amber-400" />
                             <span className="text-xs text-foreground/60">{Number(t.rating).toFixed(1)}</span>
                           </div>
                         )}
-                        <div className="flex items-center justify-between">
-                          <span className="text-sm font-semibold text-primary">
+                        <div className="flex items-center justify-between gap-2 flex-wrap">
+                          <span className="text-sm font-semibold text-primary whitespace-nowrap">
                             R$ {(t.chat_price || 49.9).toFixed(2)}
                           </span>
                           <Button size="sm" onClick={() => startChat(t)} disabled={starting === t.id}
-                            className="bg-primary hover:bg-primary/90 text-xs"
+                            className="bg-primary hover:bg-primary/90 text-xs shrink-0"
                           >
                             <MessageCircle className="w-3 h-3 mr-1" />
                             {starting === t.id ? "Iniciando..." : "Iniciar Chat"}
