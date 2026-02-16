@@ -1,0 +1,26 @@
+{
+  "name": "Chave do Oráculo",
+  "short_name": "Oráculo",
+  "description": "Tarot online, Numerologia, Horóscopo e Mapa Astral com interpretação por IA.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1a1333",
+  "theme_color": "#8b5cf6",
+  "orientation": "portrait-primary",
+  "lang": "pt-BR",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["lifestyle", "entertainment"]
+}

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { getPendingState } from "@/lib/pending-oracle";
+import { validateForm, loginSchema, signupSchema } from "@/lib/validations";
 import { motion } from "framer-motion";
 import { Sparkles, Mail, Lock, User, ArrowLeft, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -57,9 +58,23 @@ export default function Auth() {
         });
         setMode("login");
       } else if (mode === "login") {
+        const validation = validateForm(loginSchema, { email, password });
+        if (!validation.success) {
+          const firstError = Object.values(validation.errors!)[0];
+          toast({ title: "Erro de validação", description: firstError, variant: "destructive" });
+          setLoading(false);
+          return;
+        }
         const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
       } else {
+        const validation = validateForm(signupSchema, { email, password, fullName, whatsapp: whatsapp || undefined });
+        if (!validation.success) {
+          const firstError = Object.values(validation.errors!)[0];
+          toast({ title: "Erro de validação", description: firstError, variant: "destructive" });
+          setLoading(false);
+          return;
+        }
         const { error } = await supabase.auth.signUp({
           email,
           password,

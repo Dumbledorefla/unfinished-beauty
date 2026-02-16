@@ -222,6 +222,104 @@ export type Database = {
         }
         Relationships: []
       }
+      chat_messages: {
+        Row: {
+          content: string
+          created_at: string | null
+          id: string
+          message_type: string
+          sender_id: string
+          sender_role: string
+          session_id: string
+        }
+        Insert: {
+          content: string
+          created_at?: string | null
+          id?: string
+          message_type?: string
+          sender_id: string
+          sender_role: string
+          session_id: string
+        }
+        Update: {
+          content?: string
+          created_at?: string | null
+          id?: string
+          message_type?: string
+          sender_id?: string
+          sender_role?: string
+          session_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "chat_messages_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "chat_sessions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      chat_sessions: {
+        Row: {
+          created_at: string | null
+          duration_minutes: number | null
+          ended_at: string | null
+          id: string
+          order_id: string | null
+          price: number
+          rating: number | null
+          started_at: string | null
+          status: string
+          taromante_id: string
+          user_feedback: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          duration_minutes?: number | null
+          ended_at?: string | null
+          id?: string
+          order_id?: string | null
+          price?: number
+          rating?: number | null
+          started_at?: string | null
+          status?: string
+          taromante_id: string
+          user_feedback?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          duration_minutes?: number | null
+          ended_at?: string | null
+          id?: string
+          order_id?: string | null
+          price?: number
+          rating?: number | null
+          started_at?: string | null
+          status?: string
+          taromante_id?: string
+          user_feedback?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "chat_sessions_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "chat_sessions_taromante_id_fkey"
+            columns: ["taromante_id"]
+            isOneToOne: false
+            referencedRelation: "taromantes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       consultations: {
         Row: {
           consultation_type: string
@@ -958,6 +1056,44 @@ export type Database = {
         }
         Relationships: []
       }
+      taromante_availability: {
+        Row: {
+          active_chats: number
+          chat_price_per_session: number
+          id: string
+          is_online: boolean
+          last_seen_at: string | null
+          max_concurrent_chats: number
+          taromante_id: string
+        }
+        Insert: {
+          active_chats?: number
+          chat_price_per_session?: number
+          id?: string
+          is_online?: boolean
+          last_seen_at?: string | null
+          max_concurrent_chats?: number
+          taromante_id: string
+        }
+        Update: {
+          active_chats?: number
+          chat_price_per_session?: number
+          id?: string
+          is_online?: boolean
+          last_seen_at?: string | null
+          max_concurrent_chats?: number
+          taromante_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "taromante_availability_taromante_id_fkey"
+            columns: ["taromante_id"]
+            isOneToOne: true
+            referencedRelation: "taromantes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       taromantes: {
         Row: {
           bio: string | null
@@ -1133,6 +1269,7 @@ export type Database = {
         }
         Returns: string
       }
+      end_chat_session: { Args: { p_session_id: string }; Returns: undefined }
       generate_affiliate_code: { Args: never; Returns: string }
       has_role: {
         Args: {
