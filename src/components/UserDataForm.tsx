@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import DateInputBR from "@/components/DateInputBR";
 
 interface UserDataFormProps {
   title: string;
@@ -54,10 +55,9 @@ export default function UserDataForm({ title, description, onSubmit, loading }: 
                 <Label className="text-foreground/80 flex items-center gap-2">
                   <Calendar className="w-4 h-4" /> Quando você nasceu?
                 </Label>
-                <Input
-                  type="date"
+                <DateInputBR
                   value={birthDate}
-                  onChange={(e) => setBirthDate(e.target.value)}
+                  onChange={setBirthDate}
                   required
                   className="bg-input/50 border-border/50 focus:border-primary"
                 />

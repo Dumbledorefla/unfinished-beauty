@@ -30,7 +30,7 @@ const testimonials = [
 
 export default function Testimonials() {
   return (
-    <section className="py-16 relative z-10">
+    <section className="py-8 sm:py-12 relative z-10">
       <div className="container mx-auto px-4">
         <div className="text-center mb-10">
           <motion.div initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>

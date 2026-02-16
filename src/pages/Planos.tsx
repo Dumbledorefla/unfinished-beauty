@@ -81,7 +81,7 @@ export default function Planos() {
             </div>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-3 gap-4 md:gap-6">
             {plans.map((plan, index) => {
               const Icon = planIcons[plan.slug] || Star;
               const isCurrentPlan = subscription?.plan?.slug === plan.slug || (!subscription && plan.slug === "free");
@@ -96,7 +96,7 @@ export default function Planos() {
                         Mais Popular
                       </div>
                     )}
-                    <CardContent className="p-6 flex flex-col h-full">
+                    <CardContent className="p-4 sm:p-6 flex flex-col h-full">
                       <div className="text-center mb-6">
                         <div className={`w-12 h-12 mx-auto mb-3 rounded-xl flex items-center justify-center ${plan.slug === "premium" ? "bg-amber-500/15 border border-amber-500/25" : "bg-primary/15 border border-primary/25"}`}>
                           <Icon className={`w-6 h-6 ${plan.slug === "premium" ? "text-amber-400" : "text-primary"}`} />
@@ -126,7 +126,7 @@ export default function Planos() {
                         {(plan.features as string[]).map((feature, i) => (
                           <div key={i} className="flex items-start gap-2">
                             <Check className="w-4 h-4 text-emerald-400 mt-0.5 flex-shrink-0" />
-                            <span className="text-sm text-foreground/80">{feature}</span>
+                            <span className="text-xs sm:text-sm text-foreground/80">{feature}</span>
                           </div>
                         ))}
                       </div>

@@ -96,7 +96,7 @@ export default function Admin() {
 
       <div className="container mx-auto px-4 py-8">
         <Tabs defaultValue="dashboard">
-          <TabsList className="bg-card/60 backdrop-blur-md border border-primary/15 mb-8 flex-wrap h-auto gap-1 p-1.5 rounded-xl">
+          <TabsList className="flex flex-wrap gap-1 h-auto bg-secondary/50 p-2 rounded-xl mb-8">
             <TabsTrigger value="dashboard" className="rounded-lg"><LayoutDashboard className="w-4 h-4 mr-1.5" />Dashboard</TabsTrigger>
             <TabsTrigger value="users" className="rounded-lg"><Users className="w-4 h-4 mr-1.5" />Usuários</TabsTrigger>
             <TabsTrigger value="products" className="rounded-lg"><ShoppingBag className="w-4 h-4 mr-1.5" />Produtos</TabsTrigger>

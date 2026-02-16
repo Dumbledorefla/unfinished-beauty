@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import DateInputBR from "@/components/DateInputBR";
 import Header from "@/components/Header";
 import ShareButtons from "@/components/ShareButtons";
 import ReactMarkdown from "react-markdown";
@@ -96,7 +97,7 @@ export default function Compatibilidade() {
                         </div>
                         <div className="space-y-2">
                           <Label className="text-foreground/80">Sua data de nascimento</Label>
-                          <Input type="date" value={birth1} onChange={(e) => setBirth1(e.target.value)} required className="bg-input/50 border-border/50" />
+                          <DateInputBR value={birth1} onChange={setBirth1} required className="bg-input/50 border-border/50" />
                         </div>
                       </div>
                     </div>
@@ -114,7 +115,7 @@ export default function Compatibilidade() {
                         </div>
                         <div className="space-y-2">
                           <Label className="text-foreground/80">Data de nascimento</Label>
-                          <Input type="date" value={birth2} onChange={(e) => setBirth2(e.target.value)} required className="bg-input/50 border-border/50" />
+                          <DateInputBR value={birth2} onChange={setBirth2} required className="bg-input/50 border-border/50" />
                         </div>
                       </div>
                     </div>

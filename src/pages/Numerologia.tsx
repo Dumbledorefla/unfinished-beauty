@@ -4,6 +4,7 @@ import { Calculator, RotateCcw } from "lucide-react";
 import ShareButtons from "@/components/ShareButtons";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Link } from "react-router-dom";
 import OracleLayout from "@/components/OracleLayout";
 import UserDataForm from "@/components/UserDataForm";
 import FreemiumPaywall from "@/components/FreemiumPaywall";
@@ -59,7 +60,41 @@ export default function Numerologia() {
   };
 
   return (
-    <OracleLayout title="Numerologia" icon={<Calculator className="w-5 h-5" />}>
+    <OracleLayout title="Numerologia" icon={<Calculator className="w-5 h-5" />}
+      extraContent={
+        step === "form" ? (
+          <div className="space-y-6 mt-8">
+            <Card className="bg-card/60 backdrop-blur-md border-primary/10 p-6">
+              <h3 className="font-semibold text-foreground mb-3">O que é a Numerologia?</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                A Numerologia é uma ciência milenar que revela padrões ocultos no seu nome e data de nascimento. Cada número carrega uma vibração única que influencia sua personalidade, seus talentos e seu caminho de vida.
+              </p>
+            </Card>
+            <Card className="bg-card/60 backdrop-blur-md border-primary/10 p-6">
+              <h3 className="font-semibold text-foreground mb-3">O que você vai descobrir</h3>
+              <ul className="text-sm text-muted-foreground space-y-2">
+                <li>🔢 Número do Destino — seu propósito de vida</li>
+                <li>💎 Número da Expressão — como o mundo te vê</li>
+                <li>❤️ Número da Alma — seus desejos mais profundos</li>
+              </ul>
+            </Card>
+            <Card className="bg-card/60 backdrop-blur-md border-primary/10 p-6">
+              <h3 className="font-semibold text-foreground mb-3">Explore mais</h3>
+              <div className="grid grid-cols-2 gap-3">
+                <Link to="/tarot/dia" className="p-3 rounded-xl bg-secondary/40 border border-border/20 hover:border-primary/30 transition-all text-center">
+                  <p className="font-semibold text-foreground text-sm">🔮 Tarot do Dia</p>
+                  <p className="text-xs text-muted-foreground">Sua carta de hoje</p>
+                </Link>
+                <Link to="/mapa-astral" className="p-3 rounded-xl bg-secondary/40 border border-border/20 hover:border-primary/30 transition-all text-center">
+                  <p className="font-semibold text-foreground text-sm">🗺️ Mapa Astral</p>
+                  <p className="text-xs text-muted-foreground">Seu céu completo</p>
+                </Link>
+              </div>
+            </Card>
+          </div>
+        ) : undefined
+      }
+    >
       <AnimatePresence mode="wait">
         {step === "form" && (
           <UserDataForm key="form" title="Seu Mapa Numerológico" description="Seu nome completo e data de nascimento guardam segredos poderosos. Vamos revelá-los." onSubmit={handleStart} />

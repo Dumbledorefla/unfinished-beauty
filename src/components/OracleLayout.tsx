@@ -27,9 +27,10 @@ interface OracleLayoutProps {
   title: string;
   icon?: ReactNode;
   children: ReactNode;
+  extraContent?: ReactNode;
 }
 
-export default function OracleLayout({ title, icon, children }: OracleLayoutProps) {
+export default function OracleLayout({ title, icon, children, extraContent }: OracleLayoutProps) {
   return (
     <div className="min-h-screen relative">
       <div className="fixed inset-0 z-0">
@@ -54,6 +55,11 @@ export default function OracleLayout({ title, icon, children }: OracleLayoutProp
       <main className="relative z-10 container mx-auto px-4 py-10 max-w-3xl">
         {children}
       </main>
+      {extraContent && (
+        <section className="relative z-10 container mx-auto px-4 pb-16 max-w-3xl">
+          {extraContent}
+        </section>
+      )}
     </div>
   );
 }

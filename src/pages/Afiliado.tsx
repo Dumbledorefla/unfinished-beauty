@@ -1,8 +1,9 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   Users, DollarSign, TrendingUp, Copy, Share2, Wallet,
-  Link2
+  Link2, UserPlus, Check
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -12,6 +13,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import { useAffiliate } from "@/hooks/useAffiliate";
 import { useAuth } from "@/hooks/useAuth";
 import { toast } from "sonner";
@@ -88,14 +90,123 @@ export default function Afiliado() {
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen relative">
+        <div className="fixed inset-0 z-0">
+          <img src={heroBg} alt="" className="w-full h-full object-cover opacity-20" />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/70 to-background" />
+        </div>
         <Header />
-        <main className="relative z-10 container mx-auto px-4 pt-24 pb-16 text-center">
-          <h1 className="font-serif text-3xl font-bold text-foreground mb-4">Programa de Afiliados</h1>
-          <p className="text-muted-foreground mb-6">Faça login para participar do programa de afiliados.</p>
-          <Button onClick={() => window.location.href = "/auth?redirect=/afiliado"}>
-            Entrar para Participar
-          </Button>
+        <main className="relative z-10 pt-24 pb-16">
+          {/* Hero */}
+          <section className="container mx-auto px-4 max-w-4xl text-center mb-16">
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/15 border border-emerald-500/30 mb-6">
+                <Share2 className="w-4 h-4 text-emerald-400" />
+                <span className="text-sm text-emerald-400 font-medium">Programa de Afiliados</span>
+              </div>
+              <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-5">
+                Ganhe dinheiro indicando o{" "}
+                <span className="text-primary">Chave do Oráculo</span>
+              </h1>
+              <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-8">
+                Compartilhe seu link exclusivo e receba <strong className="text-emerald-400">10% de comissão</strong> em cada venda gerada pelas suas indicações. Sem limite de ganhos.
+              </p>
+              <Link to="/auth?redirect=/afiliado">
+                <Button size="lg" className="bg-emerald-600 text-white hover:bg-emerald-700 px-8 py-5 text-base">
+                  <DollarSign className="w-5 h-5 mr-2" />
+                  Quero ser afiliado
+                </Button>
+              </Link>
+            </motion.div>
+          </section>
+
+          {/* Como funciona */}
+          <section className="container mx-auto px-4 max-w-4xl mb-16">
+            <h2 className="text-2xl font-bold text-foreground text-center mb-8">Como funciona</h2>
+            <div className="grid md:grid-cols-3 gap-6">
+              {[
+                { step: "1", title: "Cadastre-se", desc: "Crie sua conta grátis e acesse seu painel de afiliado com link exclusivo.", icon: UserPlus },
+                { step: "2", title: "Compartilhe", desc: "Envie seu link para amigos, seguidores e redes sociais. Cada clique é rastreado.", icon: Share2 },
+                { step: "3", title: "Receba", desc: "Ganhe 10% de comissão em cada venda. Saque via PIX quando quiser.", icon: DollarSign },
+              ].map((item, i) => (
+                <motion.div key={i} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}>
+                  <Card className="bg-card/80 backdrop-blur-md border-primary/20 text-center p-6 h-full">
+                    <CardContent className="p-0">
+                      <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-primary/15 border border-primary/25 flex items-center justify-center">
+                        <item.icon className="w-6 h-6 text-primary" />
+                      </div>
+                      <div className="text-xs text-primary font-semibold mb-2">PASSO {item.step}</div>
+                      <h3 className="font-semibold text-foreground mb-2">{item.title}</h3>
+                      <p className="text-sm text-muted-foreground">{item.desc}</p>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              ))}
+            </div>
+          </section>
+
+          {/* Benefícios */}
+          <section className="container mx-auto px-4 max-w-4xl mb-16">
+            <h2 className="text-2xl font-bold text-foreground text-center mb-8">Por que ser afiliado?</h2>
+            <div className="grid sm:grid-cols-2 gap-4">
+              {[
+                { title: "10% de comissão", desc: "Em cada venda gerada pelo seu link" },
+                { title: "Sem investimento", desc: "Cadastro 100% gratuito, sem taxa" },
+                { title: "Saque via PIX", desc: "Receba direto na sua conta quando quiser" },
+                { title: "Painel completo", desc: "Acompanhe cliques, vendas e comissões em tempo real" },
+                { title: "Link rastreado", desc: "Cada indicação é registrada automaticamente" },
+                { title: "Sem limite", desc: "Quanto mais indicar, mais ganha" },
+              ].map((b, i) => (
+                <motion.div key={i} initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.05 }}
+                  className="flex items-start gap-3 p-4 rounded-xl bg-secondary/40 border border-border/20"
+                >
+                  <div className="w-6 h-6 rounded-full bg-emerald-500/15 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <Check className="w-3.5 h-3.5 text-emerald-400" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-foreground text-sm">{b.title}</p>
+                    <p className="text-xs text-muted-foreground">{b.desc}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </section>
+
+          {/* FAQ */}
+          <section className="container mx-auto px-4 max-w-2xl mb-16">
+            <h2 className="text-2xl font-bold text-foreground text-center mb-8">Perguntas Frequentes</h2>
+            <div className="space-y-4">
+              {[
+                { q: "Preciso pagar algo para ser afiliado?", a: "Não! O programa é 100% gratuito." },
+                { q: "Qual é a comissão?", a: "Você recebe 10% do valor de cada venda gerada pelo seu link." },
+                { q: "Como recebo meus ganhos?", a: "Via PIX. Basta solicitar o saque no painel de afiliado." },
+                { q: "Tem limite de ganhos?", a: "Não! Quanto mais indicar, mais ganha. Sem teto." },
+              ].map((faq, i) => (
+                <Card key={i} className="bg-card/80 backdrop-blur-md border-primary/10">
+                  <CardContent className="p-5">
+                    <p className="font-semibold text-foreground mb-1">{faq.q}</p>
+                    <p className="text-sm text-muted-foreground">{faq.a}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </section>
+
+          {/* CTA Final */}
+          <section className="container mx-auto px-4 max-w-2xl text-center">
+            <Card className="bg-gradient-to-r from-emerald-500/10 to-primary/10 border-emerald-500/20 p-8">
+              <CardContent className="p-0">
+                <h3 className="text-2xl font-bold text-foreground mb-3">Pronto para começar a ganhar?</h3>
+                <p className="text-muted-foreground mb-6">Crie sua conta e comece a compartilhar seu link agora mesmo.</p>
+                <Link to="/auth?redirect=/afiliado">
+                  <Button size="lg" className="bg-emerald-600 text-white hover:bg-emerald-700 px-8">
+                    Criar minha conta de afiliado
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
+          </section>
         </main>
+        <Footer />
       </div>
     );
   }

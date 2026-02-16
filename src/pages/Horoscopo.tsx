@@ -4,6 +4,7 @@ import { Sun, RotateCcw } from "lucide-react";
 import ShareButtons from "@/components/ShareButtons";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Link } from "react-router-dom";
 import OracleLayout from "@/components/OracleLayout";
 import UserDataForm from "@/components/UserDataForm";
 import FreemiumPaywall from "@/components/FreemiumPaywall";
@@ -58,7 +59,41 @@ export default function Horoscopo() {
   };
 
   return (
-    <OracleLayout title="Horóscopo" icon={<Sun className="w-5 h-5" />}>
+    <OracleLayout title="Horóscopo" icon={<Sun className="w-5 h-5" />}
+      extraContent={
+        step === "form" ? (
+          <div className="space-y-6 mt-8">
+            <Card className="bg-card/60 backdrop-blur-md border-primary/10 p-6">
+              <h3 className="font-semibold text-foreground mb-3">Como funciona o Horóscopo Personalizado?</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Diferente dos horóscopos genéricos de revista, nosso horóscopo usa inteligência artificial para criar uma previsão única baseada no seu signo solar, data de nascimento e o momento astrológico atual. Cada leitura é exclusiva para você.
+              </p>
+            </Card>
+            <Card className="bg-card/60 backdrop-blur-md border-primary/10 p-6">
+              <h3 className="font-semibold text-foreground mb-3">O que você vai receber</h3>
+              <ul className="text-sm text-muted-foreground space-y-2">
+                <li>✨ Previsão personalizada para amor, trabalho e saúde</li>
+                <li>🌙 Energia do dia e como aproveitá-la</li>
+                <li>💡 Conselho prático para o seu momento</li>
+              </ul>
+            </Card>
+            <Card className="bg-card/60 backdrop-blur-md border-primary/10 p-6">
+              <h3 className="font-semibold text-foreground mb-3">Explore mais</h3>
+              <div className="grid grid-cols-2 gap-3">
+                <Link to="/mapa-astral" className="p-3 rounded-xl bg-secondary/40 border border-border/20 hover:border-primary/30 transition-all text-center">
+                  <p className="font-semibold text-foreground text-sm">🗺️ Mapa Astral</p>
+                  <p className="text-xs text-muted-foreground">Seu mapa completo</p>
+                </Link>
+                <Link to="/compatibilidade" className="p-3 rounded-xl bg-secondary/40 border border-border/20 hover:border-primary/30 transition-all text-center">
+                  <p className="font-semibold text-foreground text-sm">💕 Compatibilidade</p>
+                  <p className="text-xs text-muted-foreground">Vocês combinam?</p>
+                </Link>
+              </div>
+            </Card>
+          </div>
+        ) : undefined
+      }
+    >
       <AnimatePresence mode="wait">
         {step === "form" && (
           <UserDataForm key="form" title="Seu Horóscopo do Dia" description="Com seu nome e data de nascimento, criamos previsões feitas sob medida para você." onSubmit={handleStart} />

@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import DateInputBR from "@/components/DateInputBR";
 import Header from "@/components/Header";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
@@ -120,7 +121,7 @@ export default function Perfil() {
               </div>
               <div className="space-y-2">
                 <Label className="text-foreground/80">Data de Nascimento</Label>
-                <Input type="date" value={birthDate} onChange={(e) => setBirthDate(e.target.value)} className="bg-input/50 border-border/50" />
+                <DateInputBR value={birthDate} onChange={setBirthDate} className="bg-input/50 border-border/50" />
               </div>
               <div className="flex gap-3">
                 <Button onClick={handleSave} disabled={saving} className="bg-primary text-primary-foreground hover:bg-primary/90">
