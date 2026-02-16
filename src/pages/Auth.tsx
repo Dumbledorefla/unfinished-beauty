@@ -126,7 +126,7 @@ export default function Auth() {
                 <Sparkles className="w-6 h-6 text-primary" />
               </div>
               <CardTitle className="text-2xl gold-text">
-                {mode === "login" ? "Bem-vinda de volta" : mode === "signup" ? "Criar conta" : "Recuperar senha"}
+                {mode === "login" ? "Que bom ter você de volta" : mode === "signup" ? "Crie sua conta" : "Recuperar sua senha"}
               </CardTitle>
               <CardDescription className="text-foreground/60">
                 {mode === "login" ? "Entre na sua conta para continuar" : mode === "signup" ? "Junte-se ao Chave do Oráculo" : "Enviaremos um link para seu e-mail"}
@@ -137,12 +137,12 @@ export default function Auth() {
                 {mode === "signup" && (
                   <>
                     <div className="space-y-2">
-                      <Label htmlFor="name" className="text-foreground/80">Nome completo</Label>
+                      <Label htmlFor="name" className="text-foreground/80">Como você se chama?</Label>
                       <div className="relative">
                         <User className="absolute left-3 top-3 w-4 h-4 text-muted-foreground" />
                         <Input
                           id="name"
-                          placeholder="Seu nome"
+                          placeholder="Seu nome completo"
                           value={fullName}
                           onChange={(e) => setFullName(e.target.value)}
                           className="pl-10 bg-input/50 border-border/50 focus:border-primary"
@@ -214,7 +214,7 @@ export default function Auth() {
                 )}
 
                 <Button type="submit" disabled={loading} className="w-full bg-primary text-primary-foreground hover:bg-primary/90 border border-primary/50 mystical-glow">
-                  {loading ? "Carregando..." : mode === "login" ? "Entrar" : mode === "signup" ? "Criar conta" : "Enviar link de recuperação"}
+                  {loading ? "Um momento..." : mode === "login" ? "Entrar" : mode === "signup" ? "Criar minha conta" : "Enviar link de recuperação"}
                 </Button>
               </form>
 
@@ -289,7 +289,7 @@ export default function Auth() {
                     onClick={() => setMode(mode === "login" ? "signup" : "login")}
                     className="text-sm text-foreground/60 hover:text-primary transition-colors"
                   >
-                    {mode === "login" ? "Não tem conta? Criar agora" : "Já tem conta? Entrar"}
+                    {mode === "login" ? "Primeira vez aqui? Crie sua conta" : "Já tem conta? Entre aqui"}
                   </button>
                 )}
               </div>

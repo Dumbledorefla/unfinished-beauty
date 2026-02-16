@@ -17,51 +17,51 @@ import OnboardingModal from "@/components/OnboardingModal";
 const services = [
   {
     id: "tarot-dia", title: "Tarot do Dia",
-    description: "A mensagem que o universo reservou para o seu dia.",
+    description: "Uma carta, uma mensagem, um novo olhar para o seu dia. Grátis, todos os dias.",
     icon: Star, href: "/tarot/dia", badge: "Grátis",
   },
   {
     id: "tarot-amor", title: "Tarot do Amor",
-    description: "Explore as energias que cercam sua vida afetiva.",
+    description: "Passado, presente e futuro do seu amor revelados em 3 cartas.",
     icon: Heart, href: "/tarot/amor", badge: "Grátis",
   },
   {
     id: "tarot-completo", title: "Tarot Completo",
-    description: "Uma leitura profunda sobre sua jornada de vida.",
+    description: "6 cartas, uma história completa. Para quando você precisa de respostas profundas.",
     icon: Eye, href: "/tarot/completo", badge: "Premium",
   },
   {
     id: "numerologia", title: "Numerologia",
-    description: "Seus números pessoais revelam propósito e talentos.",
+    description: "Seu nome e sua data de nascimento guardam segredos. Descubra seus números de destino.",
     icon: Calculator, href: "/numerologia", badge: "Grátis",
   },
   {
-    id: "horoscopo", title: "Horóscopo",
-    description: "Previsões diárias para amor, trabalho e saúde.",
+    id: "horoscopo", title: "Horóscopo do Dia",
+    description: "O que os astros dizem sobre o seu dia? Previsões feitas sob medida para você.",
     icon: Sun, href: "/horoscopo", badge: "Grátis",
   },
   {
     id: "mapa-astral", title: "Mapa Astral",
-    description: "Descubra seu ascendente e posições planetárias.",
+    description: "Quem é você além do signo solar? Descubra seu ascendente, lua e muito mais.",
     icon: Compass, href: "/mapa-astral", badge: "Grátis",
   },
   {
     id: "consultas", title: "Consultas ao Vivo",
-    description: "Sessões personalizadas com taromantes experientes.",
+    description: "Converse com tarólogos de verdade. Por chat, vídeo ou telefone — no seu tempo.",
     icon: Users, href: "/consultas", badge: "Novo",
   },
 ];
 
 const features = [
-  { icon: Sparkles, title: "Interpretações Profundas", description: "Cada leitura é cuidadosamente elaborada com base em conhecimentos ancestrais." },
-  { icon: Zap, title: "Resultados Instantâneos", description: "Receba suas previsões e análises sem espera, de forma simples e direta." },
-  { icon: Moon, title: "Atualizações Diárias", description: "Horóscopo e mensagens renovadas todos os dias para guiar sua jornada." },
+  { icon: Sparkles, title: "Sabedoria ancestral com IA", description: "Nossas leituras combinam séculos de tradição do Tarot com inteligência artificial para interpretações únicas e feitas só para você." },
+  { icon: Zap, title: "Suas respostas em segundos", description: "Sem fila, sem espera. Tire suas cartas agora e receba sua leitura na hora — a qualquer momento do dia ou da noite." },
+  { icon: Moon, title: "Um novo olhar a cada manhã", description: "Horóscopo e Tarot do Dia renovados diariamente para você começar cada dia com mais clareza e propósito." },
 ];
 
 export default function Home() {
   usePageSEO({
-    title: "Tarot Online Grátis, Numerologia e Horóscopo",
-    description: "Tarot online grátis com IA, Mapa Numerológico, Horóscopo do Dia e Mapa Astral. Descubra seu destino no Chave do Oráculo.",
+    title: "Chave do Oráculo — Tarot Online Grátis com IA, Numerologia e Horóscopo",
+    description: "Tire sua carta do dia, descubra seu mapa numerológico e receba previsões personalizadas. Leituras de Tarot com inteligência artificial feitas para iluminar seu caminho.",
     path: "/",
   });
 
@@ -97,24 +97,24 @@ export default function Home() {
           <div className="max-w-2xl mx-auto text-center">
             <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-5 leading-[1.15] text-foreground tracking-tight">
-                Desvende os{" "}
-                <span className="text-primary">Mistérios</span>
-                <br />do Universo
+                As respostas que você{" "}
+                <span className="text-primary">procura</span>
+                <br />já estão nas cartas
               </h1>
               <p className="text-base md:text-lg text-muted-foreground mb-8 max-w-lg mx-auto leading-relaxed">
-                Tarot, Numerologia e Astrologia reunidos para guiar sua jornada de autoconhecimento.
+                Tire sua carta agora e descubra o que o Tarot, a Numerologia e os Astros revelam sobre o seu momento.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
                 <Link to="/tarot/dia">
                   <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 text-base px-7 py-5 pulse-glow">
                     <Star className="w-4 h-4 mr-2" />
-                    Tirar Carta do Dia
+                    Receber minha mensagem do dia
                   </Button>
                 </Link>
                 <Link to="/consultas">
                   <Button size="lg" variant="outline" className="border-border text-foreground hover:bg-secondary text-base px-7 py-5">
                     <Users className="w-4 h-4 mr-2" />
-                    Agendar Consulta
+                    Falar com um tarólogo
                   </Button>
                 </Link>
               </div>
@@ -128,8 +128,8 @@ export default function Home() {
         <div className="container mx-auto relative z-10 px-4">
           <div className="text-center mb-8">
             <motion.div initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-              <span className="text-primary/70 text-xs font-semibold tracking-[0.2em] uppercase">Nossos Métodos</span>
-              <h2 className="text-3xl md:text-4xl font-bold mt-2 text-foreground">Escolha seu caminho</h2>
+              <span className="text-primary/70 text-xs font-semibold tracking-[0.2em] uppercase">Leituras e Oráculos</span>
+              <h2 className="text-3xl md:text-4xl font-bold mt-2 text-foreground">Qual pergunta não te deixa dormir?</h2>
             </motion.div>
           </div>
 
@@ -186,8 +186,8 @@ export default function Home() {
         <div className="container mx-auto relative z-10 px-4">
           <div className="text-center mb-12">
             <motion.div initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-              <span className="text-primary/70 text-xs font-semibold tracking-[0.2em] uppercase">Por que escolher</span>
-              <h2 className="text-3xl md:text-4xl font-bold mt-2 text-foreground">Chave do Oráculo</h2>
+              <span className="text-primary/70 text-xs font-semibold tracking-[0.2em] uppercase">Por que confiar</span>
+              <h2 className="text-3xl md:text-4xl font-bold mt-2 text-foreground">No Chave do Oráculo</h2>
             </motion.div>
           </div>
 
@@ -226,16 +226,16 @@ export default function Home() {
           >
             <div className="relative text-center max-w-xl mx-auto">
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-5 text-foreground leading-tight">
-                Comece sua jornada de{" "}
-                <span className="text-primary">auto&shy;conhecimento</span>
+                Sua intuição te trouxe até aqui.{" "}
+                <span className="text-primary">Confie nela.</span>
               </h2>
               <p className="text-muted-foreground mb-8 text-sm sm:text-base leading-relaxed">
-                Tire sua primeira carta gratuitamente e descubra o que o universo tem a dizer sobre seu caminho.
+                Tire sua primeira carta gratuitamente e veja o que as cartas têm a dizer sobre você — leva menos de 1 minuto.
               </p>
               <Link to="/tarot/dia">
                 <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 text-sm sm:text-base px-6 sm:px-8 py-5 pulse-glow w-auto">
                   <Sparkles className="w-4 h-4 mr-2 shrink-0" />
-                  Começar Agora — É Grátis
+                  Tirar minha carta grátis
                 </Button>
               </Link>
             </div>

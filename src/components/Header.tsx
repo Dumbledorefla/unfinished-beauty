@@ -22,7 +22,7 @@ const navItems = [
   },
   { label: "Numerologia", href: "/numerologia", icon: Calculator },
   { label: "Horóscopo", href: "/horoscopo", icon: Sun },
-  { label: "Consultas", href: "/consultas", icon: Users },
+  { label: "Consultas ao Vivo", href: "/consultas", icon: Users },
   { label: "Cursos", href: "/cursos", icon: BookOpen },
   { label: "Produtos", href: "/produtos", icon: ShoppingBag },
   { label: "Afiliados", href: "/afiliado", icon: Share2 },

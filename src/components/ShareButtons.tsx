@@ -20,7 +20,7 @@ export default function ShareButtons({ text, title = "Minha leitura" }: ShareBut
     .trim();
 
   const shareWhatsApp = () => {
-    const msg = `✨ *${title}* ✨\n\n${plainText.slice(0, 2000)}\n\n🔮 Faça sua leitura em: ${window.location.origin}`;
+    const msg = `✨ *${title}* ✨\n\n${plainText.slice(0, 2000)}\n\n🔮 Tire suas cartas também: ${window.location.origin}`;
     window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, "_blank");
   };
 
@@ -31,7 +31,7 @@ export default function ShareButtons({ text, title = "Minha leitura" }: ShareBut
       toast({ title: "Copiado!", description: "Texto copiado para a área de transferência." });
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      toast({ title: "Erro ao copiar", variant: "destructive" });
+      toast({ title: "Não foi possível copiar. Tente selecionar o texto manualmente.", variant: "destructive" });
     }
   };
 

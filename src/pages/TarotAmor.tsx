@@ -16,7 +16,7 @@ import { usePageSEO } from "@/hooks/usePageSEO";
 const positions = ["Passado", "Presente", "Futuro"];
 
 export default function TarotAmor() {
-  usePageSEO({ title: "Tarot do Amor", description: "Leitura de Tarot para o amor com 3 cartas — passado, presente e futuro da sua vida amorosa.", path: "/tarot/amor" });
+  usePageSEO({ title: "Tarot do Amor — Leitura de 3 Cartas Sobre Sua Vida Amorosa", description: "Descubra o que as cartas revelam sobre o passado, presente e futuro do seu amor. Leitura gratuita com IA personalizada.", path: "/tarot/amor" });
   const { restoredState, requireAuth, clearRestored, user } = useOracleAuth({ methodId: "tarot-amor", returnTo: "/tarot/amor" });
   const { product, hasAccess, purchaseReading } = useFreemium("tarot-amor");
   const [step, setStep] = useState<"form" | "drawing" | "result">("form");
@@ -71,12 +71,12 @@ export default function TarotAmor() {
     <OracleLayout title="Tarot e o Amor" icon={<Heart className="w-5 h-5" />}>
       <AnimatePresence mode="wait">
         {step === "form" && (
-          <UserDataForm key="form" title="Seus Dados para o Tarot do Amor" description="Explore as energias que cercam sua vida amorosa." onSubmit={handleStart} loading={loading} />
+          <UserDataForm key="form" title="Tarot do Amor" description="Descubra o que as cartas revelam sobre o seu coração — passado, presente e futuro." onSubmit={handleStart} loading={loading} />
         )}
         {step === "drawing" && (
           <motion.div key="drawing" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="text-center py-16">
             <motion.div animate={{ rotateY: [0, 360] }} transition={{ duration: 1.5, repeat: Infinity }} className="text-8xl mb-6">💕</motion.div>
-            <p className="text-foreground/70 text-lg">Gerando sua interpretação…</p>
+            <p className="text-foreground/70 text-lg">As cartas estão se revelando...</p>
           </motion.div>
         )}
         {step === "result" && error && (
@@ -103,7 +103,7 @@ export default function TarotAmor() {
             </div>
             <Card className="bg-card/80 backdrop-blur-md border-primary/20">
               <CardContent className="pt-6">
-                <h3 className="font-serif text-xl font-bold text-primary mb-4">💕 Interpretação do Amor</h3>
+                <h3 className="font-serif text-xl font-bold text-primary mb-4">💕 O que as cartas revelam sobre o seu amor</h3>
                 <FreemiumPaywall
                   interpretation={interpretation}
                   oracleType="tarot-amor"

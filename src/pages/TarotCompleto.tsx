@@ -16,7 +16,7 @@ import { usePageSEO } from "@/hooks/usePageSEO";
 const positions = ["Situação Atual", "Desafio", "Base", "Passado Recente", "Melhor Resultado", "Futuro Próximo"];
 
 export default function TarotCompleto() {
-  usePageSEO({ title: "Tarot Completo — Cruz Celta", description: "Leitura profunda de Tarot com 6 cartas e interpretação por IA sobre sua jornada e destino.", path: "/tarot/completo" });
+  usePageSEO({ title: "Tarot Completo — Leitura Profunda com 6 Cartas", description: "Uma leitura completa de Tarot com 6 cartas e interpretação detalhada por IA. Para quando você precisa de respostas profundas sobre qualquer área da vida.", path: "/tarot/completo" });
   const { restoredState, requireAuth, clearRestored, user } = useOracleAuth({ methodId: "tarot-completo", returnTo: "/tarot/completo" });
   const { product, hasAccess, purchaseReading } = useFreemium("tarot-completo");
   const [step, setStep] = useState<"form" | "drawing" | "result">("form");
@@ -71,12 +71,12 @@ export default function TarotCompleto() {
     <OracleLayout title="Tarot Completo" icon={<Eye className="w-5 h-5" />}>
       <AnimatePresence mode="wait">
         {step === "form" && (
-          <UserDataForm key="form" title="Leitura Completa de Tarot" description="Uma leitura profunda com 6 cartas sobre sua jornada de vida." onSubmit={handleStart} loading={loading} />
+          <UserDataForm key="form" title="Leitura Completa de Tarot" description="6 cartas, uma história completa. Para quando você precisa de respostas profundas sobre qualquer área da vida." onSubmit={handleStart} loading={loading} />
         )}
         {step === "drawing" && (
           <motion.div key="drawing" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="text-center py-16">
             <motion.div animate={{ rotateY: [0, 360] }} transition={{ duration: 1.5, repeat: Infinity }} className="text-8xl mb-6">🔮</motion.div>
-            <p className="text-foreground/70 text-lg">Gerando sua interpretação…</p>
+            <p className="text-foreground/70 text-lg">As cartas estão se revelando...</p>
           </motion.div>
         )}
         {step === "result" && error && (
@@ -106,7 +106,7 @@ export default function TarotCompleto() {
             </div>
             <Card className="bg-card/80 backdrop-blur-md border-primary/20">
               <CardContent className="pt-6">
-                <h3 className="font-serif text-xl font-bold text-primary mb-4">🔮 Leitura Completa</h3>
+                <h3 className="font-serif text-xl font-bold text-primary mb-4">🔮 Sua leitura completa</h3>
                 <FreemiumPaywall
                   interpretation={interpretation}
                   oracleType="tarot-completo"
