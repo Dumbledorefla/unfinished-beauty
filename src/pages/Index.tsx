@@ -7,6 +7,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Header from "@/components/Header";
+import SocialProof from "@/components/SocialProof";
+import Testimonials from "@/components/Testimonials";
 import { usePageSEO } from "@/hooks/usePageSEO";
 import { useStructuredData } from "@/hooks/useStructuredData";
 import { useTrackReferral } from "@/hooks/useAffiliate";
@@ -46,6 +48,11 @@ const services = [
     icon: Compass, href: "/mapa-astral", badge: "Grátis",
   },
   {
+    id: "compatibilidade", title: "Compatibilidade",
+    description: "Descubra a sintonia entre vocês dois. Compare signos e descubra se combinam.",
+    icon: Heart, href: "/compatibilidade", badge: "Novo",
+  },
+  {
     id: "consultas", title: "Consultas ao Vivo",
     description: "Converse com tarólogos de verdade. Por chat, vídeo ou telefone — no seu tempo.",
     icon: Users, href: "/consultas", badge: "Novo",
@@ -56,6 +63,17 @@ const features = [
   { icon: Sparkles, title: "Sabedoria ancestral com IA", description: "Nossas leituras combinam séculos de tradição do Tarot com inteligência artificial para interpretações únicas e feitas só para você." },
   { icon: Zap, title: "Suas respostas em segundos", description: "Sem fila, sem espera. Tire suas cartas agora e receba sua leitura na hora — a qualquer momento do dia ou da noite." },
   { icon: Moon, title: "Um novo olhar a cada manhã", description: "Horóscopo e Tarot do Dia renovados diariamente para você começar cada dia com mais clareza e propósito." },
+];
+
+const lifeThemes = [
+  { emoji: "💕", label: "Amor", desc: "Relacionamentos e paixão", href: "/tarot/amor" },
+  { emoji: "💼", label: "Carreira", desc: "Trabalho e propósito", href: "/numerologia" },
+  { emoji: "🌟", label: "Hoje", desc: "O que o dia reserva", href: "/tarot/dia" },
+  { emoji: "🔮", label: "Futuro", desc: "O que está por vir", href: "/tarot/completo" },
+  { emoji: "🧘", label: "Autoconhecimento", desc: "Quem você realmente é", href: "/mapa-astral" },
+  { emoji: "🌙", label: "Lua", desc: "Energia do momento", href: "/calendario-lunar" },
+  { emoji: "💑", label: "Compatibilidade", desc: "Vocês combinam?", href: "/compatibilidade" },
+  { emoji: "📖", label: "Aprender", desc: "Cursos e artigos", href: "/blog" },
 ];
 
 export default function Home() {
@@ -123,7 +141,41 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Services Grid — Above the fold */}
+      {/* Social Proof */}
+      <section className="py-8 relative z-10">
+        <div className="container mx-auto px-4">
+          <SocialProof />
+        </div>
+      </section>
+
+      {/* O que você quer saber? */}
+      <section className="py-12 relative z-10">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground">O que você quer saber?</h2>
+            <p className="text-muted-foreground text-sm mt-2">Escolha o tema e encontre a leitura certa para você</p>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            {lifeThemes.map((tema, i) => (
+              <Link key={i} to={tema.href}>
+                <motion.div
+                  initial={{ opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.05 }}
+                  className="glass-card rounded-xl p-4 text-center group hover:border-primary/30 transition-all cursor-pointer"
+                >
+                  <p className="text-2xl mb-2">{tema.emoji}</p>
+                  <p className="font-semibold text-foreground text-sm group-hover:text-primary transition-colors">{tema.label}</p>
+                  <p className="text-xs text-muted-foreground">{tema.desc}</p>
+                </motion.div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Services Grid */}
       <section className="py-12 relative z-10">
         <div className="container mx-auto relative z-10 px-4">
           <div className="text-center mb-8">
@@ -215,6 +267,9 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Testimonials */}
+      <Testimonials />
+
       {/* CTA */}
       <section className="py-16 relative z-10">
         <div className="container mx-auto relative z-10 px-4">
@@ -260,6 +315,7 @@ export default function Home() {
               <Link to="/tarot/dia" className="text-sm text-muted-foreground hover:text-primary transition-colors">Tarot</Link>
               <Link to="/numerologia" className="text-sm text-muted-foreground hover:text-primary transition-colors">Numerologia</Link>
               <Link to="/horoscopo" className="text-sm text-muted-foreground hover:text-primary transition-colors">Horóscopo</Link>
+              <Link to="/blog" className="text-sm text-muted-foreground hover:text-primary transition-colors">Blog</Link>
               <Link to="/consultas" className="text-sm text-muted-foreground hover:text-primary transition-colors">Consultas</Link>
             </nav>
             <p className="text-sm text-muted-foreground/60">© 2026 Chave do Oráculo</p>

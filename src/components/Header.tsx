@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Sparkles, Menu, X, LogOut, Star, Calculator, Sun,
-  Users, BookOpen, ShoppingBag, ShoppingCart, User, ChevronDown, Shield, Share2, MessageCircle
+  Users, BookOpen, ShoppingBag, ShoppingCart, User, ChevronDown, Shield, Share2, MessageCircle, Moon, Heart
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
@@ -25,6 +25,9 @@ const navItems = [
   { label: "Consultas ao Vivo", href: "/consultas", icon: Users },
   { label: "Cursos", href: "/cursos", icon: BookOpen },
   { label: "Produtos", href: "/produtos", icon: ShoppingBag },
+  { label: "Blog", href: "/blog", icon: BookOpen },
+  { label: "Compatibilidade", href: "/compatibilidade", icon: Heart },
+  { label: "Lua", href: "/calendario-lunar", icon: Moon },
   { label: "Afiliados", href: "/afiliado", icon: Share2 },
   { label: "Chat ao Vivo", href: "/chat-ao-vivo", icon: MessageCircle },
 ];
