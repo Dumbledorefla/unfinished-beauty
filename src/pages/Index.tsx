@@ -92,7 +92,7 @@ const services = [
 ];
 
 const features = [
-  { icon: Sparkles, title: "Sabedoria ancestral com IA", description: "Nossas leituras combinam séculos de tradição do Tarot com inteligência artificial para interpretações únicas e feitas só para você." },
+  { icon: Sparkles, title: "Sabedoria ancestral, leitura única", description: "Nossas leituras combinam séculos de tradição do Tarot com interpretações profundas e personalizadas, feitas sob medida para o seu momento." },
   { icon: Zap, title: "Suas respostas em segundos", description: "Sem fila, sem espera. Tire suas cartas agora e receba sua leitura na hora — a qualquer momento do dia ou da noite." },
   { icon: Moon, title: "Um novo olhar a cada manhã", description: "Horóscopo e Tarot do Dia renovados diariamente para você começar cada dia com mais clareza e propósito." },
 ];
@@ -112,7 +112,7 @@ const lifeThemes = [
 const featuredServices = [
   {
     id: "tarot", title: "Tarot Online",
-    description: "Tire suas cartas e receba uma leitura personalizada com IA. Do Dia, do Amor ou Completo — escolha o que seu coração pede.",
+    description: "Tire suas cartas e receba uma leitura personalizada e profunda. Do Dia, do Amor ou Completo — escolha o que seu coração pede.",
     icon: Star, href: "/tarot/dia", gradient: "from-violet-600/30 to-purple-800/30",
     links: [
       { label: "Tarot do Dia", href: "/tarot/dia", badge: "Grátis" },
@@ -157,8 +157,8 @@ interface BlogPreview {
 
 export default function Home() {
   usePageSEO({
-    title: "Chave do Oráculo — Tarot Online Grátis com IA, Numerologia e Horóscopo",
-    description: "Tire sua carta do dia, descubra seu mapa numerológico e receba previsões personalizadas. Leituras de Tarot com inteligência artificial feitas para iluminar seu caminho.",
+    title: "Chave do Oráculo — Tarot Online Grátis, Numerologia e Horóscopo Personalizado",
+    description: "Tire sua carta do dia, descubra seu mapa numerológico e receba previsões personalizadas. Leituras de Tarot feitas sob medida para iluminar seu caminho.",
     path: "/",
   });
 
@@ -168,14 +168,14 @@ export default function Home() {
     {
       type: "website",
       name: "Chave do Oráculo",
-      description: "Tarot online, numerologia, horóscopo e mapa astral com interpretação por IA.",
+      description: "Tarot online, numerologia, horóscopo e mapa astral com interpretações personalizadas.",
       url: window.location.origin,
     },
     {
       type: "faq",
       questions: [
         { question: "O Tarot do Dia é grátis?", answer: "Sim! O Tarot do Dia é 100% gratuito. Tire sua carta todos os dias e receba uma mensagem personalizada com seu nome e data de nascimento." },
-        { question: "Como funciona a leitura de Tarot com IA?", answer: "Nossa inteligência artificial combina séculos de tradição do Tarot com tecnologia avançada para criar interpretações únicas e personalizadas para cada pessoa." },
+        { question: "Como funciona a leitura de Tarot personalizada?", answer: "Nossas leituras combinam séculos de tradição do Tarot com seu nome, data de nascimento e momento de vida para criar interpretações únicas e profundas, feitas especialmente para você." },
         { question: "Posso fazer consulta com tarólogo ao vivo?", answer: "Sim! Temos tarólogos experientes disponíveis para consultas por chat, vídeo ou telefone. Acesse a página de Consultas para ver os profissionais disponíveis." },
         { question: "O que é o Mapa Numerológico?", answer: "O Mapa Numerológico revela seus números pessoais de destino, expressão e alma a partir do seu nome completo e data de nascimento. É uma ferramenta poderosa de autoconhecimento." },
       ],
@@ -281,7 +281,7 @@ export default function Home() {
                 e orientação espiritual
               </h1>
               <p className="text-base xl:text-lg text-muted-foreground mb-8 max-w-xl leading-relaxed">
-                Tarot com IA, horóscopo personalizado, numerologia, mapa astral, consultas ao vivo e muito mais. Tudo em um só lugar para iluminar seu caminho.
+                Tarot personalizado, horóscopo do dia, numerologia, mapa astral, consultas ao vivo e muito mais. Tudo em um só lugar para iluminar seu caminho.
               </p>
               <div className="flex gap-3">
                 <Link to="/tarot/dia">

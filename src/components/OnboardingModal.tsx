@@ -26,7 +26,7 @@ const steps: OnboardingStep[] = [
   {
     icon: <Star className="w-8 h-8" />,
     title: "Tarot Personalizado",
-    description: "Tire cartas e receba interpretações únicas feitas por inteligência artificial, baseadas em conhecimentos ancestrais.",
+    description: "Tire cartas e receba interpretações únicas e profundas, baseadas em séculos de conhecimento ancestral do Tarot.",
     color: "text-amber-400",
   },
   {

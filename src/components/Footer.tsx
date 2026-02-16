@@ -21,7 +21,7 @@ export default function Footer() {
               <span className="font-serif text-lg font-bold text-foreground">Chave do Oráculo</span>
             </Link>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Tarot online grátis com inteligência artificial. Leituras personalizadas para iluminar seu caminho.
+              Tarot online grátis com leituras personalizadas para iluminar seu caminho.
             </p>
           </div>
 
@@ -68,7 +68,7 @@ export default function Footer() {
         {/* Copyright */}
         <div className="border-t border-border/20 pt-6 text-center">
           <p className="text-xs text-muted-foreground">
-            © {currentYear} Chave do Oráculo. Leituras de Tarot com inteligência artificial para entretenimento e autoconhecimento.
+            © {currentYear} Chave do Oráculo. Leituras de Tarot personalizadas para entretenimento e autoconhecimento.
           </p>
         </div>
       </div>

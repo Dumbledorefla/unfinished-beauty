@@ -20,7 +20,7 @@ import { useStreak } from "@/hooks/useStreak";
 const positions = ["Situação Atual", "Desafio", "Base", "Passado Recente", "Melhor Resultado", "Futuro Próximo"];
 
 export default function TarotCompleto() {
-  usePageSEO({ title: "Tarot Completo — Leitura Profunda com 6 Cartas", description: "Uma leitura completa de Tarot com 6 cartas e interpretação detalhada por IA. Para quando você precisa de respostas profundas sobre qualquer área da vida.", path: "/tarot/completo" });
+  usePageSEO({ title: "Tarot Completo — Leitura Profunda com 6 Cartas", description: "Uma leitura completa de Tarot com 6 cartas e interpretação detalhada e personalizada. Para quando você precisa de respostas profundas sobre qualquer área da vida.", path: "/tarot/completo" });
   const { restoredState, requireAuth, clearRestored, user } = useOracleAuth({ methodId: "tarot-completo", returnTo: "/tarot/completo" });
   const { product, hasAccess, purchaseReading } = useFreemium("tarot-completo");
   const { recordActivity } = useStreak();
