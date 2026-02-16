@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import logoImg from "@/assets/logo.png";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Sparkles, Menu, X, LogOut, Star, Calculator, Sun,
@@ -108,8 +109,8 @@ export default function Header() {
       <div className="container mx-auto flex items-center justify-between h-16 px-4">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2.5 group shrink-0">
-          <div className="w-9 h-9 rounded-xl bg-primary/15 border border-primary/25 flex items-center justify-center group-hover:border-primary/40 transition-all duration-300 group-hover:shadow-[0_0_16px_hsl(258_62%_55%/0.2)]">
-            <Sparkles className="w-5 h-5 text-primary" />
+          <div className="w-9 h-9 rounded-xl overflow-hidden flex items-center justify-center group-hover:shadow-[0_0_16px_hsl(258_62%_55%/0.2)] transition-all duration-300">
+            <img src={logoImg} alt="Chave do Oráculo" className="w-full h-full object-cover" />
           </div>
           <span className="font-serif text-xl font-bold text-foreground hidden sm:block">Chave do Oráculo</span>
         </Link>
