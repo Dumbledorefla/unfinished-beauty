@@ -25,14 +25,14 @@ import { supabase } from "@/integrations/supabase/client";
 
 /* ─── Moon Phase Calculator ─── */
 const MOON_PHASES = [
-  { name: "Lua Nova", emoji: "🌑", energy: "Novos começos e intenções", color: "from-slate-500/20 to-slate-600/20" },
-  { name: "Lua Crescente", emoji: "🌒", energy: "Crescimento e ação", color: "from-emerald-500/20 to-teal-500/20" },
-  { name: "Quarto Crescente", emoji: "🌓", energy: "Desafios e decisões", color: "from-amber-500/20 to-orange-500/20" },
-  { name: "Gibosa Crescente", emoji: "🌔", energy: "Refinamento e paciência", color: "from-blue-500/20 to-indigo-500/20" },
-  { name: "Lua Cheia", emoji: "🌕", energy: "Realização e gratidão", color: "from-yellow-500/20 to-amber-500/20" },
-  { name: "Gibosa Minguante", emoji: "🌖", energy: "Reflexão e partilha", color: "from-purple-500/20 to-violet-500/20" },
-  { name: "Quarto Minguante", emoji: "🌗", energy: "Liberação e desapego", color: "from-rose-500/20 to-pink-500/20" },
-  { name: "Lua Minguante", emoji: "🌘", energy: "Descanso e renovação", color: "from-indigo-500/20 to-slate-500/20" },
+  { name: "Lua Nova", emoji: "🌑", energy: "Novos começos e intenções", ritual: "Defina suas intenções para o ciclo" },
+  { name: "Lua Crescente", emoji: "🌒", energy: "Crescimento e ação", ritual: "Coloque seus planos em movimento" },
+  { name: "Quarto Crescente", emoji: "🌓", energy: "Desafios e decisões", ritual: "Enfrente obstáculos com coragem" },
+  { name: "Gibosa Crescente", emoji: "🌔", energy: "Refinamento e paciência", ritual: "Ajuste detalhes e confie no processo" },
+  { name: "Lua Cheia", emoji: "🌕", energy: "Realização e gratidão", ritual: "Celebre conquistas e agradeça" },
+  { name: "Gibosa Minguante", emoji: "🌖", energy: "Reflexão e partilha", ritual: "Compartilhe o que aprendeu" },
+  { name: "Quarto Minguante", emoji: "🌗", energy: "Liberação e desapego", ritual: "Solte o que não serve mais" },
+  { name: "Lua Minguante", emoji: "🌘", energy: "Descanso e renovação", ritual: "Descanse e prepare-se para o novo" },
 ];
 
 function getMoonPhaseIndex(): number {
@@ -97,22 +97,11 @@ const features = [
   { icon: Moon, title: "Um novo olhar a cada manhã", description: "Horóscopo e Tarot do Dia renovados diariamente para você começar cada dia com mais clareza e propósito." },
 ];
 
-const lifeThemes = [
-  { emoji: "💕", label: "Amor", desc: "Relacionamentos e paixão", href: "/tarot/amor" },
-  { emoji: "💼", label: "Carreira", desc: "Trabalho e propósito", href: "/numerologia" },
-  { emoji: "🌟", label: "Hoje", desc: "O que o dia reserva", href: "/tarot/dia" },
-  { emoji: "🔮", label: "Futuro", desc: "O que está por vir", href: "/tarot/completo" },
-  { emoji: "🧘", label: "Autoconhecimento", desc: "Quem você realmente é", href: "/mapa-astral" },
-  { emoji: "🌙", label: "Lua", desc: "Energia do momento", href: "/calendario-lunar" },
-  { emoji: "💑", label: "Compatibilidade", desc: "Vocês combinam?", href: "/compatibilidade" },
-  { emoji: "📖", label: "Aprender", desc: "Cursos e artigos", href: "/blog" },
-];
-
 /* ─── Desktop-only: Featured services (top 3 big cards) ─── */
 const featuredServices = [
   {
     id: "tarot", title: "Tarot Online",
-    description: "Tire suas cartas e receba uma leitura personalizada e profunda. Do Dia, do Amor ou Completo — escolha o que seu coração pede.",
+    description: "Tire suas cartas e receba uma leitura personalizada. Do Dia, do Amor ou Completo — escolha o que seu coração pede.",
     icon: Star, href: "/tarot/dia", gradient: "from-violet-600/30 to-purple-800/30",
     links: [
       { label: "Tarot do Dia", href: "/tarot/dia", badge: "Grátis" },
@@ -185,7 +174,7 @@ export default function Home() {
   // Moon phase
   const moonPhase = useMemo(() => MOON_PHASES[getMoonPhaseIndex()], []);
 
-  // Blog articles (desktop only)
+  // Blog articles
   const [blogPosts, setBlogPosts] = useState<BlogPreview[]>([]);
   useEffect(() => {
     const loadBlog = async () => {
@@ -223,33 +212,31 @@ export default function Home() {
       <Header />
 
       {/* ═══════════════════════════════════════════════════════════════
-          HERO — Mobile: centralizado (original) | Desktop: assimétrico
+          HERO — Mobile: centralizado + data | Desktop: assimétrico
          ═══════════════════════════════════════════════════════════════ */}
       <section className="relative pt-28 sm:pt-24 lg:pt-28 pb-8 sm:pb-10 lg:pb-6 z-10">
         <div className="container mx-auto relative z-10 px-5 sm:px-4">
-          {/* Mobile Hero (unchanged) */}
+          {/* Mobile Hero */}
           <div className="lg:hidden max-w-2xl mx-auto text-center">
             <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-              <div className="sm:hidden mb-6 flex justify-center">
-                <div className="w-16 h-16 rounded-full bg-primary/15 border border-primary/25 flex items-center justify-center shadow-[0_0_30px_hsl(265_72%_60%/0.2)]">
-                  <Sparkles className="w-8 h-8 text-primary" />
-                </div>
-              </div>
+              {/* Data do dia — mobile */}
+              <p className="text-primary/60 text-[11px] font-semibold tracking-[0.15em] uppercase mb-4 sm:mb-5">
+                {todayFormatted}
+              </p>
               <h1 className="text-3xl sm:text-5xl font-bold mb-4 sm:mb-5 leading-[1.2] sm:leading-[1.15] text-foreground tracking-tight">
-                As respostas que você{" "}
-                <span className="text-primary">procura</span>
-                <span className="sm:hidden"> </span>
-                <br className="hidden sm:block" />
-                já estão nas cartas
+                Seu portal de{" "}
+                <span className="text-primary">autoconhecimento</span>
+                <br />
+                e orientação espiritual
               </h1>
               <p className="text-sm sm:text-base text-muted-foreground mb-6 sm:mb-8 max-w-md sm:max-w-lg mx-auto leading-relaxed">
-                Tire sua carta agora e descubra o que o Tarot, a Numerologia e os Astros revelam sobre o seu momento.
+                Tarot, horóscopo, numerologia, mapa astral e muito mais. Tudo em um só lugar para iluminar seu caminho.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center px-2 sm:px-0">
                 <Link to="/tarot/dia" className="w-full sm:w-auto">
                   <Button size="lg" className="w-full sm:w-auto bg-primary text-primary-foreground hover:bg-primary/90 text-sm sm:text-base px-5 sm:px-7 py-4 sm:py-5 pulse-glow">
                     <Star className="w-4 h-4 mr-2 shrink-0" />
-                    Receber minha mensagem do dia
+                    Tirar minha carta do dia
                   </Button>
                 </Link>
                 <Link to="/consultas" className="w-full sm:w-auto">
@@ -281,7 +268,7 @@ export default function Home() {
                 e orientação espiritual
               </h1>
               <p className="text-base xl:text-lg text-muted-foreground mb-8 max-w-xl leading-relaxed">
-                Tarot personalizado, horóscopo do dia, numerologia, mapa astral, consultas ao vivo e muito mais. Tudo em um só lugar para iluminar seu caminho.
+                Tarot, horóscopo personalizado, numerologia, mapa astral, consultas ao vivo e muito mais. Tudo em um só lugar para iluminar seu caminho.
               </p>
               <div className="flex gap-3">
                 <Link to="/tarot/dia">
@@ -368,11 +355,48 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════════════
-          SIGNOS BAR — Desktop only: 12 signos clicáveis
+          MOON WIDGET — Mobile only (desktop has it in the hero widget)
          ═══════════════════════════════════════════════════════════════ */}
-      <section className="hidden lg:block py-4 relative z-10">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-center gap-1">
+      <section className="lg:hidden pb-4 relative z-10">
+        <div className="container mx-auto px-5">
+          <Link to="/calendario-lunar">
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.3 }}
+              className="glass-card rounded-xl p-3.5 flex items-center gap-3"
+            >
+              <span className="text-2xl">{moonPhase.emoji}</span>
+              <div className="flex-1 min-w-0">
+                <p className="text-xs font-semibold text-foreground">{moonPhase.name}</p>
+                <p className="text-[11px] text-muted-foreground">{moonPhase.energy}</p>
+              </div>
+              <ChevronRight className="w-4 h-4 text-muted-foreground shrink-0" />
+            </motion.div>
+          </Link>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════════════
+          SIGNOS BAR — Mobile: horizontal scroll | Desktop: centered row
+         ═══════════════════════════════════════════════════════════════ */}
+      <section className="py-3 lg:py-4 relative z-10">
+        <div className="container mx-auto px-0 lg:px-4">
+          {/* Mobile: scrollable */}
+          <div className="lg:hidden">
+            <div className="flex overflow-x-auto gap-0.5 px-4 pb-2 scrollbar-hide" style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
+              {signos.map((signo) => (
+                <Link key={signo.slug} to={`/signo/${signo.slug}`}>
+                  <div className="flex flex-col items-center px-2.5 py-1.5 rounded-lg active:bg-secondary/50 transition-colors cursor-pointer min-w-[52px]">
+                    <span className="text-base mb-0.5">{signo.emoji}</span>
+                    <span className="text-[9px] font-medium text-muted-foreground whitespace-nowrap">{signo.name}</span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+          {/* Desktop: centered */}
+          <div className="hidden lg:flex items-center justify-center gap-1">
             {signos.map((signo) => (
               <Link key={signo.slug} to={`/signo/${signo.slug}`}>
                 <motion.div
@@ -391,31 +415,26 @@ export default function Home() {
       {/* ═══════════════════════════════════════════════════════════════
           SOCIAL PROOF — Both mobile and desktop
          ═══════════════════════════════════════════════════════════════ */}
-      <section className="pt-2 sm:pt-4 lg:pt-2 pb-8 relative z-10">
+      <section className="pt-2 sm:pt-4 lg:pt-2 pb-6 relative z-10">
         <div className="container mx-auto px-4">
-          {/* Separador decorativo — mobile */}
-          <div className="sm:hidden flex items-center gap-3 mb-5 px-4">
-            <div className="flex-1 h-px bg-gradient-to-r from-transparent to-primary/20" />
-            <Sparkles className="w-3.5 h-3.5 text-primary/40" />
-            <div className="flex-1 h-px bg-gradient-to-l from-transparent to-primary/20" />
-          </div>
           <SocialProof />
         </div>
       </section>
 
       {/* ═══════════════════════════════════════════════════════════════
-          FEATURED SERVICES — Desktop: 3 big cards | Mobile: hidden
+          FEATURED SERVICES — Desktop: 3 big cards | Mobile: 3 compact cards
          ═══════════════════════════════════════════════════════════════ */}
-      <section className="hidden lg:block py-10 relative z-10">
+      <section className="py-8 lg:py-10 relative z-10">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-8">
+          <div className="text-center mb-6 lg:mb-8">
             <motion.div initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
               <span className="text-primary/70 text-xs font-semibold tracking-[0.2em] uppercase">Explore nosso portal</span>
-              <h2 className="text-3xl font-bold mt-2 text-foreground">Ferramentas de autoconhecimento</h2>
+              <h2 className="text-2xl lg:text-3xl font-bold mt-2 text-foreground">Ferramentas de autoconhecimento</h2>
             </motion.div>
           </div>
 
-          <div className="grid lg:grid-cols-3 gap-5">
+          {/* Desktop: 3 big cards with sub-links */}
+          <div className="hidden lg:grid lg:grid-cols-3 gap-5">
             {featuredServices.map((service, index) => {
               const Icon = service.icon;
               return (
@@ -428,7 +447,6 @@ export default function Home() {
                 >
                   <Card className="h-full glass-card group overflow-hidden">
                     <CardContent className="p-0">
-                      {/* Header gradient */}
                       <div className={`bg-gradient-to-br ${service.gradient} p-6 pb-4`}>
                         <div className="flex items-center gap-3 mb-3">
                           <div className="w-12 h-12 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center">
@@ -438,7 +456,6 @@ export default function Home() {
                         </div>
                         <p className="text-sm text-foreground/70 leading-relaxed">{service.description}</p>
                       </div>
-                      {/* Links */}
                       <div className="p-4 space-y-1">
                         {service.links.map((link) => (
                           <Link key={link.href} to={link.href}>
@@ -468,50 +485,62 @@ export default function Home() {
               );
             })}
           </div>
-        </div>
-      </section>
 
-      {/* ═══════════════════════════════════════════════════════════════
-          "O QUE VOCÊ QUER SABER?" — Mobile only
-         ═══════════════════════════════════════════════════════════════ */}
-      <section className="lg:hidden py-12 relative z-10">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-8">
-            <h2 className="text-2xl md:text-3xl font-bold text-foreground">O que você quer saber?</h2>
-            <p className="text-muted-foreground text-sm mt-2">Escolha o tema e encontre a leitura certa para você</p>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            {lifeThemes.map((tema, i) => (
-              <Link key={i} to={tema.href}>
+          {/* Mobile: compact cards with icon + title + 3 sub-links */}
+          <div className="lg:hidden space-y-3">
+            {featuredServices.map((service, index) => {
+              const Icon = service.icon;
+              return (
                 <motion.div
+                  key={service.id}
                   initial={{ opacity: 0, y: 12 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: i * 0.05 }}
-                  className="glass-card rounded-xl p-4 text-center group hover:border-primary/30 transition-all cursor-pointer"
+                  transition={{ delay: index * 0.08 }}
                 >
-                  <p className="text-2xl mb-2">{tema.emoji}</p>
-                  <p className="font-semibold text-foreground text-sm group-hover:text-primary transition-colors">{tema.label}</p>
-                  <p className="text-xs text-muted-foreground">{tema.desc}</p>
+                  <div className="glass-card rounded-xl overflow-hidden">
+                    <div className={`bg-gradient-to-r ${service.gradient} px-4 py-3 flex items-center gap-3`}>
+                      <div className="w-10 h-10 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center shrink-0">
+                        <Icon className="w-5 h-5 text-foreground" />
+                      </div>
+                      <div>
+                        <h3 className="text-base font-bold text-foreground">{service.title}</h3>
+                        <p className="text-[11px] text-foreground/60 leading-snug line-clamp-1">{service.description}</p>
+                      </div>
+                    </div>
+                    <div className="flex divide-x divide-border/20">
+                      {service.links.map((link) => (
+                        <Link key={link.href} to={link.href} className="flex-1">
+                          <div className="py-2.5 px-2 text-center">
+                            <span className="text-xs text-foreground/80 font-medium">{link.label.replace("Tarot do ", "").replace("Tarot ", "").replace("Horóscopo do ", "").replace("Mapa ", "").replace("Calendário ", "").replace("Diário de ", "")}</span>
+                            {link.badge && (
+                              <span className={`block text-[9px] mt-0.5 font-medium ${
+                                link.badge === "Premium" ? "text-accent" : link.badge === "Novo" ? "text-primary" : "text-emerald-400"
+                              }`}>
+                                {link.badge}
+                              </span>
+                            )}
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
                 </motion.div>
-              </Link>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
 
       {/* ═══════════════════════════════════════════════════════════════
-          SERVICES GRID — Mobile: 2-col | Desktop: 4-col with extras
+          SERVICES GRID — Mobile: 2-col | Desktop: 4-col
          ═══════════════════════════════════════════════════════════════ */}
-      <section className="py-12 relative z-10">
+      <section className="py-10 lg:py-12 relative z-10">
         <div className="container mx-auto relative z-10 px-4">
-          <div className="text-center mb-8">
+          <div className="text-center mb-6 lg:mb-8">
             <motion.div initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
               <span className="text-primary/70 text-xs font-semibold tracking-[0.2em] uppercase">Leituras e Oráculos</span>
-              <h2 className="text-3xl md:text-4xl font-bold mt-2 text-foreground">
-                <span className="lg:hidden">Qual pergunta não te deixa dormir?</span>
-                <span className="hidden lg:inline">Todos os nossos oráculos e ferramentas</span>
-              </h2>
+              <h2 className="text-2xl lg:text-3xl font-bold mt-2 text-foreground">Todos os nossos oráculos</h2>
             </motion.div>
           </div>
 
@@ -557,20 +586,20 @@ export default function Home() {
             })}
           </div>
 
-          {/* Desktop: Additional quick links */}
-          <div className="hidden lg:flex justify-center gap-4 mt-6">
+          {/* Quick links — both mobile and desktop */}
+          <div className="flex flex-wrap justify-center gap-2 lg:gap-4 mt-5 lg:mt-6">
             {[
               { label: "Calendário Lunar", href: "/calendario-lunar", icon: Calendar },
               { label: "Diário de Tarot", href: "/diario", icon: BookOpen },
-              { label: "Spreads Customizados", href: "/spreads", icon: Layout },
+              { label: "Spreads", href: "/spreads", icon: Layout },
               { label: "Ritual Diário", href: "/ritual", icon: Wand2 },
               { label: "Blog", href: "/blog", icon: Newspaper },
             ].map((link) => {
               const Icon = link.icon;
               return (
                 <Link key={link.href} to={link.href}>
-                  <Button variant="outline" size="sm" className="border-border/50 text-muted-foreground hover:text-primary hover:border-primary/30 gap-2">
-                    <Icon className="w-3.5 h-3.5" />
+                  <Button variant="outline" size="sm" className="border-border/50 text-muted-foreground hover:text-primary hover:border-primary/30 gap-1.5 lg:gap-2 text-xs lg:text-sm h-8 lg:h-9 px-3 lg:px-4">
+                    <Icon className="w-3 h-3 lg:w-3.5 lg:h-3.5" />
                     {link.label}
                   </Button>
                 </Link>
@@ -581,25 +610,26 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════════════
-          BLOG FEED — Desktop only: 3 recent articles
+          BLOG FEED — Mobile: horizontal scroll | Desktop: 3 articles
          ═══════════════════════════════════════════════════════════════ */}
       {blogPosts.length > 0 && (
-        <section className="hidden lg:block py-12 relative z-10">
+        <section className="py-8 lg:py-12 relative z-10">
           <div className="container mx-auto px-4">
-            <div className="flex items-center justify-between mb-8">
+            <div className="flex items-center justify-between mb-5 lg:mb-8">
               <div>
                 <span className="text-primary/70 text-xs font-semibold tracking-[0.2em] uppercase">Blog</span>
-                <h2 className="text-3xl font-bold mt-1 text-foreground">Artigos recentes</h2>
+                <h2 className="text-xl lg:text-3xl font-bold mt-1 text-foreground">Artigos recentes</h2>
               </div>
               <Link to="/blog">
-                <Button variant="outline" size="sm" className="border-border/50 text-muted-foreground hover:text-primary gap-2">
-                  Ver todos os artigos
-                  <ArrowRight className="w-3.5 h-3.5" />
+                <Button variant="outline" size="sm" className="border-border/50 text-muted-foreground hover:text-primary gap-1.5 text-xs lg:text-sm">
+                  Ver todos
+                  <ArrowRight className="w-3 h-3 lg:w-3.5 lg:h-3.5" />
                 </Button>
               </Link>
             </div>
 
-            <div className="grid lg:grid-cols-3 gap-5">
+            {/* Desktop: 3 columns */}
+            <div className="hidden lg:grid lg:grid-cols-3 gap-5">
               {blogPosts.map((post, index) => (
                 <motion.div
                   key={post.id}
@@ -647,22 +677,52 @@ export default function Home() {
                 </motion.div>
               ))}
             </div>
+
+            {/* Mobile: horizontal scroll cards */}
+            <div className="lg:hidden">
+              <div className="flex overflow-x-auto gap-3 pb-2 -mx-1 px-1" style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
+                {blogPosts.map((post) => (
+                  <Link key={post.id} to={`/blog/${post.slug}`} className="min-w-[260px] max-w-[280px] shrink-0">
+                    <Card className="h-full glass-card group cursor-pointer overflow-hidden">
+                      {post.cover_image_url && (
+                        <div className="aspect-[16/9] overflow-hidden">
+                          <img
+                            src={post.cover_image_url}
+                            alt={post.title}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      )}
+                      <CardContent className="p-3.5">
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="px-1.5 py-0.5 text-[9px] rounded-full bg-primary/15 text-primary border border-primary/25 font-medium uppercase tracking-wider">
+                            {post.category}
+                          </span>
+                          <span className="text-[10px] text-muted-foreground flex items-center gap-0.5">
+                            <Clock className="w-2.5 h-2.5" />
+                            {post.reading_time_min} min
+                          </span>
+                        </div>
+                        <h3 className="font-semibold text-sm text-foreground line-clamp-2">{post.title}</h3>
+                      </CardContent>
+                    </Card>
+                  </Link>
+                ))}
+              </div>
+            </div>
           </div>
         </section>
       )}
 
       {/* ═══════════════════════════════════════════════════════════════
-          DESKTOP EXTRA: Lua de Hoje + Ritual + Diário
+          EXTRA TOOLS — Mobile: 2 compact cards | Desktop: 3 full cards
          ═══════════════════════════════════════════════════════════════ */}
-      <section className="hidden lg:block py-10 relative z-10">
+      <section className="py-8 lg:py-10 relative z-10">
         <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-3 gap-5">
+          {/* Desktop: 3 full cards */}
+          <div className="hidden lg:grid lg:grid-cols-3 gap-5">
             {/* Moon Phase Card */}
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
+            <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
               <Card className="h-full glass-card">
                 <CardContent className="p-6">
                   <div className="flex items-center gap-2 mb-4">
@@ -685,12 +745,7 @@ export default function Home() {
             </motion.div>
 
             {/* Ritual Diário */}
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-            >
+            <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}>
               <Card className="h-full glass-card">
                 <CardContent className="p-6">
                   <div className="flex items-center gap-2 mb-4">
@@ -719,12 +774,7 @@ export default function Home() {
             </motion.div>
 
             {/* Diário de Tarot */}
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-            >
+            <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }}>
               <Card className="h-full glass-card">
                 <CardContent className="p-6">
                   <div className="flex items-center gap-2 mb-4">
@@ -752,26 +802,59 @@ export default function Home() {
               </Card>
             </motion.div>
           </div>
+
+          {/* Mobile: 2 compact cards side by side */}
+          <div className="lg:hidden grid grid-cols-2 gap-3">
+            <Link to="/ritual">
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="glass-card rounded-xl p-4 h-full"
+              >
+                <div className="w-10 h-10 rounded-lg bg-orange-500/10 border border-orange-500/20 flex items-center justify-center mb-3">
+                  <Flame className="w-5 h-5 text-orange-400" />
+                </div>
+                <h3 className="font-semibold text-sm text-foreground mb-1">Ritual Diário</h3>
+                <p className="text-[11px] text-muted-foreground leading-snug">Meditação, carta e intenção em 5 minutos</p>
+              </motion.div>
+            </Link>
+            <Link to="/diario">
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.08 }}
+                className="glass-card rounded-xl p-4 h-full"
+              >
+                <div className="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center mb-3">
+                  <BookOpen className="w-5 h-5 text-emerald-400" />
+                </div>
+                <h3 className="font-semibold text-sm text-foreground mb-1">Diário de Tarot</h3>
+                <p className="text-[11px] text-muted-foreground leading-snug">Registre leituras e acompanhe padrões</p>
+              </motion.div>
+            </Link>
+          </div>
         </div>
       </section>
 
       {/* ═══════════════════════════════════════════════════════════════
           FEATURES — Both mobile and desktop
          ═══════════════════════════════════════════════════════════════ */}
-      <section className="py-16 relative z-10 overflow-hidden">
+      <section className="py-12 lg:py-16 relative z-10 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img src={featuresBg} alt="" className="w-full h-full object-cover opacity-10" />
           <div className="absolute inset-0 bg-background/80" />
         </div>
         <div className="container mx-auto relative z-10 px-4">
-          <div className="text-center mb-12">
+          <div className="text-center mb-8 lg:mb-12">
             <motion.div initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
               <span className="text-primary/70 text-xs font-semibold tracking-[0.2em] uppercase">Por que confiar</span>
-              <h2 className="text-3xl md:text-4xl font-bold mt-2 text-foreground">No Chave do Oráculo</h2>
+              <h2 className="text-2xl lg:text-3xl font-bold mt-2 text-foreground">No Chave do Oráculo</h2>
             </motion.div>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-5">
+          <div className="grid md:grid-cols-3 gap-4 lg:gap-5">
             {features.map((feature, index) => {
               const Icon = feature.icon;
               return (
@@ -781,13 +864,13 @@ export default function Home() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
-                  className="text-center glass-card rounded-2xl p-7"
+                  className="text-center glass-card rounded-2xl p-5 lg:p-7"
                 >
-                  <div className="w-14 h-14 mx-auto mb-5 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center">
-                    <Icon className="w-7 h-7 text-primary" />
+                  <div className="w-12 h-12 lg:w-14 lg:h-14 mx-auto mb-4 lg:mb-5 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center">
+                    <Icon className="w-6 h-6 lg:w-7 lg:h-7 text-primary" />
                   </div>
-                  <h3 className="text-lg font-semibold mb-2 text-foreground">{feature.title}</h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">{feature.description}</p>
+                  <h3 className="text-base lg:text-lg font-semibold mb-2 text-foreground">{feature.title}</h3>
+                  <p className="text-muted-foreground text-xs lg:text-sm leading-relaxed">{feature.description}</p>
                 </motion.div>
               );
             })}
@@ -799,27 +882,27 @@ export default function Home() {
       <Testimonials />
 
       {/* Newsletter */}
-      <section className="py-12 relative z-10">
+      <section className="py-10 lg:py-12 relative z-10">
         <div className="container mx-auto px-4 max-w-xl">
           <NewsletterSignup source="homepage" />
         </div>
       </section>
 
       {/* CTA */}
-      <section className="py-16 relative z-10">
+      <section className="py-12 lg:py-16 relative z-10">
         <div className="container mx-auto relative z-10 px-4">
           <motion.div
             initial={{ opacity: 0, scale: 0.97 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="relative overflow-hidden rounded-2xl gradient-border p-8 md:p-14 bg-secondary/60 backdrop-blur-md"
+            className="relative overflow-hidden rounded-2xl gradient-border p-7 sm:p-8 md:p-14 bg-secondary/60 backdrop-blur-md"
           >
             <div className="relative text-center max-w-xl mx-auto">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-5 text-foreground leading-tight">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 lg:mb-5 text-foreground leading-tight">
                 Sua intuição te trouxe até aqui.{" "}
                 <span className="text-primary">Confie nela.</span>
               </h2>
-              <p className="text-muted-foreground mb-8 text-sm sm:text-base leading-relaxed">
+              <p className="text-muted-foreground mb-6 lg:mb-8 text-sm sm:text-base leading-relaxed">
                 Tire sua primeira carta gratuitamente e veja o que as cartas têm a dizer sobre você — leva menos de 1 minuto.
               </p>
               <Link to="/tarot/dia">
