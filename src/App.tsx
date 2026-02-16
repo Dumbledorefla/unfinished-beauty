@@ -33,6 +33,10 @@ const MapaAstral = lazy(() => import("./pages/MapaAstral"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const Afiliado = lazy(() => import("./pages/Afiliado"));
 const ChatAoVivo = lazy(() => import("./pages/ChatAoVivo"));
+const Blog = lazy(() => import("./pages/Blog"));
+const BlogPost = lazy(() => import("./pages/BlogPost"));
+const Compatibilidade = lazy(() => import("./pages/Compatibilidade"));
+const CalendarioLunar = lazy(() => import("./pages/CalendarioLunar"));
 
 function PageLoader() {
   return (
@@ -92,6 +96,10 @@ const App = () => (
                   <Route path="/mapa-astral" element={<MapaAstral />} />
                   <Route path="/afiliado" element={<Afiliado />} />
                   <Route path="/chat-ao-vivo" element={<ChatAoVivo />} />
+                  <Route path="/blog" element={<Blog />} />
+                  <Route path="/blog/:slug" element={<BlogPost />} />
+                  <Route path="/compatibilidade" element={<Compatibilidade />} />
+                  <Route path="/calendario-lunar" element={<CalendarioLunar />} />
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                   <Route path="*" element={<NotFound />} />
                 </Routes>

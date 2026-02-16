@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   LayoutDashboard, Users, ShoppingBag, Star, Calendar,
-  BookOpen, Settings, Shield, Bug, CreditCard, Tag, ClipboardList, Share2
+  BookOpen, Settings, Shield, Bug, CreditCard, Tag, ClipboardList, Share2, FileText
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -22,6 +22,7 @@ import AdminDebug from "@/components/admin/AdminDebug";
 import AdminCoupons from "@/components/admin/AdminCoupons";
 import AdminAuditLog from "@/components/admin/AdminAuditLog";
 import AdminAffiliates from "@/components/admin/AdminAffiliates";
+import AdminBlog from "@/components/admin/AdminBlog";
 
 export default function Admin() {
   const { isAuthenticated, isLoading, isAdmin, isProfileLoaded } = useAuth();
@@ -107,6 +108,7 @@ export default function Admin() {
             <TabsTrigger value="coupons" className="rounded-lg"><Tag className="w-4 h-4 mr-1.5" />Cupons</TabsTrigger>
             <TabsTrigger value="audit" className="rounded-lg"><ClipboardList className="w-4 h-4 mr-1.5" />Auditoria</TabsTrigger>
             <TabsTrigger value="affiliates" className="rounded-lg"><Share2 className="w-4 h-4 mr-1.5" />Afiliados</TabsTrigger>
+            <TabsTrigger value="blog" className="rounded-lg"><FileText className="w-4 h-4 mr-1.5" />Blog</TabsTrigger>
             <TabsTrigger value="debug" className="rounded-lg"><Bug className="w-4 h-4 mr-1.5" />Debug</TabsTrigger>
           </TabsList>
 
@@ -122,6 +124,7 @@ export default function Admin() {
           <TabsContent value="coupons"><AdminCoupons coupons={coupons} onRefresh={loadData} /></TabsContent>
           <TabsContent value="audit"><AdminAuditLog /></TabsContent>
           <TabsContent value="affiliates"><AdminAffiliates /></TabsContent>
+          <TabsContent value="blog"><AdminBlog /></TabsContent>
           <TabsContent value="debug"><AdminDebug /></TabsContent>
         </Tabs>
       </div>
