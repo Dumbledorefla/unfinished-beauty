@@ -222,6 +222,35 @@ export type Database = {
         }
         Relationships: []
       }
+      blog_bookmarks: {
+        Row: {
+          created_at: string | null
+          id: string
+          post_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          post_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          post_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "blog_bookmarks_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "blog_posts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       blog_categories: {
         Row: {
           description: string | null
@@ -249,11 +278,66 @@ export type Database = {
         }
         Relationships: []
       }
+      blog_comments: {
+        Row: {
+          author_avatar_url: string | null
+          author_name: string
+          content: string
+          created_at: string | null
+          id: string
+          parent_id: string | null
+          post_id: string
+          status: string | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          author_avatar_url?: string | null
+          author_name: string
+          content: string
+          created_at?: string | null
+          id?: string
+          parent_id?: string | null
+          post_id: string
+          status?: string | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          author_avatar_url?: string | null
+          author_name?: string
+          content?: string
+          created_at?: string | null
+          id?: string
+          parent_id?: string | null
+          post_id?: string
+          status?: string | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "blog_comments_parent_id_fkey"
+            columns: ["parent_id"]
+            isOneToOne: false
+            referencedRelation: "blog_comments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "blog_comments_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "blog_posts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       blog_posts: {
         Row: {
           author_avatar_url: string | null
           author_name: string
           category: string
+          comment_count: number | null
           content: string
           cover_image_url: string | null
           created_at: string | null
@@ -263,6 +347,7 @@ export type Database = {
           meta_description: string | null
           meta_title: string | null
           published_at: string | null
+          reaction_count: number | null
           reading_time_min: number | null
           slug: string
           status: string
@@ -275,6 +360,7 @@ export type Database = {
           author_avatar_url?: string | null
           author_name?: string
           category?: string
+          comment_count?: number | null
           content: string
           cover_image_url?: string | null
           created_at?: string | null
@@ -284,6 +370,7 @@ export type Database = {
           meta_description?: string | null
           meta_title?: string | null
           published_at?: string | null
+          reaction_count?: number | null
           reading_time_min?: number | null
           slug: string
           status?: string
@@ -296,6 +383,7 @@ export type Database = {
           author_avatar_url?: string | null
           author_name?: string
           category?: string
+          comment_count?: number | null
           content?: string
           cover_image_url?: string | null
           created_at?: string | null
@@ -305,6 +393,7 @@ export type Database = {
           meta_description?: string | null
           meta_title?: string | null
           published_at?: string | null
+          reaction_count?: number | null
           reading_time_min?: number | null
           slug?: string
           status?: string
@@ -314,6 +403,41 @@ export type Database = {
           view_count?: number | null
         }
         Relationships: []
+      }
+      blog_reactions: {
+        Row: {
+          created_at: string | null
+          id: string
+          post_id: string
+          reaction_type: string
+          session_id: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          post_id: string
+          reaction_type?: string
+          session_id?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          post_id?: string
+          reaction_type?: string
+          session_id?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "blog_reactions_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "blog_posts"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       chat_messages: {
         Row: {
