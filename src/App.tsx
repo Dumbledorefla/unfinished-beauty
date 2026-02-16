@@ -40,6 +40,9 @@ const CalendarioLunar = lazy(() => import("./pages/CalendarioLunar"));
 const Signos = lazy(() => import("./pages/Signos"));
 const Signo = lazy(() => import("./pages/Signo"));
 const Planos = lazy(() => import("./pages/Planos"));
+const DiarioTarot = lazy(() => import("./pages/DiarioTarot"));
+const SpreadsCustom = lazy(() => import("./pages/SpreadsCustom"));
+const RitualDiario = lazy(() => import("./pages/RitualDiario"));
 
 function PageLoader() {
   return (
@@ -106,6 +109,9 @@ const App = () => (
                   <Route path="/signos" element={<Signos />} />
                   <Route path="/signo/:slug" element={<Signo />} />
                   <Route path="/planos" element={<Planos />} />
+                  <Route path="/diario" element={<DiarioTarot />} />
+                  <Route path="/spreads" element={<SpreadsCustom />} />
+                  <Route path="/ritual" element={<RitualDiario />} />
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                   <Route path="*" element={<NotFound />} />
                 </Routes>
