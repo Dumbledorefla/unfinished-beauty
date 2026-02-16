@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   LayoutDashboard, Users, ShoppingBag, Star, Calendar,
-  BookOpen, Settings, Shield, Bug, CreditCard
+  BookOpen, Settings, Shield, Bug, CreditCard, Tag
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -19,6 +19,7 @@ import AdminPayments from "@/components/admin/AdminPayments";
 import AdminConsultations from "@/components/admin/AdminConsultations";
 import AdminSettings from "@/components/admin/AdminSettings";
 import AdminDebug from "@/components/admin/AdminDebug";
+import AdminCoupons from "@/components/admin/AdminCoupons";
 
 export default function Admin() {
   const { isAuthenticated, isLoading, isAdmin, isProfileLoaded } = useAuth();
@@ -31,6 +32,7 @@ export default function Admin() {
   const [orders, setOrders] = useState<any[]>([]);
   const [consultations, setConsultations] = useState<any[]>([]);
   const [siteSettings, setSiteSettings] = useState<any[]>([]);
+  const [coupons, setCoupons] = useState<any[]>([]);
   const [dataLoaded, setDataLoaded] = useState(false);
 
   useEffect(() => {
@@ -44,7 +46,7 @@ export default function Admin() {
 
   const loadData = async () => {
     try {
-      const [profilesRes, productsRes, ordersRes, coursesRes, taromantesRes, consultationsRes, settingsRes] = await Promise.all([
+      const [profilesRes, productsRes, ordersRes, coursesRes, taromantesRes, consultationsRes, settingsRes, couponsRes] = await Promise.all([
         supabase.from("profiles").select("*"),
         supabase.from("products").select("*"),
         supabase.from("orders").select("*").order("created_at", { ascending: false }),
@@ -52,6 +54,7 @@ export default function Admin() {
         supabase.from("taromantes").select("*"),
         supabase.from("consultations").select("*").order("created_at", { ascending: false }),
         supabase.from("site_settings").select("*"),
+        supabase.from("coupons").select("*").order("created_at", { ascending: false }),
       ]);
       setUsers(profilesRes.data || []);
       setProducts(productsRes.data || []);
@@ -60,6 +63,7 @@ export default function Admin() {
       setTaromantes(taromantesRes.data || []);
       setConsultations(consultationsRes.data || []);
       setSiteSettings(settingsRes.data || []);
+      setCoupons(couponsRes.data || []);
     } catch (err) { console.error("Admin loadData error:", err); }
   };
 
@@ -98,6 +102,7 @@ export default function Admin() {
             <TabsTrigger value="consultations" className="rounded-lg"><Calendar className="w-4 h-4 mr-1.5" />Consultas</TabsTrigger>
             <TabsTrigger value="courses" className="rounded-lg"><BookOpen className="w-4 h-4 mr-1.5" />Cursos</TabsTrigger>
             <TabsTrigger value="settings" className="rounded-lg"><Settings className="w-4 h-4 mr-1.5" />Config</TabsTrigger>
+            <TabsTrigger value="coupons" className="rounded-lg"><Tag className="w-4 h-4 mr-1.5" />Cupons</TabsTrigger>
             <TabsTrigger value="debug" className="rounded-lg"><Bug className="w-4 h-4 mr-1.5" />Debug</TabsTrigger>
           </TabsList>
 
@@ -110,6 +115,7 @@ export default function Admin() {
           <TabsContent value="consultations"><AdminConsultations consultations={consultations} /></TabsContent>
           <TabsContent value="courses"><AdminCourses courses={courses} onRefresh={loadData} /></TabsContent>
           <TabsContent value="settings"><AdminSettings settings={siteSettings} onRefresh={loadData} /></TabsContent>
+          <TabsContent value="coupons"><AdminCoupons coupons={coupons} onRefresh={loadData} /></TabsContent>
           <TabsContent value="debug"><AdminDebug /></TabsContent>
         </Tabs>
       </div>

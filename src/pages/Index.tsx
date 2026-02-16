@@ -10,6 +10,7 @@ import Header from "@/components/Header";
 import { usePageSEO } from "@/hooks/usePageSEO";
 import heroBg from "@/assets/hero-bg.jpg";
 import featuresBg from "@/assets/features-bg.jpg";
+import OnboardingModal from "@/components/OnboardingModal";
 
 const services = [
   {
@@ -223,6 +224,8 @@ export default function Home() {
           </motion.div>
         </div>
       </section>
+
+      <OnboardingModal />
 
       {/* Footer */}
       <footer className="py-10 relative z-10">

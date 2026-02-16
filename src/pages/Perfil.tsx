@@ -11,6 +11,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
 import { getCalendarAuthUrl, getCalendarStatus, disconnectCalendar } from "@/lib/google-calendar";
+import ReadingHistory from "@/components/ReadingHistory";
 import heroBg from "@/assets/hero-bg.jpg";
 
 export default function Perfil() {
@@ -160,30 +161,7 @@ export default function Perfil() {
             </CardContent>
           </Card>
 
-          <Card className="bg-card/80 backdrop-blur-md border-primary/20">
-            <CardHeader>
-              <CardTitle className="gold-text flex items-center gap-2"><Clock className="w-5 h-5" /> Histórico de Leituras</CardTitle>
-            </CardHeader>
-            <CardContent>
-              {readings.length === 0 ? (
-                <p className="text-foreground/50 text-center py-8">Nenhuma leitura ainda. Faça sua primeira leitura!</p>
-              ) : (
-                <div className="space-y-3">
-                  {readings.map((r) => (
-                    <div key={r.id} className="flex items-center justify-between p-3 rounded-lg bg-secondary/40 border border-primary/10">
-                      <div className="flex items-center gap-3">
-                        <Star className="w-4 h-4 text-primary" />
-                        <div>
-                          <p className="text-sm font-medium text-foreground">{readingTypeNames[r.reading_type] || r.reading_type}</p>
-                          <p className="text-xs text-foreground/50">{new Date(r.created_at).toLocaleDateString("pt-BR")}</p>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </CardContent>
-          </Card>
+          <ReadingHistory readings={readings} />
         </motion.div>
       </main>
     </div>
