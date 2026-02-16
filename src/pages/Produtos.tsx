@@ -25,14 +25,14 @@ interface Product {
 }
 
 export default function Produtos() {
-  usePageSEO({ title: "Loja Esotérica", description: "Produtos esotéricos, leituras digitais e combos exclusivos para sua jornada espiritual.", path: "/produtos" });
+  usePageSEO({ title: "Loja — Leituras Digitais, Combos e Produtos Esotéricos", description: "Leituras digitais exclusivas, combos com desconto e produtos esotéricos selecionados para iluminar seu caminho.", path: "/produtos" });
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const { addItem } = useCart();
 
   const handleAddToCart = (p: Product) => {
     addItem({ id: p.id, name: p.name, price: p.price, original_price: p.original_price, image_url: p.image_url, category: p.category });
-    toast({ title: "Adicionado ao carrinho!", description: p.name });
+    toast({ title: "Adicionado!", description: `${p.name} está no seu carrinho.` });
   };
 
   useEffect(() => {
@@ -55,7 +55,7 @@ export default function Produtos() {
             <ShoppingBag className="w-4 h-4 text-primary" />
             <span className="text-sm text-primary">Loja Mística</span>
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">Produtos</h1>
+          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">Nossa Loja</h1>
           <p className="text-foreground/70 max-w-2xl mx-auto">Produtos esotéricos e espirituais para sua jornada</p>
         </motion.div>
 

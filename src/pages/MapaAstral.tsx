@@ -17,7 +17,7 @@ import heroBg from "@/assets/hero-bg.jpg";
 import { usePageSEO } from "@/hooks/usePageSEO";
 
 export default function MapaAstral() {
-  usePageSEO({ title: "Mapa Astral Completo", description: "Descubra seu ascendente, lua e posições planetárias no momento do seu nascimento.", path: "/mapa-astral" });
+  usePageSEO({ title: "Mapa Astral Completo e Grátis — Ascendente, Lua e Posições Planetárias", description: "Descubra quem você é além do signo solar. Mapa Astral completo com ascendente, lua e todas as posições planetárias do momento do seu nascimento.", path: "/mapa-astral" });
   const { restoredState, requireAuth, clearRestored, isAuthenticated } = useOracleAuth({ methodId: "mapa-astral", returnTo: "/mapa-astral" });
   const { product, hasAccess, purchaseReading } = useFreemium("mapa-astral");
   const navigate = useNavigate();
@@ -44,7 +44,7 @@ export default function MapaAstral() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !birthDate || !birthTime || !birthPlace) {
-      toast({ title: "Preencha todos os campos", variant: "destructive" });
+      toast({ title: "Preencha seus dados para continuar", variant: "destructive" });
       return;
     }
     if (!requireAuth({ name, birthDate, birthTime, birthPlace })) return;
@@ -64,7 +64,7 @@ export default function MapaAstral() {
       setInterpretation(res.data.interpretation);
     } catch (err: any) {
       setError(true);
-      toast({ title: "Erro ao gerar mapa astral", description: err.message, variant: "destructive" });
+      toast({ title: "Não conseguimos ler as estrelas agora. Tente novamente.", description: err.message, variant: "destructive" });
     } finally {
       setLoading(false);
     }
@@ -83,9 +83,9 @@ export default function MapaAstral() {
             <Compass className="w-4 h-4 text-primary" />
             <span className="text-sm text-primary">Astrologia</span>
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">Mapa Astral</h1>
+          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">Seu Mapa Astral</h1>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Descubra seu ascendente, lua e posições planetárias com base na sua data, hora e local de nascimento
+            Quem é você além do signo solar? Descubra seu ascendente, sua lua e o que os planetas diziam quando você nasceu.
           </p>
         </motion.div>
 
@@ -136,7 +136,7 @@ export default function MapaAstral() {
               <CardContent className="p-6 md:p-8">
                 <div className="flex items-center gap-2 mb-4">
                   <Compass className="w-5 h-5 text-primary" />
-                  <h2 className="font-serif text-2xl font-bold text-foreground">Seu Mapa Astral</h2>
+                  <h2 className="font-serif text-2xl font-bold text-foreground">O céu no momento do seu nascimento</h2>
                 </div>
                 <FreemiumPaywall
                   interpretation={interpretation}

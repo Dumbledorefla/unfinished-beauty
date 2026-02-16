@@ -13,7 +13,7 @@ import { useOracleAuth } from "@/hooks/useOracleAuth";
 import { usePageSEO } from "@/hooks/usePageSEO";
 
 export default function TarotDia() {
-  usePageSEO({ title: "Tarot do Dia Grátis", description: "Tire sua carta do dia gratuitamente e receba uma interpretação personalizada por IA.", path: "/tarot/dia" });
+  usePageSEO({ title: "Tarot do Dia Grátis — Tire Sua Carta e Receba uma Mensagem Personalizada", description: "Tire sua carta do dia gratuitamente e receba uma interpretação feita por inteligência artificial, personalizada com seu nome e data de nascimento.", path: "/tarot/dia" });
   const { restoredState, requireAuth, clearRestored, user } = useOracleAuth({ methodId: "tarot-dia", returnTo: "/tarot/dia" });
   const [step, setStep] = useState<"form" | "drawing" | "result">("form");
   const [card, setCard] = useState<TarotCard | null>(null);
@@ -79,12 +79,12 @@ export default function TarotDia() {
     <OracleLayout title="Tarot do Dia" icon={<Star className="w-5 h-5" />}>
       <AnimatePresence mode="wait">
         {step === "form" && (
-          <UserDataForm key="form" title="Seus Dados Pessoais" description="Para personalizar sua leitura de Tarot, precisamos de algumas informações básicas." onSubmit={handleStart} loading={loading} />
+          <UserDataForm key="form" title="Sua Carta do Dia" description="Seu nome e data de nascimento tornam a leitura única — feita só para você." onSubmit={handleStart} loading={loading} />
         )}
         {step === "drawing" && (
           <motion.div key="drawing" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="text-center py-16">
             <motion.div animate={{ rotateY: [0, 360] }} transition={{ duration: 1.5, repeat: Infinity }} className="text-8xl mb-6">🃏</motion.div>
-            <p className="text-foreground/70 text-lg">Gerando sua interpretação…</p>
+            <p className="text-foreground/70 text-lg">As cartas estão se revelando...</p>
           </motion.div>
         )}
         {step === "result" && error && (
@@ -114,7 +114,7 @@ export default function TarotDia() {
             </Card>
             <Card className="glass-card">
               <CardContent className="pt-8 pb-6">
-                <h3 className="font-serif text-xl font-bold text-primary mb-6 flex items-center gap-2">✨ Interpretação</h3>
+                <h3 className="font-serif text-xl font-bold text-primary mb-6 flex items-center gap-2">✨ O que as cartas dizem para você</h3>
                 <div className="oracle-prose"><ReactMarkdown>{interpretation}</ReactMarkdown></div>
               </CardContent>
             </Card>

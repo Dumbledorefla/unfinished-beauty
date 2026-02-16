@@ -23,7 +23,7 @@ export default function Carrinho() {
             <ShoppingCart className="w-4 h-4 text-primary" />
             <span className="text-sm text-primary">Seu Carrinho</span>
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">Carrinho de Compras</h1>
+          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">Seu Carrinho</h1>
         </motion.div>
 
         {items.length === 0 ? (
@@ -31,8 +31,8 @@ export default function Carrinho() {
             <Card className="bg-card/80 backdrop-blur-md border-primary/20 text-center py-12">
               <CardContent>
                 <ShoppingBag className="w-16 h-16 mx-auto text-foreground/20 mb-4" />
-                <h3 className="text-xl font-semibold text-foreground mb-2">Carrinho vazio</h3>
-                <p className="text-foreground/60 mb-6">Você ainda não adicionou nenhum produto.</p>
+                <h3 className="text-xl font-semibold text-foreground mb-2">Seu carrinho está vazio</h3>
+                <p className="text-foreground/60 mb-6">Explore nossa loja e encontre algo especial para você.</p>
                 <Link to="/produtos">
                   <Button className="bg-primary text-primary-foreground hover:bg-primary/90">
                     <ArrowLeft className="w-4 h-4 mr-2" />
@@ -106,13 +106,13 @@ export default function Carrinho() {
                   </div>
                   <Link to="/checkout">
                     <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90 h-12 text-base">
-                      Finalizar Compra
+                      Ir para o pagamento
                     </Button>
                   </Link>
                   <Link to="/produtos" className="block mt-3">
                     <Button variant="outline" className="w-full border-primary/30">
                       <ArrowLeft className="w-4 h-4 mr-2" />
-                      Continuar Comprando
+                      Continuar explorando
                     </Button>
                   </Link>
                 </CardContent>

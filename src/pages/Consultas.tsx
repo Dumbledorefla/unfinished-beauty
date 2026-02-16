@@ -28,7 +28,7 @@ interface Taromante {
 }
 
 export default function Consultas() {
-  usePageSEO({ title: "Consultas com Taromantes", description: "Agende uma consulta personalizada com taromantes experientes por vídeo, chat ou telefone.", path: "/consultas" });
+  usePageSEO({ title: "Consulta de Tarot Online — Fale com Tarólogos ao Vivo", description: "Converse ao vivo com tarólogos experientes por chat, vídeo ou telefone. Consultas personalizadas para amor, carreira, saúde e propósito.", path: "/consultas" });
   const [taromantes, setTaromantes] = useState<Taromante[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedTaromante, setSelectedTaromante] = useState<Taromante | null>(null);
@@ -65,7 +65,7 @@ export default function Consultas() {
             <Users className="w-4 h-4 text-primary" />
             <span className="text-sm text-primary">Nossos Taromantes</span>
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">Consultas Personalizadas</h1>
+          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">Fale com um Tarólogo ao Vivo</h1>
           <p className="text-foreground/70 max-w-2xl mx-auto">Agende uma sessão com nossos taromantes especializados</p>
         </motion.div>
 
@@ -77,7 +77,7 @@ export default function Consultas() {
           <Card className="bg-card/80 backdrop-blur-md border-primary/20 text-center py-12">
             <CardContent>
               <Users className="w-12 h-12 mx-auto text-foreground/30 mb-4" />
-              <h3 className="text-lg font-semibold text-foreground mb-2">Em breve</h3>
+              <h3 className="text-lg font-semibold text-foreground mb-2">Novos tarólogos chegando em breve</h3>
               <p className="text-foreground/60">Nossos taromantes estarão disponíveis em breve para consultas.</p>
             </CardContent>
           </Card>

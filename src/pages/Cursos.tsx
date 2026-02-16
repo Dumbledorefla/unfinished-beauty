@@ -26,7 +26,7 @@ interface Course {
 }
 
 export default function Cursos() {
-  usePageSEO({ title: "Cursos de Tarot e Esoterismo", description: "Aprenda Tarot, Astrologia e Numerologia com cursos online de especialistas.", path: "/cursos" });
+  usePageSEO({ title: "Cursos Online de Tarot, Astrologia e Numerologia", description: "Aprenda a ler Tarot, interpretar Mapas Astrais e calcular Numerologia com cursos online de especialistas. Do iniciante ao avançado.", path: "/cursos" });
   const [courses, setCourses] = useState<Course[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -50,7 +50,7 @@ export default function Cursos() {
             <BookOpen className="w-4 h-4 text-primary" />
             <span className="text-sm text-primary">Aprenda Conosco</span>
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">Cursos</h1>
+          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">Aprenda com Especialistas</h1>
           <p className="text-foreground/70 max-w-2xl mx-auto">Aprofunde seus conhecimentos em tarot, numerologia e astrologia</p>
         </motion.div>
 

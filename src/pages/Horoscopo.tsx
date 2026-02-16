@@ -14,7 +14,7 @@ import { useFreemium } from "@/hooks/useFreemium";
 import { usePageSEO } from "@/hooks/usePageSEO";
 
 export default function Horoscopo() {
-  usePageSEO({ title: "Horóscopo do Dia", description: "Previsões diárias personalizadas para amor, trabalho e saúde com base no seu signo.", path: "/horoscopo" });
+  usePageSEO({ title: "Horóscopo do Dia Personalizado — Previsões de Amor, Trabalho e Saúde", description: "Receba previsões diárias personalizadas para amor, trabalho e saúde. Horóscopo feito sob medida para o seu signo e momento de vida.", path: "/horoscopo" });
   const { restoredState, requireAuth, clearRestored } = useOracleAuth({ methodId: "horoscopo", returnTo: "/horoscopo" });
   const { product, hasAccess, purchaseReading } = useFreemium("horoscopo");
   const [step, setStep] = useState<"form" | "loading" | "result">("form");
@@ -58,12 +58,12 @@ export default function Horoscopo() {
     <OracleLayout title="Horóscopo" icon={<Sun className="w-5 h-5" />}>
       <AnimatePresence mode="wait">
         {step === "form" && (
-          <UserDataForm key="form" title="Seus Dados para Horóscopo" description="Para personalizar suas previsões astrológicas, precisamos do seu nome completo e data de nascimento." onSubmit={handleStart} />
+          <UserDataForm key="form" title="Seu Horóscopo do Dia" description="Com seu nome e data de nascimento, criamos previsões feitas sob medida para você." onSubmit={handleStart} />
         )}
         {step === "loading" && (
           <motion.div key="loading" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="text-center py-16">
             <motion.div animate={{ rotate: 360 }} transition={{ duration: 3, repeat: Infinity, ease: "linear" }} className="text-8xl mb-6">☀️</motion.div>
-            <p className="text-foreground/70 text-lg">Gerando sua interpretação…</p>
+            <p className="text-foreground/70 text-lg">Consultando as estrelas para você...</p>
           </motion.div>
         )}
         {step === "result" && error && (
@@ -83,7 +83,7 @@ export default function Horoscopo() {
             </Card>
             <Card className="bg-card/80 backdrop-blur-md border-primary/20">
               <CardContent className="pt-6">
-                <h3 className="font-serif text-xl font-bold text-primary mb-4">☀️ Previsões do Dia</h3>
+                <h3 className="font-serif text-xl font-bold text-primary mb-4">☀️ O que os astros dizem para você hoje</h3>
                 <FreemiumPaywall
                   interpretation={interpretation}
                   oracleType="horoscopo"
