@@ -3,12 +3,13 @@ import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Sparkles, Menu, X, LogOut, Star, Calculator, Sun,
-  Users, BookOpen, ShoppingBag, ShoppingCart, User, ChevronDown, Shield
+  Users, BookOpen, ShoppingBag, ShoppingCart, User, ChevronDown, Shield, Share2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
 import { useCart } from "@/contexts/CartContext";
 import NotificationBell from "@/components/NotificationBell";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const navItems = [
   {
@@ -24,6 +25,7 @@ const navItems = [
   { label: "Consultas", href: "/consultas", icon: Users },
   { label: "Cursos", href: "/cursos", icon: BookOpen },
   { label: "Produtos", href: "/produtos", icon: ShoppingBag },
+  { label: "Afiliados", href: "/afiliado", icon: Share2 },
 ];
 
 function NavSubmenu({ items }: { items: { label: string; href: string }[] }) {
@@ -118,6 +120,7 @@ export default function Header() {
         {/* Desktop Cart + Auth */}
         <div className="hidden lg:flex items-center gap-2">
           {isAuthenticated && <NotificationBell />}
+          <ThemeToggle />
           <Link to="/carrinho" aria-label={`Carrinho com ${totalItems} itens`} className="relative p-2.5 text-foreground/70 hover:text-primary transition-all duration-200 rounded-lg hover:bg-foreground/5">
             <ShoppingCart className="w-5 h-5" />
             {totalItems > 0 && (

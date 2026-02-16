@@ -57,6 +57,36 @@
     --sidebar-ring: 265 60% 55%;
   }
 
+  .light {
+    --primary: 265 72% 50%;
+    --primary-foreground: 0 0% 100%;
+    --background: 240 20% 97%;
+    --foreground: 240 10% 12%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 12%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 12%;
+    --secondary: 260 15% 93%;
+    --secondary-foreground: 260 10% 30%;
+    --muted: 240 10% 92%;
+    --muted-foreground: 240 5% 45%;
+    --accent: 42 78% 50%;
+    --accent-foreground: 40 25% 8%;
+    --destructive: 0 65% 50%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 10% 88%;
+    --input: 240 10% 92%;
+    --ring: 265 60% 50%;
+    --sidebar-background: 240 15% 95%;
+    --sidebar-foreground: 240 10% 20%;
+    --sidebar-primary: 265 72% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 260 12% 90%;
+    --sidebar-accent-foreground: 240 10% 12%;
+    --sidebar-border: 240 10% 88%;
+    --sidebar-ring: 265 60% 50%;
+  }
+
   * {
     @apply border-border;
   }
@@ -129,7 +159,7 @@
     100% { background-position: 200% 0; }
   }
   .shimmer {
-    background: linear-gradient(90deg, hsl(258 20% 18%) 0%, hsl(265 25% 28%) 50%, hsl(258 20% 18%) 100%);
+    background: linear-gradient(90deg, hsl(var(--muted)) 0%, hsl(var(--border)) 50%, hsl(var(--muted)) 100%);
     background-size: 200% 100%;
     animation: shimmer 1.5s infinite;
   }
@@ -217,12 +247,12 @@
 
 /* Custom scrollbar */
 ::-webkit-scrollbar { width: 7px; height: 7px; }
-::-webkit-scrollbar-track { background: hsl(255 30% 10%); }
-::-webkit-scrollbar-thumb { background: hsl(265 25% 28%); border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: hsl(265 25% 36%); }
+::-webkit-scrollbar-track { background: hsl(var(--background)); }
+::-webkit-scrollbar-thumb { background: hsl(var(--border)); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: hsl(var(--muted-foreground)); }
 
 /* Selection */
 ::selection {
-  background: hsl(265 72% 60% / 0.35);
-  color: hsl(240 20% 96%);
+  background: hsl(var(--primary) / 0.25);
+  color: hsl(var(--foreground));
 }
