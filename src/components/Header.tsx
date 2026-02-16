@@ -8,6 +8,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
 import { useCart } from "@/contexts/CartContext";
+import NotificationBell from "@/components/NotificationBell";
 
 const navItems = [
   {
@@ -57,6 +58,12 @@ export default function Header() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/20 backdrop-blur-xl border-b border-primary/10">
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[100] focus:px-4 focus:py-2 focus:bg-primary focus:text-primary-foreground focus:rounded-lg"
+      >
+        Pular para o conteúdo principal
+      </a>
       <div className="container mx-auto flex items-center justify-between h-16 px-4">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2.5 group">
@@ -67,7 +74,7 @@ export default function Header() {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center gap-0.5">
+        <nav aria-label="Navegação principal" className="hidden lg:flex items-center gap-0.5">
           {navItems.map((item) => (
             <div
               key={item.label}
@@ -110,7 +117,8 @@ export default function Header() {
 
         {/* Desktop Cart + Auth */}
         <div className="hidden lg:flex items-center gap-2">
-          <Link to="/carrinho" className="relative p-2.5 text-foreground/70 hover:text-primary transition-all duration-200 rounded-lg hover:bg-foreground/5">
+          {isAuthenticated && <NotificationBell />}
+          <Link to="/carrinho" aria-label={`Carrinho com ${totalItems} itens`} className="relative p-2.5 text-foreground/70 hover:text-primary transition-all duration-200 rounded-lg hover:bg-foreground/5">
             <ShoppingCart className="w-5 h-5" />
             {totalItems > 0 && (
               <motion.span
@@ -152,10 +160,13 @@ export default function Header() {
         </div>
 
         {/* Mobile Menu Button */}
-        <button
-          className="lg:hidden p-2 text-foreground/80 hover:text-primary transition-colors rounded-lg hover:bg-foreground/5"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-        >
+        <div className="flex lg:hidden items-center gap-1">
+          {isAuthenticated && <NotificationBell />}
+          <button
+            aria-label="Abrir menu de navegação"
+            className="p-2 text-foreground/80 hover:text-primary transition-colors rounded-lg hover:bg-foreground/5"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
           <AnimatePresence mode="wait">
             {mobileMenuOpen ? (
               <motion.div key="close" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.15 }}>
@@ -167,7 +178,8 @@ export default function Header() {
               </motion.div>
             )}
           </AnimatePresence>
-        </button>
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu */}
