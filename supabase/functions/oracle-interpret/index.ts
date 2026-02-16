@@ -98,6 +98,7 @@ Deno.serve(async (req) => {
 
     // Validate input
     const body = await req.json();
+    const personaPrompt = body.persona || '';
     const parseResult = requestSchema.safeParse(body);
     if (!parseResult.success) {
       return new Response(JSON.stringify({ error: 'Invalid input', details: parseResult.error.flatten() }), {
@@ -176,6 +177,11 @@ Local de nascimento: ${data.birthPlace}
 Faça o mapa astral completo e detalhado.`;
     }
 
+    // If a persona was provided, prepend it to the system prompt
+    const finalSystemPrompt = personaPrompt 
+      ? `${personaPrompt}\n\nADICIONALMENTE, siga estas instruções de conteúdo:\n${systemPrompt}`
+      : systemPrompt;
+
     const response = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
       method: 'POST',
       headers: {
@@ -185,7 +191,7 @@ Faça o mapa astral completo e detalhado.`;
       body: JSON.stringify({
         model: 'google/gemini-3-flash-preview',
         messages: [
-          { role: 'system', content: systemPrompt },
+          { role: 'system', content: finalSystemPrompt },
           { role: 'user', content: userPrompt },
         ],
         max_tokens: 2000,

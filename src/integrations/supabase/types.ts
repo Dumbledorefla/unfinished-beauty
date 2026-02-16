@@ -745,6 +745,45 @@ export type Database = {
         }
         Relationships: []
       }
+      custom_spreads: {
+        Row: {
+          card_count: number
+          category: string | null
+          created_at: string | null
+          description: string | null
+          id: string
+          is_public: boolean | null
+          name: string
+          positions: Json
+          use_count: number | null
+          user_id: string
+        }
+        Insert: {
+          card_count?: number
+          category?: string | null
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          is_public?: boolean | null
+          name: string
+          positions?: Json
+          use_count?: number | null
+          user_id: string
+        }
+        Update: {
+          card_count?: number
+          category?: string | null
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          is_public?: boolean | null
+          name?: string
+          positions?: Json
+          use_count?: number | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       google_calendar_tokens: {
         Row: {
           access_token: string
@@ -1457,6 +1496,62 @@ export type Database = {
           user_id?: string | null
         }
         Relationships: []
+      }
+      tarot_journal: {
+        Row: {
+          cards: Json | null
+          content: string
+          created_at: string | null
+          entry_type: string
+          id: string
+          is_private: boolean | null
+          mood_after: string | null
+          mood_before: string | null
+          reading_id: string | null
+          tags: string[] | null
+          title: string | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          cards?: Json | null
+          content: string
+          created_at?: string | null
+          entry_type?: string
+          id?: string
+          is_private?: boolean | null
+          mood_after?: string | null
+          mood_before?: string | null
+          reading_id?: string | null
+          tags?: string[] | null
+          title?: string | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          cards?: Json | null
+          content?: string
+          created_at?: string | null
+          entry_type?: string
+          id?: string
+          is_private?: boolean | null
+          mood_after?: string | null
+          mood_before?: string | null
+          reading_id?: string | null
+          tags?: string[] | null
+          title?: string | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tarot_journal_reading_id_fkey"
+            columns: ["reading_id"]
+            isOneToOne: false
+            referencedRelation: "tarot_readings"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       tarot_readings: {
         Row: {

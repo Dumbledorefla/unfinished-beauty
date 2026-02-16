@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   Sparkles, Menu, X, LogOut, Star, Calculator, Sun,
   Users, BookOpen, ShoppingBag, ShoppingCart, User, ChevronDown, Shield,
-  MessageCircle, Moon, Heart, Compass, Calendar, Newspaper
+  MessageCircle, Moon, Heart, Compass, Calendar, Newspaper, Layout, Wand2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
@@ -36,6 +36,9 @@ const exploreItems = [
   { label: "Compatibilidade", href: "/compatibilidade", icon: Heart, desc: "Combine dois signos" },
   { label: "Calendário Lunar", href: "/calendario-lunar", icon: Moon, desc: "Fases da lua" },
   { label: "Mapa Astral", href: "/mapa-astral", icon: Star, desc: "Seu mapa completo" },
+  { label: "Diário de Tarot", href: "/diario", icon: BookOpen, desc: "Registre suas reflexões" },
+  { label: "Tiragens Custom", href: "/spreads", icon: Layout, desc: "Crie seus próprios spreads" },
+  { label: "Ritual Diário", href: "/ritual", icon: Wand2, desc: "Meditação + carta + reflexão" },
   { label: "Chat ao Vivo", href: "/chat-ao-vivo", icon: MessageCircle, desc: "Fale com taromantes" },
   { label: "Cursos", href: "/cursos", icon: BookOpen, desc: "Aprenda tarot e astrologia" },
   { label: "Loja", href: "/produtos", icon: ShoppingBag, desc: "Produtos místicos" },
