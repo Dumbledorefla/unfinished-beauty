@@ -68,13 +68,13 @@ export default function Planos() {
             <div className="inline-flex items-center gap-3 bg-secondary/60 rounded-full p-1">
               <button
                 onClick={() => setPeriod("monthly")}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${period === "monthly" ? "bg-primary text-primary-foreground" : "text-muted-foreground"}`}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${period === "monthly" ? "bg-white text-slate-900" : "text-muted-foreground"}`}
               >
                 Mensal
               </button>
               <button
                 onClick={() => setPeriod("yearly")}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${period === "yearly" ? "bg-primary text-primary-foreground" : "text-muted-foreground"}`}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${period === "yearly" ? "bg-white text-slate-900" : "text-muted-foreground"}`}
               >
                 Anual <span className="text-xs ml-1 text-emerald-400">Economize até 20%</span>
               </button>
@@ -92,7 +92,7 @@ export default function Planos() {
                 <motion.div key={plan.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.1 }}>
                   <Card className={`bg-card/80 backdrop-blur-md ${planColors[plan.slug] || "border-border/30"} relative overflow-hidden h-full`}>
                     {plan.slug === "essencial" && (
-                      <div className="absolute top-0 right-0 bg-primary text-primary-foreground text-xs px-3 py-1 rounded-bl-lg font-semibold">
+                      <div className="absolute top-0 right-0 bg-amber-500 text-slate-900 text-xs px-3 py-1 rounded-bl-lg font-semibold">
                         Mais Popular
                       </div>
                     )}
@@ -133,7 +133,7 @@ export default function Planos() {
                       <Button
                         onClick={() => handleSubscribe(plan.slug)}
                         disabled={isCurrentPlan}
-                        className={`w-full ${plan.slug === "essencial" ? "bg-primary text-primary-foreground hover:bg-primary/90" : plan.slug === "premium" ? "bg-amber-500 text-white hover:bg-amber-600" : "bg-secondary text-foreground hover:bg-secondary/80"}`}
+                        className={`w-full ${plan.slug === "essencial" ? "bg-white text-slate-900 hover:bg-white/90 font-semibold" : plan.slug === "premium" ? "bg-amber-500 text-slate-900 hover:bg-amber-400 font-semibold" : "bg-secondary text-foreground hover:bg-secondary/80"}`}
                       >
                         {isCurrentPlan ? "Plano atual" : plan.price_monthly === 0 ? "Começar grátis" : "Assinar agora"}
                       </Button>

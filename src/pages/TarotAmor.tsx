@@ -109,17 +109,17 @@ export default function TarotAmor() {
         {step === "result" && error && (
           <motion.div key="error" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center py-16 space-y-4">
             <p className="text-foreground/70 text-lg">Não foi possível gerar sua interpretação agora.</p>
-            <Button onClick={() => lastData && runGeneration(lastData, cards.length ? cards : undefined)} variant="outline" className="border-primary/30">Tentar novamente</Button>
+            <Button onClick={() => lastData && runGeneration(lastData, cards.length ? cards : undefined)} variant="outline" className="border-white/25 text-white hover:bg-white/5">Tentar novamente</Button>
           </motion.div>
         )}
         {step === "result" && !error && cards.length > 0 && (
           <motion.div key="result" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
             <div className="grid grid-cols-3 gap-4">
               {cards.map((card, i) => (
-                <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.2 }}>
-                  <Card className="bg-card/80 backdrop-blur-md border-primary/20 text-center">
+                 <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.2 }}>
+                   <Card className="bg-card/80 backdrop-blur-md border-white/12 text-center">
                     <CardContent className="pt-4 pb-4">
-                      <p className="text-xs text-primary font-medium mb-2">{positions[i]}</p>
+                      <p className="text-xs text-amber-400 font-medium mb-2">{positions[i]}</p>
                       <TarotCardImage card={card} size="sm" />
                       <h3 className="font-serif text-sm font-bold text-foreground mt-2">{card.name}</h3>
                       <p className="text-foreground/50 text-xs">{card.upright ? "Normal" : "Invertida"}</p>
@@ -128,9 +128,9 @@ export default function TarotAmor() {
                 </motion.div>
               ))}
             </div>
-            <Card className="bg-card/80 backdrop-blur-md border-primary/20">
+             <Card className="bg-card/80 backdrop-blur-md border-white/12">
               <CardContent className="pt-6">
-                <h3 className="font-serif text-xl font-bold text-primary mb-4">💕 O que as cartas revelam sobre o seu amor</h3>
+                <h3 className="font-serif text-xl font-bold text-amber-400 mb-4">💕 O que as cartas revelam sobre o seu amor</h3>
                 <FreemiumPaywall
                   interpretation={interpretation}
                   oracleType="tarot-amor"
@@ -152,7 +152,7 @@ export default function TarotAmor() {
               </>
             )}
             <div className="text-center">
-              <Button onClick={() => { setStep("form"); setCards([]); setInterpretation(""); setError(false); }} variant="outline" className="border-primary/30">
+              <Button onClick={() => { setStep("form"); setCards([]); setInterpretation(""); setError(false); }} variant="outline" className="border-white/25 text-white hover:bg-white/5">
                 <RotateCcw className="w-4 h-4 mr-2" /> Nova Leitura
               </Button>
             </div>

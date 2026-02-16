@@ -104,21 +104,21 @@ export default function TarotCompleto() {
         {step === "result" && error && (
           <motion.div key="error" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center py-16 space-y-4">
             <p className="text-foreground/70 text-lg">Não foi possível gerar sua interpretação agora.</p>
-            <Button onClick={() => lastData && runGeneration(lastData, cards.length ? cards : undefined)} variant="outline" className="border-primary/30">Tentar novamente</Button>
+            <Button onClick={() => lastData && runGeneration(lastData, cards.length ? cards : undefined)} variant="outline" className="border-white/25 text-white hover:bg-white/5">Tentar novamente</Button>
           </motion.div>
         )}
         {step === "result" && !error && cards.length > 0 && (
           <motion.div key="result" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
             <div className="flex items-center gap-2 justify-center mb-2">
-              <Sparkles className="w-5 h-5 text-primary" />
-              <span className="text-sm text-primary font-medium">Leitura Premium</span>
+               <Sparkles className="w-5 h-5 text-amber-400" />
+              <span className="text-sm text-amber-400 font-medium">Leitura Premium</span>
             </div>
             <div className="grid grid-cols-3 gap-4">
               {cards.map((card, i) => (
                 <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.15 }}>
-                  <Card className="bg-card/80 backdrop-blur-md border-primary/20 text-center">
-                    <CardContent className="pt-3 pb-3">
-                      <p className="text-xs text-primary/80 font-medium mb-1">{positions[i]}</p>
+                   <Card className="bg-card/80 backdrop-blur-md border-white/12 text-center">
+                     <CardContent className="pt-3 pb-3">
+                       <p className="text-xs text-amber-400/80 font-medium mb-1">{positions[i]}</p>
                       <TarotCardImage card={card} size="sm" />
                       <h3 className="font-serif text-xs font-bold text-foreground mt-1">{card.name}</h3>
                     </CardContent>
@@ -126,9 +126,9 @@ export default function TarotCompleto() {
                 </motion.div>
               ))}
             </div>
-            <Card className="bg-card/80 backdrop-blur-md border-primary/20">
+             <Card className="bg-card/80 backdrop-blur-md border-white/12">
               <CardContent className="pt-6">
-                <h3 className="font-serif text-xl font-bold text-primary mb-4">🔮 Sua leitura completa</h3>
+                <h3 className="font-serif text-xl font-bold text-amber-400 mb-4">🔮 Sua leitura completa</h3>
                 <FreemiumPaywall
                   interpretation={interpretation}
                   oracleType="tarot-completo"
@@ -150,7 +150,7 @@ export default function TarotCompleto() {
               </>
             )}
             <div className="text-center">
-              <Button onClick={() => { setStep("form"); setCards([]); setInterpretation(""); setError(false); }} variant="outline" className="border-primary/30">
+              <Button onClick={() => { setStep("form"); setCards([]); setInterpretation(""); setError(false); }} variant="outline" className="border-white/25 text-white hover:bg-white/5">
                 <RotateCcw className="w-4 h-4 mr-2" /> Nova Leitura
               </Button>
             </div>

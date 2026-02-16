@@ -25,10 +25,10 @@ export default function UserDataForm({ title, description, onSubmit, loading }: 
 
   return (
     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-      <Card className="bg-card/80 backdrop-blur-md border-primary/20">
+      <Card className="bg-card/80 backdrop-blur-md border-white/12">
         <CardHeader>
           <div className="flex items-center gap-3">
-            <Sparkles className="w-6 h-6 text-primary" />
+            <Sparkles className="w-6 h-6 text-amber-400" />
             <div>
               <CardTitle className="text-xl text-foreground">{title}</CardTitle>
               <CardDescription className="text-foreground/60">{description}</CardDescription>
@@ -66,7 +66,7 @@ export default function UserDataForm({ title, description, onSubmit, loading }: 
             <Button
               type="submit"
               disabled={loading || !userName || !birthDate}
-              className="w-full bg-primary text-primary-foreground hover:bg-primary/90 border border-primary/50 text-lg py-6 mystical-glow"
+              className="w-full bg-white text-slate-900 hover:bg-white/90 border border-white/20 text-lg py-6 font-semibold shadow-lg shadow-white/10"
             >
               {loading ? "As cartas estão se revelando..." : "Revelar minhas cartas"}
             </Button>

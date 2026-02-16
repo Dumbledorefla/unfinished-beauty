@@ -54,7 +54,7 @@ export default function NewsletterSignup({ variant = "card", source = "website" 
           placeholder="Seu melhor e-mail" required
           className="bg-input/50 border-border/50 flex-1"
         />
-        <Button type="submit" disabled={loading} className="bg-primary text-primary-foreground whitespace-nowrap">
+        <Button type="submit" disabled={loading} className="bg-amber-500 text-slate-900 hover:bg-amber-400 font-semibold whitespace-nowrap">
           {loading ? "..." : "Quero receber"}
         </Button>
       </form>
@@ -62,9 +62,9 @@ export default function NewsletterSignup({ variant = "card", source = "website" 
   }
 
   return (
-    <div className={`${variant === "card" ? "bg-secondary/60 backdrop-blur-md border border-primary/20 rounded-2xl p-8" : ""}`}>
+    <div className={`${variant === "card" ? "bg-secondary/60 backdrop-blur-md border border-white/12 rounded-2xl p-8" : ""}`}>
       <div className="text-center mb-5">
-        <Mail className="w-8 h-8 text-primary mx-auto mb-3" />
+        <Mail className="w-8 h-8 text-amber-400 mx-auto mb-3" />
         <h3 className="font-serif text-xl font-bold text-foreground">Receba orientações no seu e-mail</h3>
         <p className="text-muted-foreground text-sm mt-1">
           Horóscopo semanal, dicas de Tarot e conteúdos exclusivos. Grátis, sem spam.
@@ -73,13 +73,13 @@ export default function NewsletterSignup({ variant = "card", source = "website" 
       <form onSubmit={handleSubmit} className="space-y-3 max-w-md mx-auto">
         <Input
           value={name} onChange={(e) => setName(e.target.value)}
-          placeholder="Seu primeiro nome" className="bg-input/50 border-border/50"
+          placeholder="Seu primeiro nome" className="bg-input/50 border-white/15 focus:border-amber-500/50"
         />
         <Input
           type="email" value={email} onChange={(e) => setEmail(e.target.value)}
-          placeholder="Seu melhor e-mail" required className="bg-input/50 border-border/50"
+          placeholder="Seu melhor e-mail" required className="bg-input/50 border-white/15 focus:border-amber-500/50"
         />
-        <Button type="submit" disabled={loading} className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
+        <Button type="submit" disabled={loading} className="w-full bg-amber-500 text-slate-900 hover:bg-amber-400 font-semibold pulse-glow-gold">
           <Sparkles className="w-4 h-4 mr-2" />
           {loading ? "Inscrevendo..." : "Quero receber conteúdo exclusivo"}
         </Button>

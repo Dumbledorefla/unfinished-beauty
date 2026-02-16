@@ -71,13 +71,13 @@ export default function Horoscopo() {
       extraContent={
         step === "form" ? (
           <div className="space-y-6 mt-8">
-            <Card className="bg-card/60 backdrop-blur-md border-primary/10 p-6">
+             <Card className="bg-card/60 backdrop-blur-md border-white/8 p-6">
               <h3 className="font-semibold text-foreground mb-3">Como funciona o Horóscopo Personalizado?</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 Diferente dos horóscopos genéricos de revista, nosso sistema cria uma previsão única baseada no seu signo solar, data de nascimento e o momento astrológico atual. Cada leitura é exclusiva para você.
               </p>
             </Card>
-            <Card className="bg-card/60 backdrop-blur-md border-primary/10 p-6">
+             <Card className="bg-card/60 backdrop-blur-md border-white/8 p-6">
               <h3 className="font-semibold text-foreground mb-3">O que você vai receber</h3>
               <ul className="text-sm text-muted-foreground space-y-2">
                 <li>✨ Previsão personalizada para amor, trabalho e saúde</li>
@@ -85,7 +85,7 @@ export default function Horoscopo() {
                 <li>💡 Conselho prático para o seu momento</li>
               </ul>
             </Card>
-            <Card className="bg-card/60 backdrop-blur-md border-primary/10 p-6">
+            <Card className="bg-card/60 backdrop-blur-md border-white/8 p-6">
               <h3 className="font-semibold text-foreground mb-3">Explore mais</h3>
               <div className="grid grid-cols-2 gap-3">
                 <Link to="/mapa-astral" className="p-3 rounded-xl bg-secondary/40 border border-border/20 hover:border-primary/30 transition-all text-center">
@@ -115,21 +115,21 @@ export default function Horoscopo() {
         {step === "result" && error && (
           <motion.div key="error" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center py-16 space-y-4">
             <p className="text-foreground/70 text-lg">Não foi possível gerar sua interpretação agora.</p>
-            <Button onClick={() => lastData && runGeneration(lastData)} variant="outline" className="border-primary/30">Tentar novamente</Button>
+            <Button onClick={() => lastData && runGeneration(lastData)} variant="outline" className="border-white/25 text-white hover:bg-white/5">Tentar novamente</Button>
           </motion.div>
         )}
         {step === "result" && !error && (
           <motion.div key="result" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
-            <Card className="bg-card/80 backdrop-blur-md border-primary/20 text-center">
+            <Card className="bg-card/80 backdrop-blur-md border-white/12 text-center">
               <CardContent className="pt-6">
                 <div className="text-6xl mb-2">{zodiacEmojis[sign] || "⭐"}</div>
-                <h2 className="font-serif text-3xl font-bold text-primary">{sign}</h2>
+                <h2 className="font-serif text-3xl font-bold text-amber-400">{sign}</h2>
                 <p className="text-muted-foreground text-sm mt-1">Horóscopo do dia — {new Date().toLocaleDateString("pt-BR")}</p>
               </CardContent>
             </Card>
-            <Card className="bg-card/80 backdrop-blur-md border-primary/20">
+             <Card className="bg-card/80 backdrop-blur-md border-white/12">
               <CardContent className="pt-6">
-                <h3 className="font-serif text-xl font-bold text-primary mb-4">☀️ O que os astros dizem para você hoje</h3>
+                <h3 className="font-serif text-xl font-bold text-amber-400 mb-4">☀️ O que os astros dizem para você hoje</h3>
                 <FreemiumPaywall
                   interpretation={interpretation}
                   oracleType="horoscopo"
@@ -143,7 +143,7 @@ export default function Horoscopo() {
             </Card>
             {hasAccess && <ShareButtons text={interpretation} title={`Horóscopo - ${sign}`} />}
             <div className="text-center">
-              <Button onClick={() => { setStep("form"); setInterpretation(""); setError(false); }} variant="outline" className="border-primary/30">
+              <Button onClick={() => { setStep("form"); setInterpretation(""); setError(false); }} variant="outline" className="border-white/25 text-white hover:bg-white/5">
                 <RotateCcw className="w-4 h-4 mr-2" /> Nova Consulta
               </Button>
             </div>

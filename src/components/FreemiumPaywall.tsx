@@ -70,10 +70,10 @@ export default function FreemiumPaywall({
         <ReactMarkdown>{preview}</ReactMarkdown>
       </div>
       <div className="relative -mt-16 pt-16 bg-gradient-to-t from-[hsl(var(--card))] via-[hsl(var(--card)/0.95)] to-transparent">
-        <Card className="border-primary/25 bg-secondary/60 backdrop-blur-md mt-4">
+        <Card className="border-white/15 bg-secondary/60 backdrop-blur-md mt-4">
           <CardContent className="py-8 text-center space-y-4">
-            <div className="w-14 h-14 mx-auto rounded-2xl bg-primary/15 border border-primary/25 flex items-center justify-center">
-              <Star className="w-7 h-7 text-primary" />
+            <div className="w-14 h-14 mx-auto rounded-2xl bg-amber-500/15 border border-amber-500/25 flex items-center justify-center">
+              <Star className="w-7 h-7 text-amber-400" />
             </div>
             <div>
               <h3 className="font-serif text-xl font-bold text-foreground mb-1">
@@ -84,14 +84,14 @@ export default function FreemiumPaywall({
               </p>
             </div>
             <div className="flex items-baseline justify-center gap-1">
-              <span className="text-3xl font-bold text-primary">R$ {price.toFixed(2)}</span>
+              <span className="text-3xl font-bold text-amber-400">R$ {price.toFixed(2)}</span>
               <span className="text-muted-foreground text-sm">/ leitura</span>
             </div>
             <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
               <Button
                 onClick={handleUnlock}
                 disabled={purchasing}
-                className="bg-primary text-primary-foreground hover:bg-primary/90 px-6 py-5 text-base pulse-glow"
+                className="bg-amber-500 text-slate-900 hover:bg-amber-400 px-6 py-5 text-base font-semibold pulse-glow-gold"
               >
                 <Sparkles className="w-4 h-4 mr-2" />
                 {purchasing ? "Preparando..." : "Ver minha leitura completa"}
