@@ -23,7 +23,6 @@ const Produtos = lazy(() => import("./pages/Produtos"));
 const Carrinho = lazy(() => import("./pages/Carrinho"));
 const Checkout = lazy(() => import("./pages/Checkout"));
 const Perfil = lazy(() => import("./pages/Perfil"));
-const Admin = lazy(() => import("./pages/Admin"));
 const ResetPassword = lazy(() => import("./pages/ResetPassword"));
 const ProdutoDetalhe = lazy(() => import("./pages/ProdutoDetalhe"));
 const CursoDetalhe = lazy(() => import("./pages/CursoDetalhe"));
@@ -43,6 +42,28 @@ const Planos = lazy(() => import("./pages/Planos"));
 const DiarioTarot = lazy(() => import("./pages/DiarioTarot"));
 const SpreadsCustom = lazy(() => import("./pages/SpreadsCustom"));
 const RitualDiario = lazy(() => import("./pages/RitualDiario"));
+
+// Admin pages
+const AdminLayout = lazy(() => import("./pages/admin/AdminLayout"));
+const AdminDashboardPage = lazy(() => import("./pages/admin/AdminDashboardPage"));
+const AdminUsuariosPage = lazy(() => import("./pages/admin/AdminUsuariosPage"));
+const AdminProdutosPage = lazy(() => import("./pages/admin/AdminProdutosPage"));
+const AdminTaromantesPage = lazy(() => import("./pages/admin/AdminTaromantesPage"));
+const AdminPagamentosPage = lazy(() => import("./pages/admin/AdminPagamentosPage"));
+const AdminPedidosPage = lazy(() => import("./pages/admin/AdminPedidosPage"));
+const AdminConsultasPage = lazy(() => import("./pages/admin/AdminConsultasPage"));
+const AdminCursosPage = lazy(() => import("./pages/admin/AdminCursosPage"));
+const AdminBlogPage = lazy(() => import("./pages/admin/AdminBlogPage"));
+const AdminNewsletterPage = lazy(() => import("./pages/admin/AdminNewsletterPage"));
+const AdminCuponsPage = lazy(() => import("./pages/admin/AdminCuponsPage"));
+const AdminAfiliadosPage = lazy(() => import("./pages/admin/AdminAfiliadosPage"));
+const AdminConfigPage = lazy(() => import("./pages/admin/AdminConfigPage"));
+const AdminAuditoriaPage = lazy(() => import("./pages/admin/AdminAuditoriaPage"));
+const AdminDebugPage = lazy(() => import("./pages/admin/AdminDebugPage"));
+const AdminAnalyticsPage = lazy(() => import("./pages/admin/AdminAnalyticsPage"));
+const AdminSEOPage = lazy(() => import("./pages/admin/AdminSEOPage"));
+const AdminIntegracoesPage = lazy(() => import("./pages/admin/AdminIntegracoesPage"));
+const AdminNotificacoesPage = lazy(() => import("./pages/admin/AdminNotificacoesPage"));
 
 function PageLoader() {
   return (
@@ -93,7 +114,6 @@ const App = () => (
                   <Route path="/carrinho" element={<Carrinho />} />
                   <Route path="/checkout" element={<Checkout />} />
                   <Route path="/perfil" element={<Perfil />} />
-                  <Route path="/admin" element={<Admin />} />
                   <Route path="/reset-password" element={<ResetPassword />} />
                   <Route path="/produto/:slug" element={<ProdutoDetalhe />} />
                   <Route path="/curso/:slug" element={<CursoDetalhe />} />
@@ -112,6 +132,30 @@ const App = () => (
                   <Route path="/diario" element={<DiarioTarot />} />
                   <Route path="/spreads" element={<SpreadsCustom />} />
                   <Route path="/ritual" element={<RitualDiario />} />
+
+                  {/* Admin routes with sidebar layout */}
+                  <Route path="/admin" element={<AdminLayout />}>
+                    <Route index element={<AdminDashboardPage />} />
+                    <Route path="analytics" element={<AdminAnalyticsPage />} />
+                    <Route path="blog" element={<AdminBlogPage />} />
+                    <Route path="seo" element={<AdminSEOPage />} />
+                    <Route path="usuarios" element={<AdminUsuariosPage />} />
+                    <Route path="taromantes" element={<AdminTaromantesPage />} />
+                    <Route path="consultas" element={<AdminConsultasPage />} />
+                    <Route path="produtos" element={<AdminProdutosPage />} />
+                    <Route path="pedidos" element={<AdminPedidosPage />} />
+                    <Route path="pagamentos" element={<AdminPagamentosPage />} />
+                    <Route path="cupons" element={<AdminCuponsPage />} />
+                    <Route path="cursos" element={<AdminCursosPage />} />
+                    <Route path="newsletter" element={<AdminNewsletterPage />} />
+                    <Route path="afiliados" element={<AdminAfiliadosPage />} />
+                    <Route path="notificacoes" element={<AdminNotificacoesPage />} />
+                    <Route path="integracoes" element={<AdminIntegracoesPage />} />
+                    <Route path="config" element={<AdminConfigPage />} />
+                    <Route path="auditoria" element={<AdminAuditoriaPage />} />
+                    <Route path="debug" element={<AdminDebugPage />} />
+                  </Route>
+
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                   <Route path="*" element={<NotFound />} />
                 </Routes>
