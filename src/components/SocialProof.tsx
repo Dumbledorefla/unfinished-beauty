@@ -48,7 +48,7 @@ export default function SocialProof() {
   };
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-4">
       {stats.map((stat, index) => {
         const Icon = stat.icon;
         return (
@@ -58,11 +58,11 @@ export default function SocialProof() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: index * 0.1 }}
-            className="text-center glass-card rounded-xl p-4"
+            className="text-center glass-card rounded-xl p-3 sm:p-4"
           >
             <Icon className="w-5 h-5 text-primary mx-auto mb-2" />
-            <p className="text-2xl font-bold text-foreground">{stat.value}</p>
-            <p className="text-xs text-muted-foreground">{stat.label}</p>
+            <p className="text-xl sm:text-2xl font-bold text-foreground">{stat.value}</p>
+            <p className="text-[11px] sm:text-xs text-muted-foreground leading-tight">{stat.label}</p>
           </motion.div>
         );
       })}

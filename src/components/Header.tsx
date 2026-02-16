@@ -111,11 +111,13 @@ export default function Header() {
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/20 backdrop-blur-xl border-b border-primary/10">
       <div className="container mx-auto flex items-center justify-between h-16 px-4">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2.5 group shrink-0">
-          <div className="w-9 h-9 rounded-xl overflow-hidden flex items-center justify-center group-hover:shadow-[0_0_16px_hsl(258_62%_55%/0.2)] transition-all duration-300">
+        <Link to="/" className="flex items-center gap-1.5 sm:gap-2.5 group shrink-0">
+          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl overflow-hidden flex items-center justify-center group-hover:shadow-[0_0_16px_hsl(258_62%_55%/0.2)] transition-all duration-300 shrink-0">
             <img src={logoImg} alt="Chave do Oráculo" className="w-full h-full object-cover" />
           </div>
-          <span className="font-serif text-xl font-bold text-foreground hidden sm:block">Chave do Oráculo</span>
+          <span className="font-serif text-sm sm:text-xl font-bold text-foreground whitespace-nowrap">
+            Chave do Oráculo
+          </span>
         </Link>
 
         {/* Desktop Navigation — 4 itens + Explorar */}
