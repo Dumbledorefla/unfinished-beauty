@@ -109,35 +109,42 @@ export default function Home() {
     <div className="min-h-screen relative">
       {/* Background */}
       <div className="fixed inset-0 z-0">
-        <img src={heroBg} alt="" className="w-full h-full object-cover opacity-30" />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/60 to-background" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,hsl(265_72%_60%/0.12),transparent_60%)]" />
+        <img src={heroBg} alt="" className="w-full h-full object-cover opacity-30 sm:opacity-30" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/10 via-background/50 to-background sm:from-background/30 sm:via-background/60" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,hsl(265_72%_60%/0.18),transparent_70%)] sm:bg-[radial-gradient(ellipse_at_top,hsl(265_72%_60%/0.12),transparent_60%)]" />
       </div>
       <Header />
 
       {/* Hero — Compact */}
-      <section className="relative pt-24 pb-10 z-10">
-        <div className="container mx-auto relative z-10 px-4">
+      <section className="relative pt-28 sm:pt-24 pb-8 sm:pb-10 z-10">
+        <div className="container mx-auto relative z-10 px-5 sm:px-4">
           <div className="max-w-2xl mx-auto text-center">
             <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-5 leading-[1.15] text-foreground tracking-tight">
+              {/* Decorative element — mobile only */}
+              <div className="sm:hidden mb-6 flex justify-center">
+                <div className="w-16 h-16 rounded-full bg-primary/15 border border-primary/25 flex items-center justify-center shadow-[0_0_30px_hsl(265_72%_60%/0.2)]">
+                  <Sparkles className="w-8 h-8 text-primary" />
+                </div>
+              </div>
+              <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold mb-4 sm:mb-5 leading-[1.2] sm:leading-[1.15] text-foreground tracking-tight">
                 As respostas que você{" "}
                 <span className="text-primary">procura</span>
-                <br />já estão nas cartas
+                <br className="hidden sm:block" />
+                <span className="sm:hidden"> </span>já estão nas cartas
               </h1>
-              <p className="text-base md:text-lg text-muted-foreground mb-8 max-w-lg mx-auto leading-relaxed">
+              <p className="text-sm sm:text-base md:text-lg text-muted-foreground mb-6 sm:mb-8 max-w-md sm:max-w-lg mx-auto leading-relaxed">
                 Tire sua carta agora e descubra o que o Tarot, a Numerologia e os Astros revelam sobre o seu momento.
               </p>
-              <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                <Link to="/tarot/dia">
-                  <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 text-base px-7 py-5 pulse-glow">
-                    <Star className="w-4 h-4 mr-2" />
+              <div className="flex flex-col sm:flex-row gap-3 justify-center px-2 sm:px-0">
+                <Link to="/tarot/dia" className="w-full sm:w-auto">
+                  <Button size="lg" className="w-full sm:w-auto bg-primary text-primary-foreground hover:bg-primary/90 text-sm sm:text-base px-5 sm:px-7 py-4 sm:py-5 pulse-glow">
+                    <Star className="w-4 h-4 mr-2 shrink-0" />
                     Receber minha mensagem do dia
                   </Button>
                 </Link>
-                <Link to="/consultas">
-                  <Button size="lg" variant="outline" className="border-border text-foreground hover:bg-secondary text-base px-7 py-5">
-                    <Users className="w-4 h-4 mr-2" />
+                <Link to="/consultas" className="w-full sm:w-auto">
+                  <Button size="lg" variant="outline" className="w-full sm:w-auto border-border text-foreground hover:bg-secondary text-sm sm:text-base px-5 sm:px-7 py-4 sm:py-5">
+                    <Users className="w-4 h-4 mr-2 shrink-0" />
                     Falar com um tarólogo
                   </Button>
                 </Link>
@@ -148,8 +155,14 @@ export default function Home() {
       </section>
 
       {/* Social Proof */}
-      <section className="py-8 relative z-10">
+      <section className="pt-2 sm:pt-4 pb-8 relative z-10">
         <div className="container mx-auto px-4">
+          {/* Separador decorativo — mobile */}
+          <div className="sm:hidden flex items-center gap-3 mb-5 px-4">
+            <div className="flex-1 h-px bg-gradient-to-r from-transparent to-primary/20" />
+            <Sparkles className="w-3.5 h-3.5 text-primary/40" />
+            <div className="flex-1 h-px bg-gradient-to-l from-transparent to-primary/20" />
+          </div>
           <SocialProof />
         </div>
       </section>
