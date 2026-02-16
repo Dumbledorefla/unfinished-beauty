@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNoIndex } from "@/hooks/useNoIndex";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Calendar, Star, DollarSign, Clock, Users } from "lucide-react";
@@ -23,6 +24,7 @@ interface Consultation {
 }
 
 export default function TaromantePainel() {
+  useNoIndex();
   const { user, isAuthenticated, isLoading: authLoading } = useAuth();
   const navigate = useNavigate();
   const [taromante, setTaromante] = useState<any>(null);

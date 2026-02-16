@@ -6,12 +6,19 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Header from "@/components/Header";
 import { supabase } from "@/integrations/supabase/client";
+import { usePageSEO } from "@/hooks/usePageSEO";
 import heroBg from "@/assets/hero-bg.jpg";
 
 export default function CursoDetalhe() {
   const { slug } = useParams<{ slug: string }>();
   const [course, setCourse] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+
+  usePageSEO({
+    title: course ? `${course.title} — Curso na Chave do Oráculo` : "Curso — Chave do Oráculo",
+    description: course?.short_description || course?.description?.slice(0, 155) || "Aprenda com nossos cursos de Tarot, Astrologia e Numerologia.",
+    path: `/curso/${slug}`,
+  });
 
   useEffect(() => {
     if (!slug) return;

@@ -2,8 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Google Fonts - Cinzel (mystical serif) + Inter (clean body) */
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+/* Google Fonts — carregado via <link> no index.html para evitar bloqueio de renderização */
 
 @layer base {
   :root {

@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
 import { Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useNoIndex } from "@/hooks/useNoIndex";
 
 const NotFound = () => {
+  useNoIndex();
   return (
     <div className="flex min-h-screen items-center justify-center bg-background">
       <div className="text-center max-w-md px-6">

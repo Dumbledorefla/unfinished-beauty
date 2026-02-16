@@ -8,6 +8,7 @@ import Header from "@/components/Header";
 import { supabase } from "@/integrations/supabase/client";
 import { useCart } from "@/contexts/CartContext";
 import { toast } from "@/hooks/use-toast";
+import { usePageSEO } from "@/hooks/usePageSEO";
 import heroBg from "@/assets/hero-bg.jpg";
 
 export default function ProdutoDetalhe() {
@@ -15,6 +16,12 @@ export default function ProdutoDetalhe() {
   const [product, setProduct] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const { addItem } = useCart();
+
+  usePageSEO({
+    title: product ? `${product.name} — Chave do Oráculo` : "Produto — Chave do Oráculo",
+    description: product?.short_description || product?.description?.slice(0, 155) || "Conheça nossos produtos esotéricos exclusivos.",
+    path: `/produto/${slug}`,
+  });
 
   useEffect(() => {
     if (!slug) return;

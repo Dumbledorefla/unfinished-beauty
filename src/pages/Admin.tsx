@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNoIndex } from "@/hooks/useNoIndex";
 import { useNavigate } from "react-router-dom";
 import {
   LayoutDashboard, Users, ShoppingBag, Star, Calendar,
@@ -26,6 +27,7 @@ import AdminBlog from "@/components/admin/AdminBlog";
 import AdminNewsletter from "@/components/admin/AdminNewsletter";
 
 export default function Admin() {
+  useNoIndex();
   const { isAuthenticated, isLoading, isAdmin, isProfileLoaded } = useAuth();
   const navigate = useNavigate();
 

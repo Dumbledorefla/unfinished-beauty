@@ -9,6 +9,7 @@ import BookingDialog from "@/components/BookingDialog";
 import ReviewSection from "@/components/ReviewSection";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
+import { usePageSEO } from "@/hooks/usePageSEO";
 import heroBg from "@/assets/hero-bg.jpg";
 
 export default function TaromanteDetalhe() {
@@ -18,6 +19,12 @@ export default function TaromanteDetalhe() {
   const [bookingOpen, setBookingOpen] = useState(false);
   const { user, isAuthenticated } = useAuth();
   const navigate = useNavigate();
+
+  usePageSEO({
+    title: taromante ? `${taromante.name} — Taróloga na Chave do Oráculo` : "Taromante — Chave do Oráculo",
+    description: taromante?.short_bio || taromante?.bio?.slice(0, 155) || "Conheça nossos taromantes e agende uma consulta personalizada.",
+    path: `/taromante/${slug}`,
+  });
 
   useEffect(() => {
     if (!slug) return;

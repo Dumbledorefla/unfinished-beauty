@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNoIndex } from "@/hooks/useNoIndex";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { User, Mail, Calendar, Clock, Star, LogOut, CalendarCheck, CalendarX, Loader2 } from "lucide-react";
@@ -17,6 +18,7 @@ import TwoFactorSetup from "@/components/TwoFactorSetup";
 import heroBg from "@/assets/hero-bg.jpg";
 
 export default function Perfil() {
+  useNoIndex();
   const { user, isAuthenticated, isLoading, profile, signOut } = useAuth();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
