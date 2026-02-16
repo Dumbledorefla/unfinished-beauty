@@ -119,9 +119,9 @@ export default function AdminCoupons({ coupons, onRefresh }: { coupons: Coupon[]
   };
 
   return (
-    <Card className="bg-card/80 border-primary/20">
+    <Card className="bg-slate-900 border border-slate-800 rounded-xl">
       <CardHeader className="flex flex-row items-center justify-between">
-        <CardTitle className="flex items-center gap-2">
+        <CardTitle className="flex items-center gap-2 text-slate-200">
           <Tag className="w-5 h-5" /> Cupons de Desconto
         </CardTitle>
         <Button size="sm" onClick={openNew}>
@@ -130,7 +130,7 @@ export default function AdminCoupons({ coupons, onRefresh }: { coupons: Coupon[]
       </CardHeader>
       <CardContent>
         {coupons.length === 0 ? (
-          <p className="text-foreground/50 text-center py-8">Nenhum cupom criado ainda.</p>
+          <p className="text-slate-400 text-center py-8">Nenhum cupom criado ainda.</p>
         ) : (
           <Table>
             <TableHeader>
@@ -148,7 +148,7 @@ export default function AdminCoupons({ coupons, onRefresh }: { coupons: Coupon[]
                 <TableRow key={c.id}>
                   <TableCell>
                     <div className="flex items-center gap-1">
-                      <code className="text-sm font-mono text-primary">{c.code}</code>
+                      <code className="text-sm font-mono text-amber-400">{c.code}</code>
                       <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => copyCode(c.code)}>
                         <Copy className="w-3 h-3" />
                       </Button>

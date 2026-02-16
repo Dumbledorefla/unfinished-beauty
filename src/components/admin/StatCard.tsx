@@ -13,7 +13,7 @@ interface StatCardProps {
 export default function StatCard({ icon: Icon, label, value, color, prefix }: StatCardProps) {
   return (
     <motion.div whileHover={{ y: -2 }} transition={{ duration: 0.2 }}>
-      <Card className="glass-card">
+      <Card className="bg-slate-900 border border-slate-800 rounded-xl">
         <CardContent className="pt-5 pb-5 flex items-center gap-4">
           <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${color}`}>
             <Icon className="w-6 h-6" />

@@ -103,34 +103,34 @@ export default function AdminAffiliates() {
     <div className="space-y-6">
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <Card className="bg-card/80 border-primary/20">
+        <Card className="bg-slate-900 border border-slate-800 rounded-xl">
           <CardContent className="p-4 text-center">
-            <p className="text-2xl font-bold text-foreground">{affiliates.length}</p>
-            <p className="text-xs text-muted-foreground">Total Afiliados</p>
+            <p className="text-2xl font-bold text-slate-100">{affiliates.length}</p>
+            <p className="text-xs text-slate-400">Total Afiliados</p>
           </CardContent>
         </Card>
-        <Card className="bg-card/80 border-primary/20">
+        <Card className="bg-slate-900 border border-slate-800 rounded-xl">
           <CardContent className="p-4 text-center">
-            <p className="text-2xl font-bold text-foreground">
+            <p className="text-2xl font-bold text-slate-100">
               {affiliates.reduce((s, a) => s + a.total_referrals, 0)}
             </p>
-            <p className="text-xs text-muted-foreground">Total Indicados</p>
+            <p className="text-xs text-slate-400">Total Indicados</p>
           </CardContent>
         </Card>
-        <Card className="bg-card/80 border-primary/20">
+        <Card className="bg-slate-900 border border-slate-800 rounded-xl">
           <CardContent className="p-4 text-center">
-            <p className="text-2xl font-bold text-foreground">
+            <p className="text-2xl font-bold text-slate-100">
               R$ {affiliates.reduce((s, a) => s + a.total_earned, 0).toFixed(2)}
             </p>
-            <p className="text-xs text-muted-foreground">Total Comissões</p>
+            <p className="text-xs text-slate-400">Total Comissões</p>
           </CardContent>
         </Card>
-        <Card className="bg-card/80 border-primary/20">
+        <Card className="bg-slate-900 border border-slate-800 rounded-xl">
           <CardContent className="p-4 text-center">
-            <p className="text-2xl font-bold text-accent">
+            <p className="text-2xl font-bold text-amber-400">
               R$ {totalPendingWithdrawals.toFixed(2)}
             </p>
-            <p className="text-xs text-muted-foreground">Saques Pendentes</p>
+            <p className="text-xs text-slate-400">Saques Pendentes</p>
           </CardContent>
         </Card>
       </div>
@@ -160,7 +160,7 @@ export default function AdminAffiliates() {
 
       {/* Affiliates Table */}
       {tab === "affiliates" && (
-        <Card className="bg-card/80 border-primary/20">
+        <Card className="bg-slate-900 border border-slate-800 rounded-xl">
           <CardContent className="p-4">
             {loading ? (
               <div className="space-y-2">
@@ -186,7 +186,7 @@ export default function AdminAffiliates() {
                         <TableCell className="text-sm">
                           {a.profile?.display_name || a.profile?.email || "—"}
                         </TableCell>
-                        <TableCell className="font-mono text-sm text-primary">{a.code}</TableCell>
+                        <TableCell className="font-mono text-sm text-amber-400">{a.code}</TableCell>
                         <TableCell className="text-sm">{a.commission_rate}%</TableCell>
                         <TableCell className="text-sm">{a.total_referrals}</TableCell>
                         <TableCell className="text-sm">{a.total_conversions}</TableCell>
@@ -208,7 +208,7 @@ export default function AdminAffiliates() {
 
       {/* Withdrawals Table */}
       {tab === "withdrawals" && (
-        <Card className="bg-card/80 border-primary/20">
+        <Card className="bg-slate-900 border border-slate-800 rounded-xl">
           <CardContent className="p-4">
             {loading ? (
               <div className="space-y-2">
@@ -264,7 +264,7 @@ export default function AdminAffiliates() {
 
       {/* Process Withdrawal Dialog */}
       <Dialog open={!!selectedWithdrawal} onOpenChange={() => setSelectedWithdrawal(null)}>
-        <DialogContent className="bg-card border-primary/20">
+        <DialogContent className="bg-slate-900 border-slate-700">
           <DialogHeader>
             <DialogTitle>Processar Saque</DialogTitle>
           </DialogHeader>

@@ -134,13 +134,13 @@ export default function AdminProducts({ products, onRefresh }: { products: Produ
   };
 
   return (
-    <Card className="bg-card/80 border-primary/20">
+    <Card className="bg-slate-900 border border-slate-800 rounded-xl">
       <CardHeader className="flex flex-row items-center justify-between">
-        <CardTitle>Produtos ({products.length})</CardTitle>
+        <CardTitle className="text-slate-200">Produtos ({products.length})</CardTitle>
         <Button size="sm" onClick={openNew}><Plus className="w-4 h-4 mr-1" />Novo Produto</Button>
       </CardHeader>
       <CardContent>
-        {products.length === 0 ? <p className="text-foreground/50 text-center py-8">Nenhum produto cadastrado.</p> : (
+        {products.length === 0 ? <p className="text-slate-400 text-center py-8">Nenhum produto cadastrado.</p> : (
           <Table>
             <TableHeader>
               <TableRow>
@@ -154,8 +154,8 @@ export default function AdminProducts({ products, onRefresh }: { products: Produ
                     {p.image_url ? (
                       <img src={p.image_url} alt={p.name} className="w-10 h-10 rounded object-cover" />
                     ) : (
-                      <div className="w-10 h-10 rounded bg-primary/10 flex items-center justify-center">
-                        <ImageIcon className="w-4 h-4 text-primary/40" />
+                      <div className="w-10 h-10 rounded bg-slate-800 flex items-center justify-center">
+                        <ImageIcon className="w-4 h-4 text-slate-500" />
                       </div>
                     )}
                   </TableCell>
@@ -185,7 +185,7 @@ export default function AdminProducts({ products, onRefresh }: { products: Produ
               <Label>Imagem do Produto</Label>
               <div className="mt-1">
                 {imagePreview ? (
-                  <div className="relative w-full h-40 rounded-lg overflow-hidden border border-primary/20">
+                  <div className="relative w-full h-40 rounded-lg overflow-hidden border border-slate-700">
                     <img src={imagePreview} alt="Preview" className="w-full h-full object-cover" />
                     <div className="absolute top-2 right-2 flex gap-1">
                       <Button size="icon" variant="secondary" className="h-7 w-7" onClick={() => fileInputRef.current?.click()}>
@@ -198,11 +198,11 @@ export default function AdminProducts({ products, onRefresh }: { products: Produ
                   </div>
                 ) : (
                   <div
-                    className="w-full h-40 rounded-lg border-2 border-dashed border-primary/20 flex flex-col items-center justify-center cursor-pointer hover:border-primary/40 transition-colors"
+                    className="w-full h-40 rounded-lg border-2 border-dashed border-slate-700 flex flex-col items-center justify-center cursor-pointer hover:border-slate-500 transition-colors"
                     onClick={() => fileInputRef.current?.click()}
                   >
-                    <Upload className="w-8 h-8 text-foreground/30 mb-2" />
-                    <span className="text-sm text-foreground/50">Clique para enviar imagem</span>
+                    <Upload className="w-8 h-8 text-slate-500 mb-2" />
+                    <span className="text-sm text-slate-400">Clique para enviar imagem</span>
                   </div>
                 )}
                 <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={handleImageSelect} />

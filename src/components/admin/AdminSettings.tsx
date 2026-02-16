@@ -53,13 +53,13 @@ export default function AdminSettings({ settings, onRefresh }: { settings: any[]
   };
 
   return (
-    <Card className="bg-card/80 border-primary/20">
+    <Card className="bg-slate-900 border border-slate-800 rounded-xl">
       <CardHeader className="flex flex-row items-center justify-between">
-        <CardTitle>Configurações do Site</CardTitle>
+        <CardTitle className="text-slate-200">Configurações do Site</CardTitle>
         <Button size="sm" onClick={openNew}><Plus className="w-4 h-4 mr-1" />Nova Config</Button>
       </CardHeader>
       <CardContent>
-        {settings.length === 0 ? <p className="text-foreground/50 text-center py-8">Nenhuma configuração definida.</p> : (
+        {settings.length === 0 ? <p className="text-slate-400 text-center py-8">Nenhuma configuração definida.</p> : (
           <Table>
             <TableHeader><TableRow><TableHead>Chave</TableHead><TableHead>Valor</TableHead><TableHead>Categoria</TableHead><TableHead className="w-24">Ações</TableHead></TableRow></TableHeader>
             <TableBody>

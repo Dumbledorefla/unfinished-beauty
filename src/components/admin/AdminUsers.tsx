@@ -3,8 +3,8 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 
 export default function AdminUsers({ users }: { users: any[] }) {
   return (
-    <Card className="bg-card/80 border-primary/20">
-      <CardHeader><CardTitle>Usuários ({users.length})</CardTitle></CardHeader>
+    <Card className="bg-slate-900 border border-slate-800 rounded-xl">
+      <CardHeader><CardTitle className="text-slate-200">Usuários ({users.length})</CardTitle></CardHeader>
       <CardContent>
         <Table>
           <TableHeader>

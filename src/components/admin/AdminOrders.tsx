@@ -11,10 +11,10 @@ const statusColors: Record<string, string> = {
 
 export default function AdminOrders({ orders }: { orders: any[] }) {
   return (
-    <Card className="bg-card/80 border-primary/20">
-      <CardHeader><CardTitle>Pedidos ({orders.length})</CardTitle></CardHeader>
+    <Card className="bg-slate-900 border border-slate-800 rounded-xl">
+      <CardHeader><CardTitle className="text-slate-200">Pedidos ({orders.length})</CardTitle></CardHeader>
       <CardContent>
-        {orders.length === 0 ? <p className="text-foreground/50 text-center py-8">Nenhum pedido ainda.</p> : (
+        {orders.length === 0 ? <p className="text-slate-400 text-center py-8">Nenhum pedido ainda.</p> : (
           <Table>
             <TableHeader>
               <TableRow><TableHead>ID</TableHead><TableHead>Total</TableHead><TableHead>Status</TableHead><TableHead>Data</TableHead></TableRow>

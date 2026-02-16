@@ -74,7 +74,7 @@ export default function AdminLayout() {
 
   if (isLoading || !isProfileLoaded) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-background text-foreground">
+      <div className="min-h-screen flex items-center justify-center bg-slate-950 text-slate-100">
         Carregando...
       </div>
     );
@@ -82,13 +82,13 @@ export default function AdminLayout() {
 
   if (!isAdmin) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-background text-foreground">
-        <Card className="bg-card/80 border-destructive/30 max-w-md">
+      <div className="min-h-screen flex items-center justify-center bg-slate-950 text-slate-100">
+        <Card className="bg-slate-900 border-red-500/30 max-w-md">
           <CardContent className="pt-6 text-center">
-            <Shield className="w-12 h-12 mx-auto text-destructive mb-4" />
-            <h2 className="text-xl font-bold mb-2">Acesso Negado</h2>
-            <p className="text-muted-foreground mb-4">Você não tem permissão de administrador.</p>
-            <Button onClick={() => navigate("/")} variant="outline">Voltar ao Início</Button>
+            <Shield className="w-12 h-12 mx-auto text-red-400 mb-4" />
+            <h2 className="text-xl font-bold mb-2 text-slate-100">Acesso Negado</h2>
+            <p className="text-slate-400 mb-4">Você não tem permissão de administrador.</p>
+            <Button onClick={() => navigate("/")} variant="outline" className="border-slate-700 text-slate-300 hover:bg-slate-800">Voltar ao Início</Button>
           </CardContent>
         </Card>
       </div>
@@ -98,15 +98,15 @@ export default function AdminLayout() {
   const SidebarContent = () => (
     <div className="flex flex-col h-full">
       {/* Logo */}
-      <div className="p-4 border-b border-primary/20">
+      <div className="p-4 border-b border-slate-800">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center">
-            <span className="text-primary-foreground text-sm font-bold">CO</span>
+          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-amber-500 to-amber-600 flex items-center justify-center">
+            <span className="text-white text-sm font-bold">CO</span>
           </div>
           {!collapsed && (
             <div>
-              <h2 className="font-serif text-sm font-bold text-foreground">Chave do Oráculo</h2>
-              <p className="text-[10px] text-muted-foreground">Painel Administrativo</p>
+              <h2 className="font-serif text-sm font-bold text-amber-500">Chave do Oráculo</h2>
+              <p className="text-[10px] text-slate-500">Painel Administrativo</p>
             </div>
           )}
         </div>
@@ -117,7 +117,7 @@ export default function AdminLayout() {
         {Object.entries(sections).map(([section, items]) => (
           <div key={section} className="mb-4">
             {!collapsed && (
-              <p className="px-3 mb-2 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground/50">
+              <p className="px-3 mb-2 text-[10px] font-semibold uppercase tracking-widest text-slate-500">
                 {section}
               </p>
             )}
@@ -130,8 +130,8 @@ export default function AdminLayout() {
                     className={cn(
                       "flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all cursor-pointer",
                       active
-                        ? "bg-primary/20 text-primary border border-primary/30"
-                        : "text-muted-foreground hover:text-foreground hover:bg-primary/10"
+                        ? "bg-amber-500/10 text-amber-400 border-l-2 border-amber-500"
+                        : "text-slate-400 hover:text-slate-200 hover:bg-slate-800"
                     )}
                   >
                     <Icon className="w-4 h-4 flex-shrink-0" />
@@ -145,16 +145,16 @@ export default function AdminLayout() {
       </nav>
 
       {/* Footer */}
-      <div className="p-3 border-t border-primary/20 space-y-2">
+      <div className="p-3 border-t border-slate-800 space-y-2">
         <Link to="/">
-          <div className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-muted-foreground hover:text-foreground hover:bg-primary/10 cursor-pointer">
+          <div className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-slate-400 hover:text-slate-200 hover:bg-slate-800 cursor-pointer">
             <Home className="w-4 h-4" />
             {!collapsed && <span>Voltar ao Site</span>}
           </div>
         </Link>
         <button
           onClick={() => setCollapsed(!collapsed)}
-          className="hidden lg:flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-muted-foreground/40 hover:text-foreground hover:bg-primary/10 w-full"
+          className="hidden lg:flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-slate-500 hover:text-slate-200 hover:bg-slate-800 w-full"
         >
           {collapsed ? <ChevronRight className="w-4 h-4" /> : <ChevronLeft className="w-4 h-4" />}
           {!collapsed && <span>Recolher</span>}
@@ -164,7 +164,7 @@ export default function AdminLayout() {
   );
 
   return (
-    <div className="min-h-screen bg-background flex">
+    <div className="min-h-screen bg-slate-950 flex">
       {/* Mobile overlay */}
       {mobileOpen && (
         <div
@@ -176,7 +176,7 @@ export default function AdminLayout() {
       {/* Sidebar - Desktop */}
       <aside
         className={cn(
-          "hidden lg:flex flex-col fixed top-0 left-0 h-screen bg-card/95 backdrop-blur-xl border-r border-primary/20 z-30 transition-all duration-300",
+          "hidden lg:flex flex-col fixed top-0 left-0 h-screen bg-slate-900 border-r border-slate-800 z-30 transition-all duration-300",
           collapsed ? "w-16" : "w-60"
         )}
       >
@@ -186,7 +186,7 @@ export default function AdminLayout() {
       {/* Sidebar - Mobile */}
       <aside
         className={cn(
-          "lg:hidden fixed top-0 left-0 h-screen w-64 bg-card/98 backdrop-blur-xl border-r border-primary/20 z-50 transition-transform duration-300",
+          "lg:hidden fixed top-0 left-0 h-screen w-64 bg-slate-900 border-r border-slate-800 z-50 transition-transform duration-300",
           mobileOpen ? "translate-x-0" : "-translate-x-full"
         )}
       >
@@ -201,33 +201,33 @@ export default function AdminLayout() {
         )}
       >
         {/* Top bar */}
-        <header className="sticky top-0 z-20 bg-background/80 backdrop-blur-xl border-b border-primary/10 px-4 lg:px-6 py-3">
+        <header className="sticky top-0 z-20 bg-slate-950/80 backdrop-blur-xl border-b border-slate-800 px-4 lg:px-6 py-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <button
                 onClick={() => setMobileOpen(true)}
-                className="lg:hidden text-muted-foreground hover:text-foreground"
+                className="lg:hidden text-slate-400 hover:text-slate-200"
               >
                 <Menu className="w-5 h-5" />
               </button>
-              <h1 className="font-serif text-lg font-bold text-foreground">
+              <h1 className="font-serif text-lg font-bold text-slate-100">
                 {navItems.find(item => isActive(item.href))?.label || "Admin"}
               </h1>
             </div>
 
             <div className="flex items-center gap-3">
-              <div className="hidden md:flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-lg px-3 py-1.5">
-                <Search className="w-4 h-4 text-muted-foreground" />
+              <div className="hidden md:flex items-center gap-2 bg-slate-800/50 border border-slate-700 rounded-lg px-3 py-1.5">
+                <Search className="w-4 h-4 text-slate-500" />
                 <input
                   type="text"
                   placeholder="Buscar..."
-                  className="bg-transparent text-sm text-foreground placeholder:text-muted-foreground/40 outline-none w-40"
+                  className="bg-transparent text-sm text-slate-200 placeholder:text-slate-500 outline-none w-40"
                 />
-                <kbd className="text-[10px] text-muted-foreground/40 bg-primary/10 px-1.5 py-0.5 rounded">⌘K</kbd>
+                <kbd className="text-[10px] text-slate-500 bg-slate-800 px-1.5 py-0.5 rounded">⌘K</kbd>
               </div>
-              <Link to="/admin/notificacoes" className="relative text-muted-foreground hover:text-foreground">
+              <Link to="/admin/notificacoes" className="relative text-slate-400 hover:text-slate-200">
                 <Bell className="w-5 h-5" />
-                <span className="absolute -top-1 -right-1 w-2 h-2 bg-accent rounded-full" />
+                <span className="absolute -top-1 -right-1 w-2 h-2 bg-amber-500 rounded-full" />
               </Link>
             </div>
           </div>

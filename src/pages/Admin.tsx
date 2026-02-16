@@ -88,17 +88,17 @@ export default function Admin() {
   );
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="border-b border-primary/15 bg-card/30 backdrop-blur-xl px-6 py-5">
+    <div className="min-h-screen bg-slate-950">
+      <div className="border-b border-slate-800 bg-slate-900 px-6 py-5">
         <div className="container mx-auto flex items-center justify-between">
-          <h1 className="font-serif text-xl font-bold gold-text flex items-center gap-2.5"><Shield className="w-5 h-5 text-primary" /> Painel Admin</h1>
-          <Button variant="outline" size="sm" onClick={() => navigate("/")} className="border-primary/20 text-foreground/70 hover:text-primary">Voltar ao Site</Button>
+          <h1 className="font-serif text-xl font-bold text-amber-500 flex items-center gap-2.5"><Shield className="w-5 h-5 text-amber-500" /> Painel Admin</h1>
+          <Button variant="outline" size="sm" onClick={() => navigate("/")} className="border-slate-700 text-slate-400 hover:text-amber-400 hover:bg-slate-800">Voltar ao Site</Button>
         </div>
       </div>
 
       <div className="container mx-auto px-4 py-8">
         <Tabs defaultValue="dashboard">
-          <TabsList className="flex flex-wrap gap-1 h-auto bg-secondary/50 p-2 rounded-xl mb-8">
+          <TabsList className="flex flex-wrap gap-1 h-auto bg-slate-800/50 p-2 rounded-xl mb-8">
             <TabsTrigger value="dashboard" className="rounded-lg"><LayoutDashboard className="w-4 h-4 mr-1.5" />Dashboard</TabsTrigger>
             <TabsTrigger value="users" className="rounded-lg"><Users className="w-4 h-4 mr-1.5" />Usuários</TabsTrigger>
             <TabsTrigger value="products" className="rounded-lg"><ShoppingBag className="w-4 h-4 mr-1.5" />Produtos</TabsTrigger>

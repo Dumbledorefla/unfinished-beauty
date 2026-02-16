@@ -92,13 +92,13 @@ export default function AdminTaromantes({ taromantes, onRefresh }: { taromantes:
   };
 
   return (
-    <Card className="bg-card/80 border-primary/20">
+    <Card className="bg-slate-900 border border-slate-800 rounded-xl">
       <CardHeader className="flex flex-row items-center justify-between">
-        <CardTitle>Taromantes ({taromantes.length})</CardTitle>
+        <CardTitle className="text-slate-200">Taromantes ({taromantes.length})</CardTitle>
         <Button size="sm" onClick={openNew}><Plus className="w-4 h-4 mr-1" />Novo Taromante</Button>
       </CardHeader>
       <CardContent>
-        {taromantes.length === 0 ? <p className="text-foreground/50 text-center py-8">Nenhum taromante cadastrado.</p> : (
+        {taromantes.length === 0 ? <p className="text-slate-400 text-center py-8">Nenhum taromante cadastrado.</p> : (
           <Table>
             <TableHeader>
               <TableRow><TableHead>Nome</TableHead><TableHead>Título</TableHead><TableHead>Rating</TableHead><TableHead>Ativo</TableHead><TableHead className="w-24">Ações</TableHead></TableRow>

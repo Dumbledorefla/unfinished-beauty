@@ -149,7 +149,7 @@ export default function AdminDebug() {
           <h2 className="font-serif text-lg font-bold text-foreground">Painel de Debug</h2>
           <p className="text-sm text-muted-foreground">Verificação rápida de rotas, tabelas e funções</p>
         </div>
-        <Button onClick={runAllChecks} disabled={running} variant="outline" className="border-primary/30">
+        <Button onClick={runAllChecks} disabled={running} variant="outline" className="border-slate-700">
           <RefreshCw className={`w-4 h-4 mr-2 ${running ? "animate-spin" : ""}`} />
           {running ? "Verificando…" : "Executar Diagnóstico"}
         </Button>
@@ -158,24 +158,24 @@ export default function AdminDebug() {
       {/* Summary */}
       {!running && routes.some((r) => r.status !== "idle") && (
         <div className="grid grid-cols-3 gap-4">
-          <Card className="bg-card/80 border-primary/20">
+          <Card className="bg-slate-900 border border-slate-800 rounded-xl">
             <CardContent className="pt-4 pb-4 text-center">
-              <p className="text-xs text-muted-foreground mb-1">Rotas</p>
-              <p className="text-2xl font-bold text-foreground">{okCount(routes)}/{routes.length}</p>
+              <p className="text-xs text-slate-400 mb-1">Rotas</p>
+              <p className="text-2xl font-bold text-slate-100">{okCount(routes)}/{routes.length}</p>
               {errCount(routes) > 0 && <Badge variant="destructive" className="mt-1">{errCount(routes)} erro(s)</Badge>}
             </CardContent>
           </Card>
-          <Card className="bg-card/80 border-primary/20">
+          <Card className="bg-slate-900 border border-slate-800 rounded-xl">
             <CardContent className="pt-4 pb-4 text-center">
-              <p className="text-xs text-muted-foreground mb-1">Tabelas</p>
-              <p className="text-2xl font-bold text-foreground">{okCount(tables)}/{tables.length}</p>
+              <p className="text-xs text-slate-400 mb-1">Tabelas</p>
+              <p className="text-2xl font-bold text-slate-100">{okCount(tables)}/{tables.length}</p>
               {errCount(tables) > 0 && <Badge variant="destructive" className="mt-1">{errCount(tables)} erro(s)</Badge>}
             </CardContent>
           </Card>
-          <Card className="bg-card/80 border-primary/20">
+          <Card className="bg-slate-900 border border-slate-800 rounded-xl">
             <CardContent className="pt-4 pb-4 text-center">
-              <p className="text-xs text-muted-foreground mb-1">Edge Functions</p>
-              <p className="text-2xl font-bold text-foreground">{okCount(edges)}/{edges.length}</p>
+              <p className="text-xs text-slate-400 mb-1">Edge Functions</p>
+              <p className="text-2xl font-bold text-slate-100">{okCount(edges)}/{edges.length}</p>
               {errCount(edges) > 0 && <Badge variant="destructive" className="mt-1">{errCount(edges)} erro(s)</Badge>}
             </CardContent>
           </Card>
@@ -183,7 +183,7 @@ export default function AdminDebug() {
       )}
 
       {/* Routes */}
-      <Card className="bg-card/80 border-primary/20">
+      <Card className="bg-slate-900 border border-slate-800 rounded-xl">
         <CardContent className="pt-4">
           <h3 className="font-serif font-bold text-foreground mb-3">🔗 Rotas ({routes.length})</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -202,7 +202,7 @@ export default function AdminDebug() {
       </Card>
 
       {/* Tables */}
-      <Card className="bg-card/80 border-primary/20">
+      <Card className="bg-slate-900 border border-slate-800 rounded-xl">
         <CardContent className="pt-4">
           <h3 className="font-serif font-bold text-foreground mb-3">🗄️ Tabelas ({tables.length})</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -221,7 +221,7 @@ export default function AdminDebug() {
       </Card>
 
       {/* Edge Functions */}
-      <Card className="bg-card/80 border-primary/20">
+      <Card className="bg-slate-900 border border-slate-800 rounded-xl">
         <CardContent className="pt-4">
           <h3 className="font-serif font-bold text-foreground mb-3">⚡ Edge Functions ({edges.length})</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
