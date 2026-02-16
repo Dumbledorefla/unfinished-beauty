@@ -11,9 +11,14 @@ import { supabase } from "@/integrations/supabase/client";
 import { useOracleAuth } from "@/hooks/useOracleAuth";
 import { useFreemium } from "@/hooks/useFreemium";
 import { usePageSEO } from "@/hooks/usePageSEO";
+import { useStructuredData } from "@/hooks/useStructuredData";
 
 export default function Numerologia() {
   usePageSEO({ title: "Mapa Numerológico Grátis — Descubra Seus Números de Destino e Propósito", description: "Calcule seus números pessoais de destino, expressão e alma. Descubra o que seu nome e data de nascimento revelam sobre seu propósito de vida.", path: "/numerologia" });
+  useStructuredData([
+    { type: "service", name: "Mapa Numerológico", description: "Calcule seus números pessoais de destino, expressão e alma.", url: `${window.location.origin}/numerologia` },
+    { type: "breadcrumb", items: [{ name: "Início", url: window.location.origin }, { name: "Numerologia", url: `${window.location.origin}/numerologia` }] },
+  ]);
   const { restoredState, requireAuth, clearRestored } = useOracleAuth({ methodId: "numerologia", returnTo: "/numerologia" });
   const { product, hasAccess, purchaseReading } = useFreemium("numerologia");
   const [step, setStep] = useState<"form" | "loading" | "result">("form");

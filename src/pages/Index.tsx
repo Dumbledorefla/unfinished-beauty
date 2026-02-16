@@ -4,6 +4,7 @@ import {
   Sparkles, Star, Moon, Sun, Calculator, Heart,
   ArrowRight, Compass, Eye, Zap, Users
 } from "lucide-react";
+import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Header from "@/components/Header";
@@ -85,19 +86,23 @@ export default function Home() {
 
   useTrackReferral();
 
-  useStructuredData({
-    type: "WebSite",
-    data: {
+  useStructuredData([
+    {
+      type: "website",
       name: "Chave do Oráculo",
-      url: "https://chavedooraculo.com.br",
       description: "Tarot online, numerologia, horóscopo e mapa astral com interpretação por IA.",
-      potentialAction: {
-        "@type": "SearchAction",
-        target: "https://chavedooraculo.com.br/busca?q={search_term_string}",
-        "query-input": "required name=search_term_string",
-      },
+      url: window.location.origin,
     },
-  });
+    {
+      type: "faq",
+      questions: [
+        { question: "O Tarot do Dia é grátis?", answer: "Sim! O Tarot do Dia é 100% gratuito. Tire sua carta todos os dias e receba uma mensagem personalizada com seu nome e data de nascimento." },
+        { question: "Como funciona a leitura de Tarot com IA?", answer: "Nossa inteligência artificial combina séculos de tradição do Tarot com tecnologia avançada para criar interpretações únicas e personalizadas para cada pessoa." },
+        { question: "Posso fazer consulta com tarólogo ao vivo?", answer: "Sim! Temos tarólogos experientes disponíveis para consultas por chat, vídeo ou telefone. Acesse a página de Consultas para ver os profissionais disponíveis." },
+        { question: "O que é o Mapa Numerológico?", answer: "O Mapa Numerológico revela seus números pessoais de destino, expressão e alma a partir do seu nome completo e data de nascimento. É uma ferramenta poderosa de autoconhecimento." },
+      ],
+    },
+  ]);
 
   return (
     <div className="min-h-screen relative">
@@ -300,28 +305,7 @@ export default function Home() {
 
       <OnboardingModal />
 
-      {/* Footer */}
-      <footer className="py-10 relative z-10">
-        <div className="section-divider" />
-        <div className="container mx-auto relative z-10 px-4 pt-8">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-5">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-xl bg-primary/15 border border-primary/20 flex items-center justify-center">
-                <Sparkles className="w-4 h-4 text-primary" />
-              </div>
-              <span className="font-serif text-lg font-bold text-foreground">Chave do Oráculo</span>
-            </div>
-            <nav className="flex items-center gap-5">
-              <Link to="/tarot/dia" className="text-sm text-muted-foreground hover:text-primary transition-colors">Tarot</Link>
-              <Link to="/numerologia" className="text-sm text-muted-foreground hover:text-primary transition-colors">Numerologia</Link>
-              <Link to="/horoscopo" className="text-sm text-muted-foreground hover:text-primary transition-colors">Horóscopo</Link>
-              <Link to="/blog" className="text-sm text-muted-foreground hover:text-primary transition-colors">Blog</Link>
-              <Link to="/consultas" className="text-sm text-muted-foreground hover:text-primary transition-colors">Consultas</Link>
-            </nav>
-            <p className="text-sm text-muted-foreground/60">© 2026 Chave do Oráculo</p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

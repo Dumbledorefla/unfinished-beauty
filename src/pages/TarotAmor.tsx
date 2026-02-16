@@ -12,11 +12,16 @@ import { supabase } from "@/integrations/supabase/client";
 import { useOracleAuth } from "@/hooks/useOracleAuth";
 import { useFreemium } from "@/hooks/useFreemium";
 import { usePageSEO } from "@/hooks/usePageSEO";
+import { useStructuredData } from "@/hooks/useStructuredData";
 
 const positions = ["Passado", "Presente", "Futuro"];
 
 export default function TarotAmor() {
   usePageSEO({ title: "Tarot do Amor — Leitura de 3 Cartas Sobre Sua Vida Amorosa", description: "Descubra o que as cartas revelam sobre o passado, presente e futuro do seu amor. Leitura gratuita com IA personalizada.", path: "/tarot/amor" });
+  useStructuredData([
+    { type: "service", name: "Tarot do Amor", description: "Descubra o que as cartas revelam sobre o passado, presente e futuro do seu amor.", url: `${window.location.origin}/tarot/amor` },
+    { type: "breadcrumb", items: [{ name: "Início", url: window.location.origin }, { name: "Tarot do Amor", url: `${window.location.origin}/tarot/amor` }] },
+  ]);
   const { restoredState, requireAuth, clearRestored, user } = useOracleAuth({ methodId: "tarot-amor", returnTo: "/tarot/amor" });
   const { product, hasAccess, purchaseReading } = useFreemium("tarot-amor");
   const [step, setStep] = useState<"form" | "drawing" | "result">("form");

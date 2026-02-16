@@ -27,6 +27,7 @@ const navItems = [
   { label: "Produtos", href: "/produtos", icon: ShoppingBag },
   { label: "Blog", href: "/blog", icon: BookOpen },
   { label: "Compatibilidade", href: "/compatibilidade", icon: Heart },
+  { label: "Signos", href: "/signos", icon: Sun },
   { label: "Lua", href: "/calendario-lunar", icon: Moon },
   { label: "Afiliados", href: "/afiliado", icon: Share2 },
   { label: "Chat ao Vivo", href: "/chat-ao-vivo", icon: MessageCircle },
