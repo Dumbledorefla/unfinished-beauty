@@ -10,6 +10,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { useCart } from "@/contexts/CartContext";
 import NotificationBell from "@/components/NotificationBell";
 import ThemeToggle from "@/components/ThemeToggle";
+import StreakBadge from "@/components/StreakBadge";
 
 const navItems = [
   {
@@ -125,6 +126,7 @@ export default function Header() {
         {/* Desktop Cart + Auth */}
         <div className="hidden lg:flex items-center gap-2">
           {isAuthenticated && <NotificationBell />}
+          {isAuthenticated && <StreakBadge />}
           <ThemeToggle />
           <Link to="/carrinho" aria-label={`Carrinho com ${totalItems} itens`} className="relative p-2.5 text-foreground/70 hover:text-primary transition-all duration-200 rounded-lg hover:bg-foreground/5">
             <ShoppingCart className="w-5 h-5" />

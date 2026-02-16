@@ -12,6 +12,7 @@ import { useOracleAuth } from "@/hooks/useOracleAuth";
 import { useFreemium } from "@/hooks/useFreemium";
 import { usePageSEO } from "@/hooks/usePageSEO";
 import { useStructuredData } from "@/hooks/useStructuredData";
+import { useStreak } from "@/hooks/useStreak";
 
 export default function Numerologia() {
   usePageSEO({ title: "Mapa Numerológico Grátis — Descubra Seus Números de Destino e Propósito", description: "Calcule seus números pessoais de destino, expressão e alma. Descubra o que seu nome e data de nascimento revelam sobre seu propósito de vida.", path: "/numerologia" });
@@ -21,6 +22,7 @@ export default function Numerologia() {
   ]);
   const { restoredState, requireAuth, clearRestored } = useOracleAuth({ methodId: "numerologia", returnTo: "/numerologia" });
   const { product, hasAccess, purchaseReading } = useFreemium("numerologia");
+  const { recordActivity } = useStreak();
   const [step, setStep] = useState<"form" | "loading" | "result">("form");
   const [interpretation, setInterpretation] = useState("");
   const [error, setError] = useState(false);
@@ -48,6 +50,7 @@ export default function Numerologia() {
         body: { type: "numerologia", data },
       });
       setInterpretation(result?.interpretation || "Interpretação indisponível.");
+      recordActivity();
       setStep("result");
     } catch {
       setError(true);

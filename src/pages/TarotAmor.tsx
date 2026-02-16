@@ -13,6 +13,7 @@ import { useOracleAuth } from "@/hooks/useOracleAuth";
 import { useFreemium } from "@/hooks/useFreemium";
 import { usePageSEO } from "@/hooks/usePageSEO";
 import { useStructuredData } from "@/hooks/useStructuredData";
+import { useStreak } from "@/hooks/useStreak";
 
 const positions = ["Passado", "Presente", "Futuro"];
 
@@ -24,6 +25,7 @@ export default function TarotAmor() {
   ]);
   const { restoredState, requireAuth, clearRestored, user } = useOracleAuth({ methodId: "tarot-amor", returnTo: "/tarot/amor" });
   const { product, hasAccess, purchaseReading } = useFreemium("tarot-amor");
+  const { recordActivity } = useStreak();
   const [step, setStep] = useState<"form" | "drawing" | "result">("form");
   const [cards, setCards] = useState<TarotCard[]>([]);
   const [interpretation, setInterpretation] = useState("");
@@ -64,6 +66,7 @@ export default function TarotAmor() {
           interpretation: result?.interpretation, user_name: data.userName,
         });
       }
+      recordActivity();
       setStep("result");
     } catch {
       setError(true);
