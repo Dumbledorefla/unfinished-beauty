@@ -7,15 +7,19 @@ import { Card, CardContent } from "@/components/ui/card";
 import ReactMarkdown from "react-markdown";
 import OracleLayout from "@/components/OracleLayout";
 import UserDataForm from "@/components/UserDataForm";
-import PersonaSelector, { PERSONAS } from "@/components/PersonaSelector";
+import TarotCardImage from "@/components/TarotCardImage";
+import UpsellSection from "@/components/UpsellSection";
 import SoundscapePlayer from "@/components/SoundscapePlayer";
 import SaveToJournal from "@/components/SaveToJournal";
 import { drawCards, TarotCard } from "@/lib/tarot-cards";
+import { PERSONAS } from "@/components/PersonaSelector";
 import { supabase } from "@/integrations/supabase/client";
 import { useOracleAuth } from "@/hooks/useOracleAuth";
 import { usePageSEO } from "@/hooks/usePageSEO";
 import { useStructuredData } from "@/hooks/useStructuredData";
 import { useStreak } from "@/hooks/useStreak";
+
+const DEFAULT_PERSONA = PERSONAS.find((p) => p.id === "mistica");
 
 export default function TarotDia() {
   usePageSEO({ title: "Tarot do Dia Grátis — Tire Sua Carta e Receba uma Mensagem Personalizada", description: "Tire sua carta do dia gratuitamente e receba uma interpretação personalizada com seu nome e data de nascimento.", path: "/tarot/dia" });
@@ -31,7 +35,6 @@ export default function TarotDia() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [lastData, setLastData] = useState<{ userName: string; birthDate: string } | null>(null);
-  const [persona, setPersona] = useState("");
 
   useEffect(() => {
     if (restoredState) {
@@ -57,14 +60,12 @@ export default function TarotDia() {
     const drawnCard = preDrawnCard || drawCards(1)[0];
     setCard(drawnCard);
 
-    const selectedPersona = PERSONAS.find((p) => p.id === persona);
-
     try {
       const { data: result } = await supabase.functions.invoke("oracle-interpret", {
         body: {
           type: "tarot-dia",
           data: { userName: data.userName, birthDate: data.birthDate, card: drawnCard },
-          persona: selectedPersona?.systemPrompt || "",
+          persona: DEFAULT_PERSONA?.systemPrompt || "",
         },
       });
       setInterpretation(result?.interpretation || "A interpretação não está disponível no momento.");
@@ -98,13 +99,14 @@ export default function TarotDia() {
       <AnimatePresence mode="wait">
         {step === "form" && (
           <motion.div key="form" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-6">
-            <PersonaSelector selected={persona} onSelect={setPersona} />
             <UserDataForm title="Sua Carta do Dia" description="Seu nome e data de nascimento tornam a leitura única — feita só para você." onSubmit={handleStart} loading={loading} />
           </motion.div>
         )}
         {step === "drawing" && (
           <motion.div key="drawing" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="text-center py-16">
-            <motion.div animate={{ rotateY: [0, 360] }} transition={{ duration: 1.5, repeat: Infinity }} className="text-8xl mb-6">🃏</motion.div>
+            <motion.div animate={{ rotateY: [0, 360] }} transition={{ duration: 1.5, repeat: Infinity }} className="w-36 h-52 mx-auto mb-6">
+              <img src="/tarot-cards/card-back.jpg" alt="Carta de tarot" className="w-full h-full object-cover rounded-xl shadow-2xl" />
+            </motion.div>
             <p className="text-foreground/70 text-lg">As cartas estão se revelando...</p>
           </motion.div>
         )}
@@ -122,9 +124,9 @@ export default function TarotDia() {
               <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent pointer-events-none" />
               <CardContent className="pt-10 pb-8 relative">
                 <motion.div initial={{ scale: 0, rotateY: 180 }} animate={{ scale: 1, rotateY: 0 }} transition={{ type: "spring", duration: 0.8 }}>
-                  <div className={`text-8xl mb-6 ${!card.upright ? "rotate-180" : ""}`}>{card.image}</div>
+                  <TarotCardImage card={card} size="lg" />
                 </motion.div>
-                <h2 className="font-serif text-3xl font-bold text-primary mb-2">{card.name}</h2>
+                <h2 className="font-serif text-3xl font-bold text-primary mb-2 mt-4">{card.name}</h2>
                 <p className="text-muted-foreground text-sm mb-4">{card.upright ? "Posição Normal" : "Posição Invertida"}</p>
                 <div className="flex gap-2 justify-center flex-wrap">
                   {card.keywords.map((kw) => (
@@ -139,6 +141,10 @@ export default function TarotDia() {
                 <div className="oracle-prose"><ReactMarkdown>{interpretation}</ReactMarkdown></div>
               </CardContent>
             </Card>
+
+            {/* Upsell Section */}
+            <UpsellSection currentOracle="tarot-dia" />
+
             <div className="flex flex-wrap gap-3 justify-center">
               <ShareButtons text={interpretation} title={`Tarot do Dia - ${card.name}`} />
               <SaveToJournal readingType="Tarot do Dia" cards={[card]} interpretation={interpretation} />

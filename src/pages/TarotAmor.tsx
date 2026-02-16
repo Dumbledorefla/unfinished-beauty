@@ -7,10 +7,12 @@ import { Card, CardContent } from "@/components/ui/card";
 import OracleLayout from "@/components/OracleLayout";
 import UserDataForm from "@/components/UserDataForm";
 import FreemiumPaywall from "@/components/FreemiumPaywall";
-import PersonaSelector, { PERSONAS } from "@/components/PersonaSelector";
+import TarotCardImage from "@/components/TarotCardImage";
+import UpsellSection from "@/components/UpsellSection";
 import SoundscapePlayer from "@/components/SoundscapePlayer";
 import SaveToJournal from "@/components/SaveToJournal";
 import { drawCards, TarotCard } from "@/lib/tarot-cards";
+import { PERSONAS } from "@/components/PersonaSelector";
 import { supabase } from "@/integrations/supabase/client";
 import { useOracleAuth } from "@/hooks/useOracleAuth";
 import { useFreemium } from "@/hooks/useFreemium";
@@ -19,6 +21,7 @@ import { useStructuredData } from "@/hooks/useStructuredData";
 import { useStreak } from "@/hooks/useStreak";
 
 const positions = ["Passado", "Presente", "Futuro"];
+const DEFAULT_PERSONA = PERSONAS.find((p) => p.id === "mistica");
 
 export default function TarotAmor() {
   usePageSEO({ title: "Tarot do Amor — Leitura de 3 Cartas Sobre Sua Vida Amorosa", description: "Descubra o que as cartas revelam sobre o passado, presente e futuro do seu amor. Leitura gratuita e personalizada.", path: "/tarot/amor" });
@@ -35,7 +38,6 @@ export default function TarotAmor() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [lastData, setLastData] = useState<{ userName: string; birthDate: string } | null>(null);
-  const [persona, setPersona] = useState("");
 
   useEffect(() => {
     if (restoredState) {
@@ -59,14 +61,12 @@ export default function TarotAmor() {
     const drawn = preDrawn || drawCards(3);
     setCards(drawn);
 
-    const selectedPersona = PERSONAS.find((p) => p.id === persona);
-
     try {
       const { data: result } = await supabase.functions.invoke("oracle-interpret", {
         body: {
           type: "tarot-amor",
           data: { userName: data.userName, birthDate: data.birthDate, cards: drawn },
-          persona: selectedPersona?.systemPrompt || "",
+          persona: DEFAULT_PERSONA?.systemPrompt || "",
         },
       });
       setInterpretation(result?.interpretation || "Interpretação indisponível.");
@@ -91,14 +91,19 @@ export default function TarotAmor() {
       <AnimatePresence mode="wait">
         {step === "form" && (
           <motion.div key="form" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-6">
-            <PersonaSelector selected={persona} onSelect={setPersona} />
             <UserDataForm title="Tarot do Amor" description="Descubra o que as cartas revelam sobre o seu coração — passado, presente e futuro." onSubmit={handleStart} loading={loading} />
           </motion.div>
         )}
         {step === "drawing" && (
           <motion.div key="drawing" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="text-center py-16">
-            <motion.div animate={{ rotateY: [0, 360] }} transition={{ duration: 1.5, repeat: Infinity }} className="text-8xl mb-6">💕</motion.div>
-            <p className="text-foreground/70 text-lg">As cartas estão se revelando...</p>
+            <div className="flex justify-center gap-4">
+              {[0, 1, 2].map((i) => (
+                <motion.div key={i} animate={{ rotateY: [0, 360] }} transition={{ duration: 1.5, repeat: Infinity, delay: i * 0.2 }} className="w-24 h-36">
+                  <img src="/tarot-cards/card-back.jpg" alt="Carta de tarot" className="w-full h-full object-cover rounded-lg shadow-xl" />
+                </motion.div>
+              ))}
+            </div>
+            <p className="text-foreground/70 text-lg mt-6">As cartas estão se revelando...</p>
           </motion.div>
         )}
         {step === "result" && error && (
@@ -115,8 +120,8 @@ export default function TarotAmor() {
                   <Card className="bg-card/80 backdrop-blur-md border-primary/20 text-center">
                     <CardContent className="pt-4 pb-4">
                       <p className="text-xs text-primary font-medium mb-2">{positions[i]}</p>
-                      <div className={`text-5xl mb-2 ${!card.upright ? "rotate-180" : ""}`}>{card.image}</div>
-                      <h3 className="font-serif text-sm font-bold text-foreground">{card.name}</h3>
+                      <TarotCardImage card={card} size="sm" />
+                      <h3 className="font-serif text-sm font-bold text-foreground mt-2">{card.name}</h3>
                       <p className="text-foreground/50 text-xs">{card.upright ? "Normal" : "Invertida"}</p>
                     </CardContent>
                   </Card>
@@ -138,10 +143,13 @@ export default function TarotAmor() {
               </CardContent>
             </Card>
             {hasAccess && (
-              <div className="flex flex-wrap gap-3 justify-center">
-                <ShareButtons text={interpretation} title="Tarot do Amor" />
-                <SaveToJournal readingType="Tarot do Amor" cards={cards} interpretation={interpretation} />
-              </div>
+              <>
+                <div className="flex flex-wrap gap-3 justify-center">
+                  <ShareButtons text={interpretation} title="Tarot do Amor" />
+                  <SaveToJournal readingType="Tarot do Amor" cards={cards} interpretation={interpretation} />
+                </div>
+                <UpsellSection currentOracle="tarot-amor" />
+              </>
             )}
             <div className="text-center">
               <Button onClick={() => { setStep("form"); setCards([]); setInterpretation(""); setError(false); }} variant="outline" className="border-primary/30">
