@@ -8,6 +8,8 @@ import Footer from "@/components/Footer";
 import { signos } from "@/data/signos";
 import { usePageSEO } from "@/hooks/usePageSEO";
 import { useStructuredData } from "@/hooks/useStructuredData";
+import PageBreadcrumb from "@/components/PageBreadcrumb";
+import RelatedContent from "@/components/RelatedContent";
 import heroBg from "@/assets/hero-bg.jpg";
 
 export default function Signo() {
@@ -52,9 +54,7 @@ export default function Signo() {
       <Header />
       <main className="relative z-10 pt-24 pb-16">
         <div className="container mx-auto px-4 max-w-3xl">
-          <Link to="/signos" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mb-8">
-            <ArrowLeft className="w-4 h-4" /> Todos os signos
-          </Link>
+          <PageBreadcrumb items={[{ label: "Signos", href: "/signos" }, { label: signo.name }]} />
 
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-10">
             <p className="text-6xl mb-4">{signo.emoji}</p>
@@ -137,6 +137,12 @@ export default function Signo() {
               </Button>
             </Link>
           </div>
+
+          <RelatedContent items={[
+            { title: "Horóscopo do Dia", description: "Previsões personalizadas", href: "/horoscopo", emoji: "☀️", badge: "Grátis" },
+            { title: "Mapa Astral", description: "Seu céu completo", href: "/mapa-astral", emoji: "🗺️", badge: "Grátis" },
+            { title: "Todos os Signos", description: "Conheça cada signo", href: "/signos", emoji: "♈" },
+          ]} />
         </div>
       </main>
       <Footer />

@@ -13,10 +13,18 @@ import { supabase } from "@/integrations/supabase/client";
 import { useOracleAuth } from "@/hooks/useOracleAuth";
 import { useFreemium } from "@/hooks/useFreemium";
 import { usePageSEO } from "@/hooks/usePageSEO";
+import { useStructuredData } from "@/hooks/useStructuredData";
 import { useStreak } from "@/hooks/useStreak";
 
 export default function Horoscopo() {
   usePageSEO({ title: "Horóscopo do Dia Personalizado — Previsões de Amor, Trabalho e Saúde", description: "Receba previsões diárias personalizadas para amor, trabalho e saúde. Horóscopo feito sob medida para o seu signo e momento de vida.", path: "/horoscopo" });
+  useStructuredData([
+    { type: "breadcrumb", items: [{ name: "Início", url: window.location.origin }, { name: "Horóscopo", url: `${window.location.origin}/horoscopo` }] },
+    { type: "faq", questions: [
+      { question: "O Horóscopo é personalizado?", answer: "Sim! Diferente dos horóscopos genéricos, nossa leitura usa seu nome, data de nascimento e o momento astrológico atual para criar previsões únicas." },
+      { question: "Com que frequência o horóscopo é atualizado?", answer: "As previsões são geradas em tempo real a cada consulta, considerando as posições astrológicas atuais." },
+    ]},
+  ]);
   const { restoredState, requireAuth, clearRestored } = useOracleAuth({ methodId: "horoscopo", returnTo: "/horoscopo" });
   const { product, hasAccess, purchaseReading } = useFreemium("horoscopo");
   const { recordActivity } = useStreak();

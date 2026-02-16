@@ -9,6 +9,9 @@ import BookingDialog from "@/components/BookingDialog";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { usePageSEO } from "@/hooks/usePageSEO";
+import { useStructuredData } from "@/hooks/useStructuredData";
+import PageBreadcrumb from "@/components/PageBreadcrumb";
+import RelatedContent, { getRelatedItems } from "@/components/RelatedContent";
 import heroBg from "@/assets/hero-bg.jpg";
 
 interface Taromante {
@@ -29,6 +32,13 @@ interface Taromante {
 
 export default function Consultas() {
   usePageSEO({ title: "Consulta de Tarot Online — Fale com Tarólogos ao Vivo", description: "Converse ao vivo com tarólogos experientes por chat, vídeo ou telefone. Consultas personalizadas para amor, carreira, saúde e propósito.", path: "/consultas" });
+  useStructuredData([
+    { type: "breadcrumb", items: [{ name: "Início", url: window.location.origin }, { name: "Consultas", url: `${window.location.origin}/consultas` }] },
+    { type: "faq", questions: [
+      { question: "Como funciona a consulta ao vivo?", answer: "Você escolhe um tarólogo, agenda o horário e recebe uma sessão personalizada por chat, vídeo ou telefone. Cada consulta é única e feita sob medida." },
+      { question: "Quanto custa uma consulta?", answer: "Os preços variam por profissional. Cada tarólogo define seu valor por sessão, que você pode ver na página de perfil." },
+    ]},
+  ]);
   const [taromantes, setTaromantes] = useState<Taromante[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedTaromante, setSelectedTaromante] = useState<Taromante | null>(null);
@@ -60,7 +70,8 @@ export default function Consultas() {
       </div>
       <Header />
       <main className="relative z-10 container mx-auto px-4 pt-24 pb-16">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-12">
+          <PageBreadcrumb items={[{ label: "Consultas" }]} />
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-12">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/20 border border-primary/40 mb-4">
             <Users className="w-4 h-4 text-primary" />
             <span className="text-sm text-primary">Nossos Taromantes</span>
@@ -119,6 +130,7 @@ export default function Consultas() {
             ))}
           </div>
         )}
+        <RelatedContent items={getRelatedItems("/consultas")} />
       </main>
 
       <BookingDialog

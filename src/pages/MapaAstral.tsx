@@ -16,10 +16,20 @@ import { useFreemium } from "@/hooks/useFreemium";
 import { toast } from "@/hooks/use-toast";
 import heroBg from "@/assets/hero-bg.jpg";
 import { usePageSEO } from "@/hooks/usePageSEO";
+import { useStructuredData } from "@/hooks/useStructuredData";
+import PageBreadcrumb from "@/components/PageBreadcrumb";
+import RelatedContent, { getRelatedItems } from "@/components/RelatedContent";
 import { useStreak } from "@/hooks/useStreak";
 
 export default function MapaAstral() {
   usePageSEO({ title: "Mapa Astral Completo e Grátis — Ascendente, Lua e Posições Planetárias", description: "Descubra quem você é além do signo solar. Mapa Astral completo com ascendente, lua e todas as posições planetárias do momento do seu nascimento.", path: "/mapa-astral" });
+  useStructuredData([
+    { type: "breadcrumb", items: [{ name: "Início", url: window.location.origin }, { name: "Mapa Astral", url: `${window.location.origin}/mapa-astral` }] },
+    { type: "faq", questions: [
+      { question: "O que é o Mapa Astral?", answer: "O Mapa Astral é uma fotografia do céu no momento exato do seu nascimento. Ele revela seu ascendente, posição da lua e de todos os planetas, revelando aspectos profundos da sua personalidade." },
+      { question: "Preciso saber minha hora de nascimento?", answer: "Sim, a hora de nascimento é essencial para calcular seu ascendente com precisão. Se não souber, consulte sua certidão de nascimento." },
+    ]},
+  ]);
   const { restoredState, requireAuth, clearRestored, isAuthenticated } = useOracleAuth({ methodId: "mapa-astral", returnTo: "/mapa-astral" });
   const { product, hasAccess, purchaseReading } = useFreemium("mapa-astral");
   const { recordActivity } = useStreak();
@@ -82,6 +92,7 @@ export default function MapaAstral() {
       </div>
       <Header />
       <main className="relative z-10 container mx-auto px-4 pt-24 pb-16 max-w-3xl">
+        <PageBreadcrumb items={[{ label: "Mapa Astral" }]} />
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-8">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/20 border border-primary/40 mb-4">
             <Compass className="w-4 h-4 text-primary" />
@@ -160,6 +171,8 @@ export default function MapaAstral() {
             </Card>
           </motion.div>
         )}
+
+        <RelatedContent items={getRelatedItems("/mapa-astral")} />
       </main>
     </div>
   );
