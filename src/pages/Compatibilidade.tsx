@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import DateInputBR from "@/components/DateInputBR";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import ShareButtons from "@/components/ShareButtons";
 import ReactMarkdown from "react-markdown";
 import { supabase } from "@/integrations/supabase/client";
@@ -90,7 +91,7 @@ export default function Compatibilidade() {
                   <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="bg-secondary/40 rounded-xl p-5 border border-pink-500/10 space-y-4">
                       <h3 className="font-serif text-lg text-pink-400">Você</h3>
-                      <div className="grid grid-cols-2 gap-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div className="space-y-2">
                           <Label className="text-foreground/80">Seu nome</Label>
                           <Input value={name1} onChange={(e) => setName1(e.target.value)} required placeholder="Seu primeiro nome" className="bg-input/50 border-border/50" />
@@ -108,7 +109,7 @@ export default function Compatibilidade() {
 
                     <div className="bg-secondary/40 rounded-xl p-5 border border-pink-500/10 space-y-4">
                       <h3 className="font-serif text-lg text-pink-400">A outra pessoa</h3>
-                      <div className="grid grid-cols-2 gap-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div className="space-y-2">
                           <Label className="text-foreground/80">Nome da pessoa</Label>
                           <Input value={name2} onChange={(e) => setName2(e.target.value)} required placeholder="Nome da pessoa" className="bg-input/50 border-border/50" />
@@ -127,6 +128,26 @@ export default function Compatibilidade() {
                 </CardContent>
               </Card>
             </motion.div>
+          )}
+
+          {step === "form" && (
+            <div className="mt-8 space-y-4">
+              <Card className="bg-card/60 backdrop-blur-md border-pink-500/10 p-5">
+                <h3 className="font-semibold text-foreground mb-2 text-sm">💕 Como funciona a análise?</h3>
+                <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                  Nossa inteligência artificial analisa os signos solares de cada pessoa, seus elementos (Fogo, Terra, Ar, Água) e as energias astrológicas para revelar a compatibilidade emocional, intelectual e física entre vocês.
+                </p>
+              </Card>
+              <Card className="bg-card/60 backdrop-blur-md border-pink-500/10 p-5">
+                <h3 className="font-semibold text-foreground mb-2 text-sm">✨ O que você vai descobrir</h3>
+                <ul className="text-xs sm:text-sm text-muted-foreground space-y-1.5">
+                  <li>• Signo solar de cada um e como se relacionam</li>
+                  <li>• Pontos fortes e desafios da relação</li>
+                  <li>• Notas de compatibilidade (emocional, intelectual, física)</li>
+                  <li>• Conselho personalizado para o casal</li>
+                </ul>
+              </Card>
+            </div>
           )}
 
           {step === "loading" && (
@@ -158,6 +179,7 @@ export default function Compatibilidade() {
           )}
         </div>
       </main>
+      <Footer />
     </div>
   );
 }
