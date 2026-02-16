@@ -1,14 +1,13 @@
-User-agent: Googlebot
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-User-agent: Twitterbot
-Allow: /
-
-User-agent: facebookexternalhit
-Allow: /
-
 User-agent: *
 Allow: /
+
+Sitemap: https://chavedooraculo.com.br/sitemap.xml
+
+# Bloquear páginas internas
+Disallow: /admin
+Disallow: /perfil
+Disallow: /checkout
+Disallow: /carrinho
+Disallow: /taromante-painel
+Disallow: /auth
+Disallow: /reset-password

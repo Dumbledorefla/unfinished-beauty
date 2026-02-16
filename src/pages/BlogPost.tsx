@@ -8,6 +8,8 @@ import ShareButtons from "@/components/ShareButtons";
 import ReactMarkdown from "react-markdown";
 import { supabase } from "@/integrations/supabase/client";
 import { usePageSEO } from "@/hooks/usePageSEO";
+import { useStructuredData } from "@/hooks/useStructuredData";
+import Footer from "@/components/Footer";
 import heroBg from "@/assets/hero-bg.jpg";
 
 interface Post {
@@ -48,7 +50,31 @@ export default function BlogPost() {
     title: post?.meta_title || post?.title || "Artigo",
     description: post?.meta_description || post?.excerpt || "",
     path: `/blog/${slug}`,
+    type: post ? "article" : "website",
+    publishedTime: post?.published_at,
+    author: post?.author_name,
+    image: post?.cover_image_url || undefined,
   });
+
+  useStructuredData(post ? [
+    {
+      type: "article",
+      title: post.title,
+      description: post.excerpt || "",
+      image: post.cover_image_url || undefined,
+      author: post.author_name,
+      datePublished: post.published_at,
+      url: `${window.location.origin}/blog/${post.slug}`,
+    },
+    {
+      type: "breadcrumb",
+      items: [
+        { name: "Início", url: window.location.origin },
+        { name: "Blog", url: `${window.location.origin}/blog` },
+        { name: post.title, url: `${window.location.origin}/blog/${post.slug}` },
+      ],
+    },
+  ] : []);
 
   useEffect(() => {
     if (slug) loadPost(slug);
@@ -186,6 +212,7 @@ export default function BlogPost() {
           )}
         </article>
       </main>
+      <Footer />
     </div>
   );
 }
