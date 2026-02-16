@@ -1,5 +1,6 @@
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 import { z } from 'https://esm.sh/zod@3.23.8';
+import { checkRateLimit, rateLimitResponse, getClientIP } from '../_shared/rate-limit.ts';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -68,6 +69,11 @@ Deno.serve(async (req) => {
   }
 
   try {
+    // Rate limiting: 5 requests per minute per IP
+    const clientIP = getClientIP(req);
+    const allowed = await checkRateLimit({ key: `oracle-interpret:${clientIP}`, limit: 5, windowSeconds: 60 });
+    if (!allowed) return rateLimitResponse();
+
     // Authenticate the user
     const authHeader = req.headers.get('Authorization');
     if (!authHeader?.startsWith('Bearer ')) {

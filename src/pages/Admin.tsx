@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   LayoutDashboard, Users, ShoppingBag, Star, Calendar,
-  BookOpen, Settings, Shield, Bug, CreditCard, Tag
+  BookOpen, Settings, Shield, Bug, CreditCard, Tag, ClipboardList
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -20,6 +20,7 @@ import AdminConsultations from "@/components/admin/AdminConsultations";
 import AdminSettings from "@/components/admin/AdminSettings";
 import AdminDebug from "@/components/admin/AdminDebug";
 import AdminCoupons from "@/components/admin/AdminCoupons";
+import AdminAuditLog from "@/components/admin/AdminAuditLog";
 
 export default function Admin() {
   const { isAuthenticated, isLoading, isAdmin, isProfileLoaded } = useAuth();
@@ -103,6 +104,7 @@ export default function Admin() {
             <TabsTrigger value="courses" className="rounded-lg"><BookOpen className="w-4 h-4 mr-1.5" />Cursos</TabsTrigger>
             <TabsTrigger value="settings" className="rounded-lg"><Settings className="w-4 h-4 mr-1.5" />Config</TabsTrigger>
             <TabsTrigger value="coupons" className="rounded-lg"><Tag className="w-4 h-4 mr-1.5" />Cupons</TabsTrigger>
+            <TabsTrigger value="audit" className="rounded-lg"><ClipboardList className="w-4 h-4 mr-1.5" />Auditoria</TabsTrigger>
             <TabsTrigger value="debug" className="rounded-lg"><Bug className="w-4 h-4 mr-1.5" />Debug</TabsTrigger>
           </TabsList>
 
@@ -116,6 +118,7 @@ export default function Admin() {
           <TabsContent value="courses"><AdminCourses courses={courses} onRefresh={loadData} /></TabsContent>
           <TabsContent value="settings"><AdminSettings settings={siteSettings} onRefresh={loadData} /></TabsContent>
           <TabsContent value="coupons"><AdminCoupons coupons={coupons} onRefresh={loadData} /></TabsContent>
+          <TabsContent value="audit"><AdminAuditLog /></TabsContent>
           <TabsContent value="debug"><AdminDebug /></TabsContent>
         </Tabs>
       </div>
