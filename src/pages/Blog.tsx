@@ -10,6 +10,8 @@ import Footer from "@/components/Footer";
 import NewsletterSignup from "@/components/NewsletterSignup";
 import { supabase } from "@/integrations/supabase/client";
 import { usePageSEO } from "@/hooks/usePageSEO";
+import { useStructuredData } from "@/hooks/useStructuredData";
+import PageBreadcrumb from "@/components/PageBreadcrumb";
 import heroBg from "@/assets/hero-bg.jpg";
 
 interface BlogPost {
@@ -51,6 +53,9 @@ export default function Blog() {
     description: "Artigos, guias e dicas sobre Tarot, Astrologia, Numerologia, amor, carreira e autoconhecimento. Conteúdo para iluminar seu caminho.",
     path: "/blog",
   });
+  useStructuredData([
+    { type: "breadcrumb", items: [{ name: "Início", url: window.location.origin }, { name: "Blog", url: `${window.location.origin}/blog` }] },
+  ]);
 
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [featured, setFeatured] = useState<BlogPost | null>(null);
@@ -111,6 +116,7 @@ export default function Blog() {
             <span className="inline-flex items-center gap-1.5 text-primary/70 text-xs font-semibold tracking-[0.2em] uppercase mb-3">
               <BookOpen className="w-3.5 h-3.5" /> Conhecimento
             </span>
+            <PageBreadcrumb items={[{ label: "Blog" }]} />
             <h1 className="text-4xl md:text-5xl font-serif font-bold text-foreground mb-4">
               Artigos para iluminar seu caminho
             </h1>

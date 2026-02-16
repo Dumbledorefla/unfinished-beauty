@@ -12,6 +12,9 @@ import ShareButtons from "@/components/ShareButtons";
 import ReactMarkdown from "react-markdown";
 import { supabase } from "@/integrations/supabase/client";
 import { usePageSEO } from "@/hooks/usePageSEO";
+import { useStructuredData } from "@/hooks/useStructuredData";
+import PageBreadcrumb from "@/components/PageBreadcrumb";
+import RelatedContent, { getRelatedItems } from "@/components/RelatedContent";
 import heroBg from "@/assets/hero-bg.jpg";
 
 export default function Compatibilidade() {
@@ -20,6 +23,13 @@ export default function Compatibilidade() {
     description: "Compare dois signos ou datas de nascimento e descubra a compatibilidade amorosa entre vocês. Análise gratuita e personalizada.",
     path: "/compatibilidade",
   });
+  useStructuredData([
+    { type: "breadcrumb", items: [{ name: "Início", url: window.location.origin }, { name: "Compatibilidade", url: `${window.location.origin}/compatibilidade` }] },
+    { type: "faq", questions: [
+      { question: "Como funciona a análise de compatibilidade?", answer: "Nossa análise considera os signos solares, elementos e energias de cada pessoa para revelar a compatibilidade emocional, intelectual e física entre vocês." },
+      { question: "A compatibilidade amorosa é gratuita?", answer: "Sim! A análise de compatibilidade é 100% gratuita. Basta informar os nomes e datas de nascimento das duas pessoas." },
+    ]},
+  ]);
 
   const [name1, setName1] = useState("");
   const [birth1, setBirth1] = useState("");
@@ -74,6 +84,7 @@ export default function Compatibilidade() {
       <Header />
       <main className="relative z-10 pt-24 pb-16">
         <div className="container mx-auto px-4 max-w-2xl">
+          <PageBreadcrumb items={[{ label: "Compatibilidade" }]} />
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-10">
             <div className="w-14 h-14 mx-auto mb-4 rounded-2xl bg-pink-500/15 border border-pink-500/25 flex items-center justify-center">
               <Heart className="w-7 h-7 text-pink-400" />
@@ -177,6 +188,7 @@ export default function Compatibilidade() {
               </Card>
             </motion.div>
           )}
+          <RelatedContent items={getRelatedItems("/compatibilidade")} />
         </div>
       </main>
       <Footer />

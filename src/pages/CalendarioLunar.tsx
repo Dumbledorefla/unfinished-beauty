@@ -5,6 +5,9 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Header from "@/components/Header";
 import { usePageSEO } from "@/hooks/usePageSEO";
+import { useStructuredData } from "@/hooks/useStructuredData";
+import PageBreadcrumb from "@/components/PageBreadcrumb";
+import RelatedContent, { getRelatedItems } from "@/components/RelatedContent";
 import heroBg from "@/assets/hero-bg.jpg";
 
 const MOON_PHASES = [
@@ -66,6 +69,9 @@ export default function CalendarioLunar() {
     description: "Acompanhe as fases da lua, eclipses e eventos astrológicos de 2026. Saiba o melhor momento para cada ação com nosso calendário lunar completo.",
     path: "/calendario-lunar",
   });
+  useStructuredData([
+    { type: "breadcrumb", items: [{ name: "Início", url: window.location.origin }, { name: "Calendário Lunar", url: `${window.location.origin}/calendario-lunar` }] },
+  ]);
 
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const today = new Date();
@@ -90,6 +96,7 @@ export default function CalendarioLunar() {
       <Header />
       <main className="relative z-10 pt-24 pb-16">
         <div className="container mx-auto px-4 max-w-4xl">
+          <PageBreadcrumb items={[{ label: "Calendário Lunar" }]} />
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-10">
             <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">Calendário Lunar 2026</h1>
             <p className="text-muted-foreground max-w-2xl mx-auto">
@@ -160,6 +167,7 @@ export default function CalendarioLunar() {
               </Card>
             ))}
           </div>
+          <RelatedContent items={getRelatedItems("/calendario-lunar")} />
         </div>
       </main>
     </div>

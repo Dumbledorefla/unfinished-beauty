@@ -11,3 +11,7 @@ Disallow: /carrinho
 Disallow: /taromante-painel
 Disallow: /auth
 Disallow: /reset-password
+Disallow: /diario
+Disallow: /spreads
+Disallow: /ritual
+Disallow: /chat-ao-vivo

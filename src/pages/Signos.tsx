@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import { signos } from "@/data/signos";
 import { usePageSEO } from "@/hooks/usePageSEO";
 import { useStructuredData } from "@/hooks/useStructuredData";
+import PageBreadcrumb from "@/components/PageBreadcrumb";
 import heroBg from "@/assets/hero-bg.jpg";
 
 export default function Signos() {
@@ -34,6 +35,7 @@ export default function Signos() {
       <Header />
       <main className="relative z-10 pt-24 pb-16">
         <div className="container mx-auto px-4 max-w-4xl">
+          <PageBreadcrumb items={[{ label: "Signos" }]} />
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-10">
             <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">Signos do Zodíaco</h1>
             <p className="text-muted-foreground max-w-2xl mx-auto">
