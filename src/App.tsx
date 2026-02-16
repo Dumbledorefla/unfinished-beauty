@@ -7,7 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CartProvider } from "./contexts/CartContext";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { ThemeProvider } from "next-themes";
-import InstallPrompt from "@/components/InstallPrompt";
+
 
 // Lazy-loaded pages
 const Index = lazy(() => import("./pages/Index"));
@@ -74,7 +74,7 @@ const App = () => (
             <Toaster />
             <Sonner />
             <BrowserRouter>
-              <InstallPrompt />
+              
               <Suspense fallback={<PageLoader />}>
                 <Routes>
                   <Route path="/" element={<Index />} />
