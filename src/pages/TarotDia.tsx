@@ -113,7 +113,7 @@ export default function TarotDia() {
         {step === "result" && error && (
           <motion.div key="error" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center py-16 space-y-4">
             <p className="text-foreground/70 text-lg">Não foi possível gerar sua interpretação agora.</p>
-            <Button onClick={() => lastData && runGeneration(lastData, card || undefined)} variant="outline" className="border-primary/30">
+            <Button onClick={() => lastData && runGeneration(lastData, card || undefined)} variant="outline" className="border-white/25 text-white hover:bg-white/5">
               Tentar novamente
             </Button>
           </motion.div>
@@ -126,18 +126,18 @@ export default function TarotDia() {
                 <motion.div initial={{ scale: 0, rotateY: 180 }} animate={{ scale: 1, rotateY: 0 }} transition={{ type: "spring", duration: 0.8 }}>
                   <TarotCardImage card={card} size="lg" />
                 </motion.div>
-                <h2 className="font-serif text-3xl font-bold text-primary mb-2 mt-4">{card.name}</h2>
+                <h2 className="font-serif text-3xl font-bold text-amber-400 mb-2 mt-4">{card.name}</h2>
                 <p className="text-muted-foreground text-sm mb-4">{card.upright ? "Posição Normal" : "Posição Invertida"}</p>
                 <div className="flex gap-2 justify-center flex-wrap">
                   {card.keywords.map((kw) => (
-                    <span key={kw} className="px-3 py-1 text-xs rounded-full bg-primary/15 text-primary border border-primary/20 font-medium">{kw}</span>
+                    <span key={kw} className="px-3 py-1 text-xs rounded-full bg-amber-500/15 text-amber-400 border border-amber-500/20 font-medium">{kw}</span>
                   ))}
                 </div>
               </CardContent>
             </Card>
             <Card className="glass-card">
               <CardContent className="pt-8 pb-6">
-                <h3 className="font-serif text-xl font-bold text-primary mb-6 flex items-center gap-2">✨ O que as cartas dizem para você</h3>
+                <h3 className="font-serif text-xl font-bold text-amber-400 mb-6 flex items-center gap-2">✨ O que as cartas dizem para você</h3>
                 <div className="oracle-prose"><ReactMarkdown>{interpretation}</ReactMarkdown></div>
               </CardContent>
             </Card>
@@ -150,7 +150,7 @@ export default function TarotDia() {
               <SaveToJournal readingType="Tarot do Dia" cards={[card]} interpretation={interpretation} />
             </div>
             <div className="text-center pt-2">
-              <Button onClick={reset} variant="outline" className="border-primary/20 text-foreground/70 hover:text-primary hover:bg-primary/10">
+              <Button onClick={reset} variant="outline" className="border-white/25 text-white hover:bg-white/5">
                 <RotateCcw className="w-4 h-4 mr-2" /> Nova Leitura
               </Button>
             </div>

@@ -64,13 +64,13 @@ export default function Numerologia() {
       extraContent={
         step === "form" ? (
           <div className="space-y-6 mt-8">
-            <Card className="bg-card/60 backdrop-blur-md border-primary/10 p-6">
+             <Card className="bg-card/60 backdrop-blur-md border-white/8 p-6">
               <h3 className="font-semibold text-foreground mb-3">O que é a Numerologia?</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 A Numerologia é uma ciência milenar que revela padrões ocultos no seu nome e data de nascimento. Cada número carrega uma vibração única que influencia sua personalidade, seus talentos e seu caminho de vida.
               </p>
             </Card>
-            <Card className="bg-card/60 backdrop-blur-md border-primary/10 p-6">
+             <Card className="bg-card/60 backdrop-blur-md border-white/8 p-6">
               <h3 className="font-semibold text-foreground mb-3">O que você vai descobrir</h3>
               <ul className="text-sm text-muted-foreground space-y-2">
                 <li>🔢 Número do Destino — seu propósito de vida</li>
@@ -78,7 +78,7 @@ export default function Numerologia() {
                 <li>❤️ Número da Alma — seus desejos mais profundos</li>
               </ul>
             </Card>
-            <Card className="bg-card/60 backdrop-blur-md border-primary/10 p-6">
+            <Card className="bg-card/60 backdrop-blur-md border-white/8 p-6">
               <h3 className="font-semibold text-foreground mb-3">Explore mais</h3>
               <div className="grid grid-cols-2 gap-3">
                 <Link to="/tarot/dia" className="p-3 rounded-xl bg-secondary/40 border border-border/20 hover:border-primary/30 transition-all text-center">
@@ -108,14 +108,14 @@ export default function Numerologia() {
         {step === "result" && error && (
           <motion.div key="error" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center py-16 space-y-4">
             <p className="text-foreground/70 text-lg">Não foi possível gerar sua interpretação agora.</p>
-            <Button onClick={() => lastData && runGeneration(lastData)} variant="outline" className="border-primary/30">Tentar novamente</Button>
+            <Button onClick={() => lastData && runGeneration(lastData)} variant="outline" className="border-white/25 text-white hover:bg-white/5">Tentar novamente</Button>
           </motion.div>
         )}
         {step === "result" && !error && (
           <motion.div key="result" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
-            <Card className="bg-card/80 backdrop-blur-md border-primary/20">
+             <Card className="bg-card/80 backdrop-blur-md border-white/12">
               <CardContent className="pt-6">
-                <h3 className="font-serif text-xl font-bold text-primary mb-4">🔢 O que seus números revelam sobre você</h3>
+                <h3 className="font-serif text-xl font-bold text-amber-400 mb-4">🔢 O que seus números revelam sobre você</h3>
                 <FreemiumPaywall
                   interpretation={interpretation}
                   oracleType="numerologia"
@@ -129,7 +129,7 @@ export default function Numerologia() {
             </Card>
             {hasAccess && <ShareButtons text={interpretation} title="Mapa Numerológico" />}
             <div className="text-center">
-              <Button onClick={() => { setStep("form"); setInterpretation(""); setError(false); }} variant="outline" className="border-primary/30">
+              <Button onClick={() => { setStep("form"); setInterpretation(""); setError(false); }} variant="outline" className="border-white/25 text-white hover:bg-white/5">
                 <RotateCcw className="w-4 h-4 mr-2" /> Novo Cálculo
               </Button>
             </div>

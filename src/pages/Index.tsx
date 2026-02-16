@@ -220,7 +220,7 @@ export default function Home() {
           <div className="lg:hidden max-w-2xl mx-auto text-center">
             <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
               {/* Data do dia — mobile */}
-              <p className="text-primary/60 text-[11px] font-semibold tracking-[0.15em] uppercase mb-4 sm:mb-5">
+              <p className="text-amber-400/80 text-[11px] font-semibold tracking-[0.15em] uppercase mb-4 sm:mb-5">
                 {todayFormatted}
               </p>
               <h1 className="text-3xl sm:text-5xl font-bold mb-4 sm:mb-5 leading-[1.2] sm:leading-[1.15] text-foreground tracking-tight">
@@ -234,13 +234,13 @@ export default function Home() {
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center px-2 sm:px-0">
                 <Link to="/tarot/dia" className="w-full sm:w-auto">
-                  <Button size="lg" className="w-full sm:w-auto bg-primary text-primary-foreground hover:bg-primary/90 text-sm sm:text-base px-5 sm:px-7 py-4 sm:py-5 pulse-glow">
+                  <Button size="lg" className="w-full sm:w-auto bg-white text-slate-900 hover:bg-white/90 text-sm sm:text-base px-5 sm:px-7 py-4 sm:py-5 font-semibold shadow-lg shadow-white/10">
                     <Star className="w-4 h-4 mr-2 shrink-0" />
                     Tirar minha carta do dia
                   </Button>
                 </Link>
                 <Link to="/consultas" className="w-full sm:w-auto">
-                  <Button size="lg" variant="outline" className="w-full sm:w-auto border-border text-foreground hover:bg-secondary text-sm sm:text-base px-5 sm:px-7 py-4 sm:py-5">
+                  <Button size="lg" variant="outline" className="w-full sm:w-auto border-white/30 text-white hover:bg-white/10 hover:border-white/50 text-sm sm:text-base px-5 sm:px-7 py-4 sm:py-5">
                     <Users className="w-4 h-4 mr-2 shrink-0" />
                     Falar com um tarólogo
                   </Button>
@@ -258,7 +258,7 @@ export default function Home() {
               transition={{ duration: 0.6 }}
               className="lg:col-span-3"
             >
-              <p className="text-primary/70 text-xs font-semibold tracking-[0.2em] uppercase mb-3">
+              <p className="text-amber-400/80 text-xs font-semibold tracking-[0.2em] uppercase mb-3">
                 {todayFormatted}
               </p>
               <h1 className="text-4xl xl:text-5xl font-bold mb-5 leading-[1.15] text-foreground tracking-tight">
@@ -272,13 +272,13 @@ export default function Home() {
               </p>
               <div className="flex gap-3">
                 <Link to="/tarot/dia">
-                  <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 px-7 py-5 pulse-glow">
+                  <Button size="lg" className="bg-white text-slate-900 hover:bg-white/90 px-7 py-5 font-semibold shadow-lg shadow-white/10">
                     <Star className="w-4 h-4 mr-2" />
                     Tirar minha carta do dia
                   </Button>
                 </Link>
                 <Link to="/consultas">
-                  <Button size="lg" variant="outline" className="border-border text-foreground hover:bg-secondary px-7 py-5">
+                  <Button size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10 hover:border-white/50 px-7 py-5">
                     <Users className="w-4 h-4 mr-2" />
                     Consultar tarólogo
                   </Button>
@@ -319,8 +319,8 @@ export default function Home() {
                     return (
                       <Link key={item.href} to={item.href}>
                         <div className="flex items-center gap-3 p-2.5 rounded-lg hover:bg-secondary/50 transition-colors group cursor-pointer">
-                          <div className="w-9 h-9 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center group-hover:bg-primary/15 transition-colors">
-                            <Icon className="w-4 h-4 text-primary" />
+                          <div className="w-9 h-9 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center group-hover:bg-amber-500/15 transition-colors">
+                            <Icon className="w-4 h-4 text-amber-400" />
                           </div>
                           <div className="flex-1 min-w-0">
                             <p className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">{item.label}</p>
@@ -428,7 +428,7 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-6 lg:mb-8">
             <motion.div initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-              <span className="text-primary/70 text-xs font-semibold tracking-[0.2em] uppercase">Explore nosso portal</span>
+              <span className="text-amber-400/80 text-xs font-semibold tracking-[0.2em] uppercase">Explore nosso portal</span>
               <h2 className="text-2xl lg:text-3xl font-bold mt-2 text-foreground">Ferramentas de autoconhecimento</h2>
             </motion.div>
           </div>
@@ -537,7 +537,7 @@ export default function Home() {
         <div className="container mx-auto relative z-10 px-4">
           <div className="text-center mb-6 lg:mb-8">
             <motion.div initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-              <span className="text-primary/70 text-xs font-semibold tracking-[0.2em] uppercase">Leituras e Oráculos</span>
+              <span className="text-amber-400/80 text-xs font-semibold tracking-[0.2em] uppercase">Leituras e Oráculos</span>
               <h2 className="text-2xl lg:text-3xl font-bold mt-2 text-foreground">Todos os nossos oráculos</h2>
             </motion.div>
           </div>
@@ -557,8 +557,8 @@ export default function Home() {
                     <Card className="h-full glass-card group cursor-pointer">
                       <CardContent className="p-4 md:p-5">
                         <div className="flex items-center justify-between mb-3">
-                          <div className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center group-hover:bg-primary/15 group-hover:border-primary/30 transition-all duration-300">
-                            <Icon className="w-5 h-5 text-primary" />
+                          <div className="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center group-hover:bg-amber-500/15 group-hover:border-amber-500/30 transition-all duration-300">
+                            <Icon className="w-5 h-5 text-amber-400" />
                           </div>
                           <span className={
                             service.badge === "Premium"
@@ -572,7 +572,7 @@ export default function Home() {
                         </div>
                         <h3 className="font-semibold text-sm md:text-base text-foreground mb-1">{service.title}</h3>
                         <p className="text-muted-foreground text-xs md:text-sm leading-relaxed line-clamp-2">{service.description}</p>
-                        <div className="flex items-center text-primary text-xs font-medium mt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div className="flex items-center text-amber-400 text-xs font-medium mt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                           <span>Explorar</span>
                           <ArrowRight className="w-3 h-3 ml-1 group-hover:translate-x-1 transition-transform" />
                         </div>
@@ -615,7 +615,7 @@ export default function Home() {
           <div className="container mx-auto px-4">
             <div className="flex items-center justify-between mb-5 lg:mb-8">
               <div>
-                <span className="text-primary/70 text-xs font-semibold tracking-[0.2em] uppercase">Blog</span>
+                <span className="text-amber-400/80 text-xs font-semibold tracking-[0.2em] uppercase">Blog</span>
                 <h2 className="text-xl lg:text-3xl font-bold mt-1 text-foreground">Artigos recentes</h2>
               </div>
               <Link to="/blog">
@@ -723,8 +723,8 @@ export default function Home() {
             <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
               <Card className="h-full glass-card">
                 <CardContent className="p-6">
-                  <div className="flex items-center gap-2 mb-4">
-                    <Moon className="w-5 h-5 text-primary" />
+                   <div className="flex items-center gap-2 mb-4">
+                    <Moon className="w-5 h-5 text-amber-400" />
                     <h3 className="font-semibold text-foreground">Lua de Hoje</h3>
                   </div>
                   <div className="text-center py-4">
@@ -733,7 +733,7 @@ export default function Home() {
                     <p className="text-sm text-muted-foreground mt-1">{moonPhase.energy}</p>
                   </div>
                   <Link to="/calendario-lunar">
-                    <Button variant="outline" size="sm" className="w-full mt-2 border-border/50 text-muted-foreground hover:text-primary gap-2">
+                    <Button variant="outline" size="sm" className="w-full mt-2 border-white/25 text-white hover:bg-white/5 hover:border-white/40 gap-2">
                       <Calendar className="w-3.5 h-3.5" />
                       Ver calendário lunar completo
                     </Button>
@@ -756,13 +756,13 @@ export default function Home() {
                   <div className="space-y-2 mb-4">
                     {["Meditação guiada", "Carta do dia", "Intenção diária", "Soundscapes relaxantes"].map((item) => (
                       <div key={item} className="flex items-center gap-2 text-sm text-foreground/80">
-                        <Sparkles className="w-3 h-3 text-primary" />
+                        <Sparkles className="w-3 h-3 text-amber-400" />
                         <span>{item}</span>
                       </div>
                     ))}
                   </div>
                   <Link to="/ritual">
-                    <Button variant="outline" size="sm" className="w-full border-border/50 text-muted-foreground hover:text-primary gap-2">
+                     <Button variant="outline" size="sm" className="w-full border-white/25 text-white hover:bg-white/5 hover:border-white/40 gap-2">
                       <Wand2 className="w-3.5 h-3.5" />
                       Começar ritual de hoje
                     </Button>
@@ -791,7 +791,7 @@ export default function Home() {
                     ))}
                   </div>
                   <Link to="/diario">
-                    <Button variant="outline" size="sm" className="w-full border-border/50 text-muted-foreground hover:text-primary gap-2">
+                    <Button variant="outline" size="sm" className="w-full border-white/25 text-white hover:bg-white/5 hover:border-white/40 gap-2">
                       <BookOpen className="w-3.5 h-3.5" />
                       Abrir meu diário
                     </Button>
@@ -847,7 +847,7 @@ export default function Home() {
         <div className="container mx-auto relative z-10 px-4">
           <div className="text-center mb-8 lg:mb-12">
             <motion.div initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-              <span className="text-primary/70 text-xs font-semibold tracking-[0.2em] uppercase">Por que confiar</span>
+              <span className="text-amber-400/80 text-xs font-semibold tracking-[0.2em] uppercase">Por que confiar</span>
               <h2 className="text-2xl lg:text-3xl font-bold mt-2 text-foreground">No Chave do Oráculo</h2>
             </motion.div>
           </div>
@@ -864,8 +864,8 @@ export default function Home() {
                   transition={{ delay: index * 0.1 }}
                   className="text-center glass-card rounded-2xl p-5 lg:p-7"
                 >
-                  <div className="w-12 h-12 lg:w-14 lg:h-14 mx-auto mb-4 lg:mb-5 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center">
-                    <Icon className="w-6 h-6 lg:w-7 lg:h-7 text-primary" />
+                  <div className="w-12 h-12 lg:w-14 lg:h-14 mx-auto mb-4 lg:mb-5 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center">
+                    <Icon className="w-6 h-6 lg:w-7 lg:h-7 text-amber-400" />
                   </div>
                   <h3 className="text-base lg:text-lg font-semibold mb-2 text-foreground">{feature.title}</h3>
                   <p className="text-muted-foreground text-xs lg:text-sm leading-relaxed">{feature.description}</p>
@@ -904,7 +904,7 @@ export default function Home() {
                 Tire sua primeira carta gratuitamente e veja o que as cartas têm a dizer sobre você — leva menos de 1 minuto.
               </p>
               <Link to="/tarot/dia">
-                <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 text-sm sm:text-base px-6 sm:px-8 py-5 pulse-glow w-auto">
+                <Button size="lg" className="bg-white text-slate-900 hover:bg-white/90 text-sm sm:text-base px-6 sm:px-8 py-5 font-semibold shadow-lg shadow-white/10 w-auto">
                   <Sparkles className="w-4 h-4 mr-2 shrink-0" />
                   Tirar minha carta grátis
                 </Button>

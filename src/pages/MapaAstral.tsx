@@ -94,9 +94,9 @@ export default function MapaAstral() {
       <main className="relative z-10 container mx-auto px-4 pt-24 pb-16 max-w-3xl">
         <PageBreadcrumb items={[{ label: "Mapa Astral" }]} />
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-8">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/20 border border-primary/40 mb-4">
-            <Compass className="w-4 h-4 text-primary" />
-            <span className="text-sm text-primary">Astrologia</span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/15 border border-amber-500/25 mb-4">
+            <Compass className="w-4 h-4 text-amber-400" />
+            <span className="text-sm text-amber-400">Astrologia</span>
           </div>
           <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">Seu Mapa Astral</h1>
           <p className="text-muted-foreground max-w-2xl mx-auto">
@@ -105,28 +105,28 @@ export default function MapaAstral() {
         </motion.div>
 
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
-          <Card className="bg-card/80 backdrop-blur-md border-primary/20 mb-8">
+          <Card className="bg-card/80 backdrop-blur-md border-white/12 mb-8">
             <CardContent className="p-6">
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
                   <Label htmlFor="name" className="text-foreground/80">Nome completo</Label>
-                  <Input id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="Seu nome completo" className="bg-background/50 border-primary/20" />
+                  <Input id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="Seu nome completo" className="bg-background/50 border-white/15" />
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <Label htmlFor="birthDate" className="text-foreground/80">Data de nascimento</Label>
-                    <DateInputBR id="birthDate" value={birthDate} onChange={setBirthDate} className="bg-background/50 border-primary/20" />
+                    <DateInputBR id="birthDate" value={birthDate} onChange={setBirthDate} className="bg-background/50 border-white/15" />
                   </div>
                   <div>
                     <Label htmlFor="birthTime" className="text-foreground/80">Hora de nascimento</Label>
-                    <Input id="birthTime" type="time" value={birthTime} onChange={(e) => setBirthTime(e.target.value)} className="bg-background/50 border-primary/20" />
+                    <Input id="birthTime" type="time" value={birthTime} onChange={(e) => setBirthTime(e.target.value)} className="bg-background/50 border-white/15" />
                   </div>
                 </div>
                 <div>
                   <Label htmlFor="birthPlace" className="text-foreground/80">Local de nascimento</Label>
-                  <Input id="birthPlace" value={birthPlace} onChange={(e) => setBirthPlace(e.target.value)} placeholder="Cidade, Estado, País" className="bg-background/50 border-primary/20" />
+                  <Input id="birthPlace" value={birthPlace} onChange={(e) => setBirthPlace(e.target.value)} placeholder="Cidade, Estado, País" className="bg-background/50 border-white/15" />
                 </div>
-                <Button type="submit" disabled={loading} className="w-full bg-primary text-primary-foreground hover:bg-primary/90 mystical-glow" size="lg">
+                <Button type="submit" disabled={loading} className="w-full bg-white text-slate-900 hover:bg-white/90 font-semibold shadow-lg" size="lg">
                   {loading ? (
                     <><Loader2 className="w-5 h-5 mr-2 animate-spin" />Calculando seu mapa...</>
                   ) : (
@@ -147,10 +147,10 @@ export default function MapaAstral() {
 
         {interpretation && (
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-            <Card className="bg-card/80 backdrop-blur-md border-primary/20">
+            <Card className="bg-card/80 backdrop-blur-md border-white/12">
               <CardContent className="p-6 md:p-8">
                 <div className="flex items-center gap-2 mb-4">
-                  <Compass className="w-5 h-5 text-primary" />
+                  <Compass className="w-5 h-5 text-amber-400" />
                   <h2 className="font-serif text-2xl font-bold text-foreground">O céu no momento do seu nascimento</h2>
                 </div>
                 <FreemiumPaywall

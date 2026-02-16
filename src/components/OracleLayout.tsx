@@ -39,13 +39,13 @@ export default function OracleLayout({ title, icon, children, extraContent }: Or
       </div>
       <AnimatedStars />
 
-      <header className="relative z-20 flex items-center justify-between px-6 py-4 border-b border-primary/15 bg-background/20 backdrop-blur-xl">
+      <header className="relative z-20 flex items-center justify-between px-6 py-4 border-b border-white/10 bg-background/20 backdrop-blur-xl">
         <Link to="/" className="flex items-center gap-2 text-foreground/60 hover:text-primary transition-all duration-200 group">
           <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
           <Home className="w-4 h-4" />
           <span className="text-sm">Início</span>
         </Link>
-        <h1 className="font-serif text-xl font-bold text-primary flex items-center gap-2.5">
+        <h1 className="font-serif text-xl font-bold text-amber-400 flex items-center gap-2.5">
           {icon}
           {title}
         </h1>

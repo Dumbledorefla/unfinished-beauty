@@ -97,7 +97,7 @@ export default function Compatibilidade() {
 
           {step === "form" && (
             <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}>
-              <Card className="bg-card/80 backdrop-blur-md border-primary/20">
+               <Card className="bg-card/80 backdrop-blur-md border-white/12">
                 <CardContent className="p-6">
                   <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="bg-secondary/40 rounded-xl p-5 border border-pink-500/10 space-y-4">
@@ -170,7 +170,7 @@ export default function Compatibilidade() {
 
           {step === "result" && (
             <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}>
-              <Card className="bg-card/80 backdrop-blur-md border-primary/20">
+              <Card className="bg-card/80 backdrop-blur-md border-white/12">
                 <CardContent className="p-6">
                   <h2 className="font-serif text-2xl font-bold text-pink-400 mb-6 text-center">💕 {name1} & {name2}</h2>
                   <div className="oracle-prose">

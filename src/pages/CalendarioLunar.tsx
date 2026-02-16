@@ -105,15 +105,15 @@ export default function CalendarioLunar() {
           </motion.div>
 
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}>
-            <Card className="bg-card/80 backdrop-blur-md border-primary/20 mb-8">
+             <Card className="bg-card/80 backdrop-blur-md border-white/12 mb-8">
               <CardContent className="p-6 text-center">
-                <p className="text-xs text-primary uppercase tracking-wider mb-2">Lua de hoje</p>
+                <p className="text-xs text-amber-400 uppercase tracking-wider mb-2">Lua de hoje</p>
                 <p className="text-5xl mb-3">{todayPhase.emoji}</p>
                 <h2 className="font-serif text-2xl font-bold text-foreground mb-2">{todayPhase.name}</h2>
                 <p className="text-muted-foreground mb-3">{todayPhase.energy}</p>
                 <div className="bg-secondary/40 rounded-xl p-4 max-w-md mx-auto">
                   <p className="text-sm text-foreground/80">
-                    <Sparkles className="w-4 h-4 inline mr-1 text-primary" />
+                    <Sparkles className="w-4 h-4 inline mr-1 text-amber-400" />
                     <strong>Ritual sugerido:</strong> {todayPhase.ritual}
                   </p>
                 </div>
@@ -133,7 +133,7 @@ export default function CalendarioLunar() {
             ) : (
               monthEvents.map((event, i) => (
                 <motion.div key={i} initial={{ opacity: 0, x: -12 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.05 }}>
-                  <Card className={`bg-card/80 border-primary/10 ${event.type === "eclipse" ? "border-amber-500/30 bg-amber-500/5" : ""}`}>
+                  <Card className={`bg-card/80 border-white/8 ${event.type === "eclipse" ? "border-amber-500/30 bg-amber-500/5" : ""}`}>
                     <CardContent className="p-4 flex items-center gap-4">
                       <div className="text-center min-w-[50px]">
                         <p className="text-2xl">{event.type === "lua-nova" ? "🌑" : event.type === "lua-cheia" ? "🌕" : event.type === "eclipse" ? "🌒" : "🌓"}</p>
@@ -155,13 +155,13 @@ export default function CalendarioLunar() {
           <h3 className="font-serif text-2xl font-bold text-foreground mb-6 text-center">Guia das Fases Lunares</h3>
           <div className="grid md:grid-cols-2 gap-4">
             {MOON_PHASES.map((phase, i) => (
-              <Card key={i} className="bg-card/80 border-primary/10">
+              <Card key={i} className="bg-card/80 border-white/8">
                 <CardContent className="p-5 flex gap-4">
                   <p className="text-3xl">{phase.emoji}</p>
                   <div>
                     <h4 className="font-semibold text-foreground mb-1">{phase.name}</h4>
                     <p className="text-sm text-muted-foreground mb-2">{phase.energy}</p>
-                    <p className="text-xs text-primary/70">{phase.ritual}</p>
+                    <p className="text-xs text-amber-400/70">{phase.ritual}</p>
                   </div>
                 </CardContent>
               </Card>
