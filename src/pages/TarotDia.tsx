@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Star, RotateCcw } from "lucide-react";
+import { Star, RotateCcw, Sparkles, Heart } from "lucide-react";
+import { Link } from "react-router-dom";
 import ShareButtons from "@/components/ShareButtons";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -8,7 +9,6 @@ import ReactMarkdown from "react-markdown";
 import OracleLayout from "@/components/OracleLayout";
 import UserDataForm from "@/components/UserDataForm";
 import TarotCardImage from "@/components/TarotCardImage";
-import UpsellSection from "@/components/UpsellSection";
 import SoundscapePlayer from "@/components/SoundscapePlayer";
 import SaveToJournal from "@/components/SaveToJournal";
 import { drawCards, TarotCard } from "@/lib/tarot-cards";
@@ -142,8 +142,33 @@ export default function TarotDia() {
               </CardContent>
             </Card>
 
-            {/* Upsell Section */}
-            <UpsellSection currentOracle="tarot-dia" />
+            {/* Upsell — Specific CTAs */}
+            <Card className="glass-card border-amber-500/20 overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 to-primary/5 pointer-events-none" />
+              <CardContent className="py-8 relative">
+                <div className="text-center space-y-4">
+                  <h3 className="font-serif text-xl font-bold text-foreground">Quer ir mais fundo?</h3>
+                  <p className="text-muted-foreground text-sm max-w-md mx-auto">
+                    A carta do dia é uma mensagem rápida. Para uma leitura completa com 6 cartas,
+                    contexto detalhado e orientações práticas para sua vida:
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
+                    <Link to="/tarot/completo">
+                      <Button className="bg-amber-500 text-slate-900 hover:bg-amber-400 font-semibold px-6 py-5">
+                        <Sparkles className="w-4 h-4 mr-2" />
+                        Fazer Tarot Completo (6 cartas)
+                      </Button>
+                    </Link>
+                    <Link to="/tarot/amor">
+                      <Button variant="outline" className="border-white/25 text-white hover:bg-white/5 px-6 py-5">
+                        <Heart className="w-4 h-4 mr-2" />
+                        Tarot do Amor (3 cartas)
+                      </Button>
+                    </Link>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
 
             <div className="flex flex-wrap gap-3 justify-center">
               <ShareButtons text={interpretation} title={`Tarot do Dia - ${card.name}`} />

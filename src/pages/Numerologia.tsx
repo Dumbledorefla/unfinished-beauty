@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Calculator, RotateCcw } from "lucide-react";
+import { Link } from "react-router-dom";
 import ShareButtons from "@/components/ShareButtons";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Link } from "react-router-dom";
 import OracleLayout from "@/components/OracleLayout";
 import UserDataForm from "@/components/UserDataForm";
 import FreemiumPaywall from "@/components/FreemiumPaywall";
@@ -64,13 +64,13 @@ export default function Numerologia() {
       extraContent={
         step === "form" ? (
           <div className="space-y-6 mt-8">
-             <Card className="bg-card/60 backdrop-blur-md border-white/8 p-6">
+            <Card className="bg-card/60 backdrop-blur-md border-white/8 p-6">
               <h3 className="font-semibold text-foreground mb-3">O que é a Numerologia?</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 A Numerologia é uma ciência milenar que revela padrões ocultos no seu nome e data de nascimento. Cada número carrega uma vibração única que influencia sua personalidade, seus talentos e seu caminho de vida.
               </p>
             </Card>
-             <Card className="bg-card/60 backdrop-blur-md border-white/8 p-6">
+            <Card className="bg-card/60 backdrop-blur-md border-white/8 p-6">
               <h3 className="font-semibold text-foreground mb-3">O que você vai descobrir</h3>
               <ul className="text-sm text-muted-foreground space-y-2">
                 <li>🔢 Número do Destino — seu propósito de vida</li>
@@ -102,7 +102,7 @@ export default function Numerologia() {
         {step === "loading" && (
           <motion.div key="loading" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="text-center py-16">
             <motion.div animate={{ rotate: 360 }} transition={{ duration: 2, repeat: Infinity, ease: "linear" }} className="text-8xl mb-6">🔢</motion.div>
-            <p className="text-foreground/70 text-lg">As cartas estão se revelando...</p>
+            <p className="text-foreground/70 text-lg">Calculando seus números...</p>
           </motion.div>
         )}
         {step === "result" && error && (
@@ -113,7 +113,7 @@ export default function Numerologia() {
         )}
         {step === "result" && !error && (
           <motion.div key="result" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
-             <Card className="bg-card/80 backdrop-blur-md border-white/12">
+            <Card className="bg-card/80 backdrop-blur-md border-white/12">
               <CardContent className="pt-6">
                 <h3 className="font-serif text-xl font-bold text-amber-400 mb-4">🔢 O que seus números revelam sobre você</h3>
                 <FreemiumPaywall
@@ -121,13 +121,32 @@ export default function Numerologia() {
                   oracleType="numerologia"
                   productName={product?.name || "Mapa Numerológico"}
                   price={product?.price || 9.90}
-                  previewLines={product?.preview_lines || 4}
+                  previewLines={product?.preview_lines || 2}
                   hasAccess={hasAccess}
                   onPurchase={() => purchaseReading()}
                 />
               </CardContent>
             </Card>
-            {hasAccess && <ShareButtons text={interpretation} title="Mapa Numerológico" />}
+            {hasAccess && (
+              <>
+                <ShareButtons text={interpretation} title="Mapa Numerológico" />
+                {/* Upsell → Mapa Astral + Tarot Completo */}
+                <Card className="glass-card border-amber-500/20">
+                  <CardContent className="py-6 text-center space-y-3">
+                    <h3 className="font-serif text-lg font-bold text-foreground">Complete sua jornada de autoconhecimento</h3>
+                    <p className="text-muted-foreground text-sm">Combine sua numerologia com o Mapa Astral para uma visão 360° de quem você é.</p>
+                    <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                      <Link to="/mapa-astral">
+                        <Button className="bg-amber-500 text-slate-900 hover:bg-amber-400 font-semibold">Gerar Mapa Astral</Button>
+                      </Link>
+                      <Link to="/tarot/completo">
+                        <Button variant="outline" className="border-white/25 text-white hover:bg-white/5">Tarot Completo</Button>
+                      </Link>
+                    </div>
+                  </CardContent>
+                </Card>
+              </>
+            )}
             <div className="text-center">
               <Button onClick={() => { setStep("form"); setInterpretation(""); setError(false); }} variant="outline" className="border-white/25 text-white hover:bg-white/5">
                 <RotateCcw className="w-4 h-4 mr-2" /> Novo Cálculo

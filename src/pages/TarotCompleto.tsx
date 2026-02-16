@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Eye, RotateCcw, Sparkles } from "lucide-react";
+import { Link } from "react-router-dom";
 import ShareButtons from "@/components/ShareButtons";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -8,7 +9,6 @@ import OracleLayout from "@/components/OracleLayout";
 import UserDataForm from "@/components/UserDataForm";
 import FreemiumPaywall from "@/components/FreemiumPaywall";
 import TarotCardImage from "@/components/TarotCardImage";
-import UpsellSection from "@/components/UpsellSection";
 import SoundscapePlayer from "@/components/SoundscapePlayer";
 import SaveToJournal from "@/components/SaveToJournal";
 import { drawCards, TarotCard } from "@/lib/tarot-cards";
@@ -110,15 +110,15 @@ export default function TarotCompleto() {
         {step === "result" && !error && cards.length > 0 && (
           <motion.div key="result" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
             <div className="flex items-center gap-2 justify-center mb-2">
-               <Sparkles className="w-5 h-5 text-amber-400" />
+              <Sparkles className="w-5 h-5 text-amber-400" />
               <span className="text-sm text-amber-400 font-medium">Leitura Premium</span>
             </div>
             <div className="grid grid-cols-3 gap-4">
               {cards.map((card, i) => (
                 <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.15 }}>
-                   <Card className="bg-card/80 backdrop-blur-md border-white/12 text-center">
-                     <CardContent className="pt-3 pb-3">
-                       <p className="text-xs text-amber-400/80 font-medium mb-1">{positions[i]}</p>
+                  <Card className="bg-card/80 backdrop-blur-md border-white/12 text-center">
+                    <CardContent className="pt-3 pb-3">
+                      <p className="text-xs text-amber-400/80 font-medium mb-1">{positions[i]}</p>
                       <TarotCardImage card={card} size="sm" />
                       <h3 className="font-serif text-xs font-bold text-foreground mt-1">{card.name}</h3>
                     </CardContent>
@@ -126,7 +126,7 @@ export default function TarotCompleto() {
                 </motion.div>
               ))}
             </div>
-             <Card className="bg-card/80 backdrop-blur-md border-white/12">
+            <Card className="bg-card/80 backdrop-blur-md border-white/12">
               <CardContent className="pt-6">
                 <h3 className="font-serif text-xl font-bold text-amber-400 mb-4">🔮 Sua leitura completa</h3>
                 <FreemiumPaywall
@@ -134,7 +134,7 @@ export default function TarotCompleto() {
                   oracleType="tarot-completo"
                   productName={product?.name || "Tarot Completo"}
                   price={product?.price || 14.90}
-                  previewLines={product?.preview_lines || 4}
+                  previewLines={product?.preview_lines || 3}
                   hasAccess={hasAccess}
                   onPurchase={() => purchaseReading()}
                 />
@@ -146,7 +146,15 @@ export default function TarotCompleto() {
                   <ShareButtons text={interpretation} title="Tarot Completo" />
                   <SaveToJournal readingType="Tarot Completo" cards={cards} interpretation={interpretation} />
                 </div>
-                <UpsellSection currentOracle="tarot-completo" />
+                <Card className="glass-card border-amber-500/20">
+                  <CardContent className="py-6 text-center space-y-3">
+                    <h3 className="font-serif text-lg font-bold text-foreground">Quer conversar sobre sua leitura?</h3>
+                    <p className="text-muted-foreground text-sm">Nossos tarólogos podem aprofundar a interpretação e responder suas dúvidas em tempo real.</p>
+                    <Link to="/consultas">
+                      <Button className="bg-amber-500 text-slate-900 hover:bg-amber-400 font-semibold">Falar com um tarólogo agora</Button>
+                    </Link>
+                  </CardContent>
+                </Card>
               </>
             )}
             <div className="text-center">

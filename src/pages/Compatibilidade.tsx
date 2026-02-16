@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Heart, Loader2 } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -9,8 +10,9 @@ import DateInputBR from "@/components/DateInputBR";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ShareButtons from "@/components/ShareButtons";
-import ReactMarkdown from "react-markdown";
+import FreemiumPaywall from "@/components/FreemiumPaywall";
 import { supabase } from "@/integrations/supabase/client";
+import { useFreemium } from "@/hooks/useFreemium";
 import { usePageSEO } from "@/hooks/usePageSEO";
 import { useStructuredData } from "@/hooks/useStructuredData";
 import PageBreadcrumb from "@/components/PageBreadcrumb";
@@ -27,10 +29,11 @@ export default function Compatibilidade() {
     { type: "breadcrumb", items: [{ name: "Início", url: window.location.origin }, { name: "Compatibilidade", url: `${window.location.origin}/compatibilidade` }] },
     { type: "faq", questions: [
       { question: "Como funciona a análise de compatibilidade?", answer: "Nossa análise considera os signos solares, elementos e energias de cada pessoa para revelar a compatibilidade emocional, intelectual e física entre vocês." },
-      { question: "A compatibilidade amorosa é gratuita?", answer: "Sim! A análise de compatibilidade é 100% gratuita. Basta informar os nomes e datas de nascimento das duas pessoas." },
+      { question: "A compatibilidade amorosa é gratuita?", answer: "O resumo é gratuito! Para a análise detalhada com conselhos personalizados, é um investimento acessível." },
     ]},
   ]);
 
+  const { product, hasAccess, purchaseReading } = useFreemium("compatibilidade");
   const [name1, setName1] = useState("");
   const [birth1, setBirth1] = useState("");
   const [name2, setName2] = useState("");
@@ -97,7 +100,7 @@ export default function Compatibilidade() {
 
           {step === "form" && (
             <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}>
-               <Card className="bg-card/80 backdrop-blur-md border-white/12">
+              <Card className="bg-card/80 backdrop-blur-md border-white/12">
                 <CardContent className="p-6">
                   <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="bg-secondary/40 rounded-xl p-5 border border-pink-500/10 space-y-4">
@@ -169,16 +172,24 @@ export default function Compatibilidade() {
           )}
 
           {step === "result" && (
-            <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}>
+            <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
               <Card className="bg-card/80 backdrop-blur-md border-white/12">
                 <CardContent className="p-6">
                   <h2 className="font-serif text-2xl font-bold text-pink-400 mb-6 text-center">💕 {name1} & {name2}</h2>
-                  <div className="oracle-prose">
-                    <ReactMarkdown>{result}</ReactMarkdown>
-                  </div>
-                  <div className="mt-6">
-                    <ShareButtons text={result} title={`Compatibilidade: ${name1} & ${name2}`} />
-                  </div>
+                  <FreemiumPaywall
+                    interpretation={result}
+                    oracleType="compatibilidade"
+                    productName={product?.name || "Compatibilidade Detalhada"}
+                    price={product?.price || 7.90}
+                    previewLines={product?.preview_lines || 2}
+                    hasAccess={hasAccess}
+                    onPurchase={() => purchaseReading()}
+                  />
+                  {hasAccess && (
+                    <div className="mt-6">
+                      <ShareButtons text={result} title={`Compatibilidade: ${name1} & ${name2}`} />
+                    </div>
+                  )}
                   <div className="mt-4 text-center">
                     <Button variant="outline" onClick={() => { setStep("form"); setResult(""); }} className="border-pink-500/30 text-foreground">
                       Testar outro casal
@@ -186,6 +197,17 @@ export default function Compatibilidade() {
                   </div>
                 </CardContent>
               </Card>
+              {hasAccess && (
+                <Card className="glass-card border-amber-500/20">
+                  <CardContent className="py-6 text-center space-y-3">
+                    <h3 className="font-serif text-lg font-bold text-foreground">Quer saber mais sobre o seu amor?</h3>
+                    <p className="text-muted-foreground text-sm">O Tarot do Amor revela o passado, presente e futuro da sua relação com 3 cartas especiais.</p>
+                    <Link to="/tarot/amor">
+                      <Button className="bg-pink-500 text-white hover:bg-pink-400 font-semibold">Fazer Tarot do Amor</Button>
+                    </Link>
+                  </CardContent>
+                </Card>
+              )}
             </motion.div>
           )}
           <RelatedContent items={getRelatedItems("/compatibilidade")} />

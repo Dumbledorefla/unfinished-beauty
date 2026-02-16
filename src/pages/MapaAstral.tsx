@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Compass, Sparkles, Loader2 } from "lucide-react";
+import { Link } from "react-router-dom";
 import ShareButtons from "@/components/ShareButtons";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -146,7 +147,7 @@ export default function MapaAstral() {
         )}
 
         {interpretation && (
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
             <Card className="bg-card/80 backdrop-blur-md border-white/12">
               <CardContent className="p-6 md:p-8">
                 <div className="flex items-center gap-2 mb-4">
@@ -157,18 +158,32 @@ export default function MapaAstral() {
                   interpretation={interpretation}
                   oracleType="mapa-astral"
                   productName={product?.name || "Mapa Astral"}
-                  price={product?.price || 19.90}
-                  previewLines={product?.preview_lines || 4}
+                  price={product?.price || 12.90}
+                  previewLines={product?.preview_lines || 2}
                   hasAccess={hasAccess}
                   onPurchase={() => purchaseReading()}
                 />
                 {hasAccess && (
-                  <div className="mt-6">
-                    <ShareButtons text={interpretation} title="Mapa Astral" />
-                  </div>
+                  <>
+                    <div className="mt-6">
+                      <ShareButtons text={interpretation} title="Mapa Astral" />
+                    </div>
+                  </>
                 )}
               </CardContent>
             </Card>
+            {/* Upsell → Consulta ao Vivo */}
+            {hasAccess && (
+              <Card className="glass-card border-amber-500/20">
+                <CardContent className="py-6 text-center space-y-3">
+                  <h3 className="font-serif text-lg font-bold text-foreground">Quer conversar sobre seu mapa?</h3>
+                  <p className="text-muted-foreground text-sm">Nossos astrólogos podem aprofundar a interpretação e responder suas dúvidas em tempo real.</p>
+                  <Link to="/consultas">
+                    <Button className="bg-amber-500 text-slate-900 hover:bg-amber-400 font-semibold">Falar com um astrólogo agora</Button>
+                  </Link>
+                </CardContent>
+              </Card>
+            )}
           </motion.div>
         )}
 
