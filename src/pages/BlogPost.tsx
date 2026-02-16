@@ -229,7 +229,7 @@ export default function BlogPost() {
           {/* Layout: TOC + Artigo + Share */}
           <div className="grid xl:grid-cols-[220px_1fr_60px] gap-8 max-w-6xl mx-auto">
             {/* TOC desktop */}
-            <BlogTableOfContents content={post.content} />
+            <BlogTableOfContents content={post.content} variant="desktop" />
 
             {/* Artigo */}
             <article className="max-w-3xl">
@@ -254,7 +254,7 @@ export default function BlogPost() {
               </motion.div>
 
               {/* TOC mobile */}
-              <BlogTableOfContents content={post.content} />
+              <BlogTableOfContents content={post.content} variant="mobile" />
 
               {/* Cover */}
               {post.cover_image_url && (
