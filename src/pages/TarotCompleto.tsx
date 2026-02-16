@@ -7,10 +7,12 @@ import { Card, CardContent } from "@/components/ui/card";
 import OracleLayout from "@/components/OracleLayout";
 import UserDataForm from "@/components/UserDataForm";
 import FreemiumPaywall from "@/components/FreemiumPaywall";
-import PersonaSelector, { PERSONAS } from "@/components/PersonaSelector";
+import TarotCardImage from "@/components/TarotCardImage";
+import UpsellSection from "@/components/UpsellSection";
 import SoundscapePlayer from "@/components/SoundscapePlayer";
 import SaveToJournal from "@/components/SaveToJournal";
 import { drawCards, TarotCard } from "@/lib/tarot-cards";
+import { PERSONAS } from "@/components/PersonaSelector";
 import { supabase } from "@/integrations/supabase/client";
 import { useOracleAuth } from "@/hooks/useOracleAuth";
 import { useFreemium } from "@/hooks/useFreemium";
@@ -18,6 +20,7 @@ import { usePageSEO } from "@/hooks/usePageSEO";
 import { useStreak } from "@/hooks/useStreak";
 
 const positions = ["Situação Atual", "Desafio", "Base", "Passado Recente", "Melhor Resultado", "Futuro Próximo"];
+const DEFAULT_PERSONA = PERSONAS.find((p) => p.id === "mistica");
 
 export default function TarotCompleto() {
   usePageSEO({ title: "Tarot Completo — Leitura Profunda com 6 Cartas", description: "Uma leitura completa de Tarot com 6 cartas e interpretação detalhada e personalizada. Para quando você precisa de respostas profundas sobre qualquer área da vida.", path: "/tarot/completo" });
@@ -30,7 +33,6 @@ export default function TarotCompleto() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [lastData, setLastData] = useState<{ userName: string; birthDate: string } | null>(null);
-  const [persona, setPersona] = useState("");
 
   useEffect(() => {
     if (restoredState) {
@@ -54,14 +56,12 @@ export default function TarotCompleto() {
     const drawn = preDrawn || drawCards(6);
     setCards(drawn);
 
-    const selectedPersona = PERSONAS.find((p) => p.id === persona);
-
     try {
       const { data: result } = await supabase.functions.invoke("oracle-interpret", {
         body: {
           type: "tarot-completo",
           data: { userName: data.userName, birthDate: data.birthDate, cards: drawn },
-          persona: selectedPersona?.systemPrompt || "",
+          persona: DEFAULT_PERSONA?.systemPrompt || "",
         },
       });
       setInterpretation(result?.interpretation || "Interpretação indisponível.");
@@ -86,14 +86,19 @@ export default function TarotCompleto() {
       <AnimatePresence mode="wait">
         {step === "form" && (
           <motion.div key="form" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-6">
-            <PersonaSelector selected={persona} onSelect={setPersona} />
             <UserDataForm title="Leitura Completa de Tarot" description="6 cartas, uma história completa. Para quando você precisa de respostas profundas sobre qualquer área da vida." onSubmit={handleStart} loading={loading} />
           </motion.div>
         )}
         {step === "drawing" && (
           <motion.div key="drawing" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="text-center py-16">
-            <motion.div animate={{ rotateY: [0, 360] }} transition={{ duration: 1.5, repeat: Infinity }} className="text-8xl mb-6">🔮</motion.div>
-            <p className="text-foreground/70 text-lg">As cartas estão se revelando...</p>
+            <div className="flex justify-center gap-2 flex-wrap max-w-xs mx-auto">
+              {[0, 1, 2, 3, 4, 5].map((i) => (
+                <motion.div key={i} animate={{ rotateY: [0, 360] }} transition={{ duration: 1.5, repeat: Infinity, delay: i * 0.15 }} className="w-16 h-24">
+                  <img src="/tarot-cards/card-back.jpg" alt="Carta de tarot" className="w-full h-full object-cover rounded-lg shadow-xl" />
+                </motion.div>
+              ))}
+            </div>
+            <p className="text-foreground/70 text-lg mt-6">As cartas estão se revelando...</p>
           </motion.div>
         )}
         {step === "result" && error && (
@@ -114,8 +119,8 @@ export default function TarotCompleto() {
                   <Card className="bg-card/80 backdrop-blur-md border-primary/20 text-center">
                     <CardContent className="pt-3 pb-3">
                       <p className="text-xs text-primary/80 font-medium mb-1">{positions[i]}</p>
-                      <div className={`text-4xl mb-1 ${!card.upright ? "rotate-180" : ""}`}>{card.image}</div>
-                      <h3 className="font-serif text-xs font-bold text-foreground">{card.name}</h3>
+                      <TarotCardImage card={card} size="sm" />
+                      <h3 className="font-serif text-xs font-bold text-foreground mt-1">{card.name}</h3>
                     </CardContent>
                   </Card>
                 </motion.div>
@@ -136,10 +141,13 @@ export default function TarotCompleto() {
               </CardContent>
             </Card>
             {hasAccess && (
-              <div className="flex flex-wrap gap-3 justify-center">
-                <ShareButtons text={interpretation} title="Tarot Completo" />
-                <SaveToJournal readingType="Tarot Completo" cards={cards} interpretation={interpretation} />
-              </div>
+              <>
+                <div className="flex flex-wrap gap-3 justify-center">
+                  <ShareButtons text={interpretation} title="Tarot Completo" />
+                  <SaveToJournal readingType="Tarot Completo" cards={cards} interpretation={interpretation} />
+                </div>
+                <UpsellSection currentOracle="tarot-completo" />
+              </>
             )}
             <div className="text-center">
               <Button onClick={() => { setStep("form"); setCards([]); setInterpretation(""); setError(false); }} variant="outline" className="border-primary/30">

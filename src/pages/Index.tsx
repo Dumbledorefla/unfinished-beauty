@@ -445,42 +445,40 @@ export default function Home() {
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
                 >
-                  <Card className="h-full glass-card group overflow-hidden">
-                    <CardContent className="p-0">
-                      <div className={`bg-gradient-to-br ${service.gradient} p-6 pb-4`}>
-                        <div className="flex items-center gap-3 mb-3">
-                          <div className="w-12 h-12 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center">
-                            <Icon className="w-6 h-6 text-foreground" />
-                          </div>
-                          <h3 className="text-xl font-bold text-foreground">{service.title}</h3>
+           <div className="h-full bg-card/5 border border-border/30 hover:border-border/60 hover:bg-card/10 transition-all rounded-xl overflow-hidden group">
+                    <div className={`bg-gradient-to-br ${service.gradient} p-6 pb-4`}>
+                      <div className="flex items-center gap-3 mb-3">
+                        <div className="w-12 h-12 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center">
+                          <Icon className="w-6 h-6 text-foreground" />
                         </div>
-                        <p className="text-sm text-foreground/70 leading-relaxed">{service.description}</p>
+                        <h3 className="text-xl font-bold text-foreground">{service.title}</h3>
                       </div>
-                      <div className="p-4 space-y-1">
-                        {service.links.map((link) => (
-                          <Link key={link.href} to={link.href}>
-                            <div className="flex items-center justify-between p-2.5 rounded-lg hover:bg-secondary/50 transition-colors cursor-pointer group/link">
-                              <div className="flex items-center gap-2">
-                                <ArrowRight className="w-3.5 h-3.5 text-primary opacity-0 group-hover/link:opacity-100 transition-opacity" />
-                                <span className="text-sm text-foreground group-hover/link:text-primary transition-colors">{link.label}</span>
-                              </div>
-                              {link.badge && (
-                                <span className={`px-2 py-0.5 text-[10px] rounded-full font-medium uppercase tracking-wider ${
-                                  link.badge === "Premium"
-                                    ? "bg-accent/15 text-accent border border-accent/25"
-                                    : link.badge === "Novo"
-                                    ? "bg-primary/15 text-primary border border-primary/25"
-                                    : "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
-                                }`}>
-                                  {link.badge}
-                                </span>
-                              )}
+                      <p className="text-sm text-muted-foreground leading-relaxed">{service.description}</p>
+                    </div>
+                    <div className="p-4 space-y-1">
+                      {service.links.map((link) => (
+                        <Link key={link.href} to={link.href}>
+                          <div className="flex items-center justify-between p-2.5 rounded-lg hover:bg-secondary/60 transition-colors cursor-pointer group/link">
+                            <div className="flex items-center gap-2">
+                              <ArrowRight className="w-3.5 h-3.5 text-amber-400 opacity-0 group-hover/link:opacity-100 transition-opacity" />
+                              <span className="text-sm font-medium text-foreground group-hover/link:text-amber-400 transition-colors">{link.label}</span>
                             </div>
-                          </Link>
-                        ))}
-                      </div>
-                    </CardContent>
-                  </Card>
+                            {link.badge && (
+                              <span className={`px-2 py-0.5 text-[10px] rounded-full font-semibold uppercase tracking-wider ${
+                                link.badge === "Premium"
+                                  ? "bg-amber-500/15 text-amber-400 border border-amber-500/25"
+                                  : link.badge === "Novo"
+                                  ? "bg-primary/15 text-primary border border-primary/25"
+                                  : "bg-emerald-500/15 text-emerald-400 border border-emerald-500/25"
+                              }`}>
+                                {link.badge}
+                              </span>
+                            )}
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
                 </motion.div>
               );
             })}
@@ -498,24 +496,24 @@ export default function Home() {
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.08 }}
                 >
-                  <div className="glass-card rounded-xl overflow-hidden">
+                  <div className="bg-card/5 border border-border/30 hover:border-border/50 transition-all rounded-xl overflow-hidden">
                     <div className={`bg-gradient-to-r ${service.gradient} px-4 py-3 flex items-center gap-3`}>
                       <div className="w-10 h-10 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center shrink-0">
                         <Icon className="w-5 h-5 text-foreground" />
                       </div>
                       <div>
                         <h3 className="text-base font-bold text-foreground">{service.title}</h3>
-                        <p className="text-[11px] text-foreground/60 leading-snug line-clamp-1">{service.description}</p>
+                        <p className="text-[11px] text-muted-foreground leading-snug line-clamp-1">{service.description}</p>
                       </div>
                     </div>
                     <div className="flex divide-x divide-border/20">
                       {service.links.map((link) => (
                         <Link key={link.href} to={link.href} className="flex-1">
-                          <div className="py-2.5 px-2 text-center">
-                            <span className="text-xs text-foreground/80 font-medium">{link.label.replace("Tarot do ", "").replace("Tarot ", "").replace("Horóscopo do ", "").replace("Mapa ", "").replace("Calendário ", "").replace("Diário de ", "")}</span>
+                          <div className="py-2.5 px-2 text-center hover:bg-secondary/50 transition-colors cursor-pointer">
+                            <span className="text-xs text-foreground font-medium">{link.label.replace("Tarot do ", "").replace("Tarot ", "").replace("Horóscopo do ", "").replace("Mapa ", "").replace("Calendário ", "").replace("Diário de ", "")}</span>
                             {link.badge && (
-                              <span className={`block text-[9px] mt-0.5 font-medium ${
-                                link.badge === "Premium" ? "text-accent" : link.badge === "Novo" ? "text-primary" : "text-emerald-400"
+                              <span className={`block text-[9px] mt-0.5 font-semibold ${
+                                link.badge === "Premium" ? "text-amber-400" : link.badge === "Novo" ? "text-primary" : "text-emerald-400"
                               }`}>
                                 {link.badge}
                               </span>
