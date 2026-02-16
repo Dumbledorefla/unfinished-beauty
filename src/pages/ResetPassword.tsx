@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNoIndex } from "@/hooks/useNoIndex";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Sparkles, Lock, ArrowLeft } from "lucide-react";
@@ -11,6 +12,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Link } from "react-router-dom";
 
 export default function ResetPassword() {
+  useNoIndex();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);

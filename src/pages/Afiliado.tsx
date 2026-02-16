@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { usePageSEO } from "@/hooks/usePageSEO";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
@@ -36,6 +37,7 @@ const statusColors: Record<string, string> = {
 };
 
 export default function Afiliado() {
+  usePageSEO({ title: "Programa de Afiliados — Ganhe Comissões Indicando", description: "Indique a Chave do Oráculo e ganhe comissões sobre cada venda. Programa de afiliados com pagamento via PIX.", path: "/afiliado" });
   const { isAuthenticated } = useAuth();
   const {
     affiliate, commissions, withdrawals, loading,

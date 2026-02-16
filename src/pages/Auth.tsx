@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNoIndex } from "@/hooks/useNoIndex";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { getPendingState } from "@/lib/pending-oracle";
 import { validateForm, loginSchema, signupSchema } from "@/lib/validations";
@@ -15,6 +16,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { Link } from "react-router-dom";
 
 export default function Auth() {
+  useNoIndex();
   const [mode, setMode] = useState<"login" | "signup" | "forgot">("login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

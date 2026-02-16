@@ -1,4 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
+import { useNoIndex } from "@/hooks/useNoIndex";
 import {
   QrCode, Copy, Upload, CheckCircle2, Clock, AlertCircle,
   ArrowLeft, CreditCard, Loader2, Timer, ShieldCheck
@@ -13,6 +14,7 @@ import { useCheckout } from "@/hooks/useCheckout";
 import heroBg from "@/assets/hero-bg.jpg";
 
 export default function Checkout() {
+  useNoIndex();
   const {
     isLoading,
     items,

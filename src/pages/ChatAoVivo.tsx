@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { usePageSEO } from "@/hooks/usePageSEO";
 import { motion } from "framer-motion";
 import { MessageCircle, Star, Wifi, WifiOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -12,6 +13,7 @@ import { toast } from "sonner";
 import heroBg from "@/assets/hero-bg.jpg";
 
 export default function ChatAoVivo() {
+  usePageSEO({ title: "Chat ao Vivo com Tarólogos — Consulta em Tempo Real", description: "Converse ao vivo com tarólogos experientes. Receba orientações personalizadas em tempo real sobre amor, carreira e espiritualidade.", path: "/chat-ao-vivo" });
   const { user, isAuthenticated } = useAuth();
   const { taromantes, loading } = useOnlineTaromantes();
   const [activeSession, setActiveSession] = useState<{ id: string; nome: string } | null>(null);

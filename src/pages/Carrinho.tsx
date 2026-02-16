@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useNoIndex } from "@/hooks/useNoIndex";
 import { ShoppingCart, Trash2, Plus, Minus, ArrowLeft, ShoppingBag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -8,6 +9,7 @@ import { Link } from "react-router-dom";
 import heroBg from "@/assets/hero-bg.jpg";
 
 export default function Carrinho() {
+  useNoIndex();
   const { items, removeItem, updateQuantity, clearCart, totalPrice } = useCart();
 
   return (
