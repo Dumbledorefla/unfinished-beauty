@@ -42,6 +42,8 @@ const Planos = lazy(() => import("./pages/Planos"));
 const DiarioTarot = lazy(() => import("./pages/DiarioTarot"));
 const SpreadsCustom = lazy(() => import("./pages/SpreadsCustom"));
 const RitualDiario = lazy(() => import("./pages/RitualDiario"));
+const PoliticaPrivacidade = lazy(() => import("./pages/PoliticaPrivacidade"));
+const ExclusaoDados = lazy(() => import("./pages/ExclusaoDados"));
 
 // Admin pages
 const AdminLayout = lazy(() => import("./pages/admin/AdminLayout"));
@@ -132,6 +134,8 @@ const App = () => (
                   <Route path="/diario" element={<DiarioTarot />} />
                   <Route path="/spreads" element={<SpreadsCustom />} />
                   <Route path="/ritual" element={<RitualDiario />} />
+                  <Route path="/politica-de-privacidade" element={<PoliticaPrivacidade />} />
+                  <Route path="/exclusao-de-dados" element={<ExclusaoDados />} />
 
                   {/* Admin routes with sidebar layout */}
                   <Route path="/admin" element={<AdminLayout />}>
