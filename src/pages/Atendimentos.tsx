@@ -208,7 +208,7 @@ export default function Atendimentos() {
             price="R$ 25"
             oldPrice="R$ 79"
             badge="68% off"
-            href={WHATSAPP}
+            href={WA_CARTA}
           />
         </motion.section>
 
@@ -222,9 +222,9 @@ export default function Atendimentos() {
         >
           <SectionTitle>Rituais Especiais</SectionTitle>
           <div className="space-y-2.5 sm:space-y-3">
-            <ItemCard emoji="🍯" title="Adoçamento" subtitle="Materiais inclusos" price="R$ 300" href={WHATSAPP} />
-            <ItemCard emoji="✂️" title="Corte de Laços" subtitle="Materiais inclusos" price="R$ 500" href={WHATSAPP} />
-            <ItemCard emoji="💖" title="Auto estima e amor próprio" subtitle="Materiais inclusos" price="R$ 350" href={WHATSAPP} />
+            <ItemCard emoji="🍯" title="Adoçamento" subtitle="Materiais inclusos" price="R$ 300" href={WA_ADOCAMENTO} />
+            <ItemCard emoji="✂️" title="Corte de Laços" subtitle="Materiais inclusos" price="R$ 500" href={WA_CORTE} />
+            <ItemCard emoji="💖" title="Auto estima e amor próprio" subtitle="Materiais inclusos" price="R$ 350" href={WA_AUTOESTIMA} />
           </div>
         </motion.section>
 
