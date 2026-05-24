@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, type ReactNode } from "react";
 
 type IconProps = { className?: string };
 
@@ -107,7 +107,7 @@ function ItemCard({ emoji, title, subtitle, price, oldPrice, badge, href }: Item
 }
 
 
-function SectionTitle({ children }: { children: React.ReactNode }) {
+function SectionTitle({ children }: { children: ReactNode }) {
   return (
     <h2 className="text-center text-sm font-semibold uppercase tracking-[0.3em] text-amber-300/90 mb-5">
       {children}
