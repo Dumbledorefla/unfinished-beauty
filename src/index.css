@@ -185,23 +185,63 @@
   .pulse-glow-gold { animation: pulse-glow-gold 3s ease-in-out infinite; }
 
   @keyframes atendimentos-fade-up {
-    from { opacity: 0; transform: translate3d(0, 14px, 0); }
-    to { opacity: 1; transform: translate3d(0, 0, 0); }
+    from { opacity: 0; transform: translate3d(0, 22px, 0) scale(0.98); }
+    to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
   }
   .atendimentos-fade-up {
     opacity: 0;
-    animation: atendimentos-fade-up 0.55s ease-out forwards;
+    animation: atendimentos-fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
   }
 
   @keyframes atendimentos-star-twinkle {
-    0%, 100% { opacity: 0; }
-    45% { opacity: 0.85; }
+    0%, 100% { opacity: 0; transform: translate3d(0, 0, 0) scale(0.6); }
+    45% { opacity: 0.95; transform: translate3d(0, -3px, 0) scale(1); }
   }
   .atendimentos-star {
     animation-name: atendimentos-star-twinkle;
     animation-timing-function: ease-in-out;
     animation-iteration-count: infinite;
+    will-change: opacity, transform;
   }
+
+  @keyframes atendimentos-halo {
+    0%, 100% { opacity: 0.55; transform: scale(1); }
+    50% { opacity: 0.85; transform: scale(1.08); }
+  }
+  .atendimentos-halo { animation: atendimentos-halo 3.5s ease-in-out infinite; }
+
+  @keyframes atendimentos-shimmer {
+    0% { transform: translateX(-120%) skewX(-18deg); }
+    100% { transform: translateX(220%) skewX(-18deg); }
+  }
+  .atendimentos-shimmer::after {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0; left: 0;
+    width: 35%;
+    background: linear-gradient(90deg, transparent 0%, hsl(42 85% 70% / 0.18) 50%, transparent 100%);
+    animation: atendimentos-shimmer 4.5s ease-in-out infinite;
+    pointer-events: none;
+    border-radius: inherit;
+  }
+
+  @keyframes atendimentos-border-glow {
+    0%, 100% { box-shadow: 0 0 28px -6px hsl(42 85% 58% / 0.45), 0 0 60px -20px hsl(265 70% 50% / 0.35); }
+    50% { box-shadow: 0 0 44px -4px hsl(42 85% 58% / 0.7), 0 0 90px -16px hsl(265 70% 55% / 0.5); }
+  }
+  .atendimentos-border-glow { animation: atendimentos-border-glow 4s ease-in-out infinite; }
+
+  @keyframes atendimentos-float-slow {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+  .atendimentos-float-slow { animation: atendimentos-float-slow 5s ease-in-out infinite; }
+
+  @keyframes atendimentos-bg-drift {
+    0%, 100% { transform: translate(-50%, 0) scale(1); opacity: 0.85; }
+    50% { transform: translate(-50%, -3%) scale(1.08); opacity: 1; }
+  }
+  .atendimentos-bg-drift { animation: atendimentos-bg-drift 12s ease-in-out infinite; }
 
   /* Gradient border — mystical purple + gold */
   .gradient-border {

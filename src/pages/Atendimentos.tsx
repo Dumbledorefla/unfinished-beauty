@@ -42,11 +42,13 @@ const WA_ADOCAMENTO = whatsappLink("Olá! Tenho interesse no ritual de Adoçamen
 const WA_CORTE = whatsappLink("Olá! Tenho interesse no ritual de Corte de Laços");
 const WA_AUTOESTIMA = whatsappLink("Olá! Tenho interesse no ritual de Auto Estima e Amor Próprio");
 
-const STAR_POSITIONS = Array.from({ length: 26 }, (_, i) => ({
+const STAR_POSITIONS = Array.from({ length: 42 }, (_, i) => ({
   left: `${(i * 37) % 100}%`,
   top: `${(i * 53) % 100}%`,
-  delay: `${(i % 8) * 0.45}s`,
-  duration: `${2.8 + (i % 5) * 0.55}s`,
+  delay: `${(i % 10) * 0.35}s`,
+  duration: `${2.6 + (i % 6) * 0.5}s`,
+  size: i % 5 === 0 ? "text-base" : i % 3 === 0 ? "text-sm" : "text-xs",
+  color: i % 4 === 0 ? "text-amber-200/70" : "text-amber-300/45",
 }));
 
 function Stars() {
@@ -55,7 +57,7 @@ function Stars() {
       {STAR_POSITIONS.map((star, i) => (
         <span
           key={i}
-          className="atendimentos-star absolute text-amber-300/40 text-xs"
+          className={`atendimentos-star absolute ${star.size} ${star.color}`}
           style={{ left: star.left, top: star.top, animationDelay: star.delay, animationDuration: star.duration }}
         >
           ✦
@@ -81,7 +83,7 @@ function ItemCard({ emoji, title, subtitle, price, oldPrice, badge, href }: Item
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="group flex transform-gpu items-center justify-between gap-3 sm:gap-4 rounded-xl sm:rounded-2xl border border-amber-500/20 bg-gradient-to-br from-violet-950/70 to-indigo-950/70 px-4 sm:px-5 py-3.5 sm:py-4 transition-all hover:-translate-y-0.5 hover:scale-[1.01] hover:border-amber-400/60 hover:shadow-[0_0_24px_-4px_rgba(201,168,76,0.4)]"
+      className="group relative flex transform-gpu items-center justify-between gap-3 sm:gap-4 rounded-xl sm:rounded-2xl border border-amber-500/20 bg-gradient-to-br from-violet-950/70 to-indigo-950/70 px-4 sm:px-5 py-3.5 sm:py-4 transition-all duration-300 ease-out hover:-translate-y-1 hover:scale-[1.02] hover:border-amber-400/70 hover:shadow-[0_10px_40px_-8px_rgba(201,168,76,0.55)] hover:bg-gradient-to-br hover:from-violet-900/80 hover:to-indigo-900/80"
     >
       <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1">
         {emoji && <span className="text-xl sm:text-2xl shrink-0">{emoji}</span>}
@@ -100,8 +102,8 @@ function ItemCard({ emoji, title, subtitle, price, oldPrice, badge, href }: Item
           {oldPrice && <div className="text-[10px] sm:text-xs text-white/40 line-through leading-none">{oldPrice}</div>}
           <div className="font-serif text-base sm:text-xl text-amber-300 leading-tight">{price}</div>
         </div>
-        <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-amber-400 text-slate-900 flex items-center justify-center group-hover:bg-amber-300 transition-colors shrink-0">
-          <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+        <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-amber-400 text-slate-900 flex items-center justify-center group-hover:bg-amber-300 group-hover:shadow-[0_0_18px_rgba(252,211,77,0.7)] transition-all duration-300 shrink-0">
+          <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform duration-300 group-hover:translate-x-0.5" />
         </div>
       </div>
     </a>
@@ -135,15 +137,15 @@ export default function Atendimentos() {
     <div className="min-h-screen relative overflow-hidden bg-[#0a0a1f]">
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-violet-950/40 via-[#0a0a1f] to-[#050510]" />
-      <div className="absolute top-0 left-1/2 h-[800px] w-[800px] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,hsl(265_70%_45%_/_0.22)_0%,transparent_68%)]" />
+      <div className="atendimentos-bg-drift absolute top-0 left-1/2 h-[800px] w-[800px] rounded-full bg-[radial-gradient(circle,hsl(265_70%_45%_/_0.22)_0%,transparent_68%)]" style={{ transform: "translateX(-50%)" }} />
       <Stars />
 
       <div className="relative z-10 max-w-xl mx-auto px-4 py-8 sm:px-5 sm:py-14">
         {/* Header */}
         <header className="atendimentos-fade-up text-center">
           {/* Amanda photo */}
-          <div className="relative w-28 h-28 sm:w-40 sm:h-40 mx-auto">
-            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 blur-md opacity-60" />
+          <div className="relative w-28 h-28 sm:w-40 sm:h-40 mx-auto atendimentos-float-slow">
+            <div className="atendimentos-halo absolute -inset-2 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 blur-xl" />
             <div className="relative w-full h-full rounded-full p-[3px] bg-gradient-to-br from-amber-300 via-amber-500 to-amber-700">
               <img
                 src="/amanda-foto.webp"
@@ -156,7 +158,7 @@ export default function Atendimentos() {
               />
             </div>
             <span className="absolute -top-2 -right-1 text-amber-300 text-base sm:text-lg animate-pulse">✦</span>
-            <span className="absolute -bottom-1 -left-2 text-amber-300/70 text-xs sm:text-sm">✦</span>
+            <span className="absolute -bottom-1 -left-2 text-amber-300/70 text-xs sm:text-sm atendimentos-star" style={{ animationDuration: "3s" }}>✦</span>
           </div>
 
           <h1 className="mt-4 sm:mt-6 font-serif text-3xl sm:text-5xl text-amber-300" style={{ fontFamily: "Cinzel, serif" }}>
@@ -176,8 +178,8 @@ export default function Atendimentos() {
 
 
         {/* DESTAQUE — Tiragens */}
-        <section className="atendimentos-fade-up mt-8 sm:mt-10 relative rounded-2xl sm:rounded-3xl p-[1.5px] bg-gradient-to-br from-amber-400 via-amber-500/40 to-amber-600 shadow-[0_0_40px_-10px_rgba(201,168,76,0.5)] [animation-delay:120ms]">
-          <div className="relative rounded-2xl sm:rounded-3xl bg-gradient-to-br from-violet-950/95 via-indigo-950/95 to-[#0a0a1f] p-5 sm:p-8">
+        <section className="atendimentos-fade-up atendimentos-border-glow mt-8 sm:mt-10 relative overflow-hidden rounded-2xl sm:rounded-3xl p-[1.5px] bg-gradient-to-br from-amber-400 via-amber-500/40 to-amber-600 [animation-delay:120ms,0ms]">
+          <div className="atendimentos-shimmer relative overflow-hidden rounded-2xl sm:rounded-3xl bg-gradient-to-br from-violet-950/95 via-indigo-950/95 to-[#0a0a1f] p-5 sm:p-8">
             <div className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full border border-amber-500/40 bg-amber-500/10 text-amber-300 text-[10px] uppercase tracking-[0.2em] sm:tracking-[0.25em]">
               <Sparkles className="w-3 h-3" /> Destaque
             </div>
