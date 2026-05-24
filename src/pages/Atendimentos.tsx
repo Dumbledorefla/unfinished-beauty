@@ -1,5 +1,36 @@
 import { useEffect } from "react";
-import { Sparkles, ArrowRight, Gift, Check } from "lucide-react";
+
+type IconProps = { className?: string };
+
+const Sparkles = ({ className }: IconProps) => (
+  <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M12 3l1.7 5.3L19 10l-5.3 1.7L12 17l-1.7-5.3L5 10l5.3-1.7L12 3Z" />
+    <path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8L19 15Z" />
+  </svg>
+);
+
+const ArrowRight = ({ className }: IconProps) => (
+  <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M5 12h14" />
+    <path d="m12 5 7 7-7 7" />
+  </svg>
+);
+
+const Check = ({ className }: IconProps) => (
+  <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M20 6 9 17l-5-5" />
+  </svg>
+);
+
+const Gift = ({ className }: IconProps) => (
+  <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M20 12v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8" />
+    <path d="M2 7h20v5H2z" />
+    <path d="M12 22V7" />
+    <path d="M12 7H7.5a2.5 2.5 0 1 1 0-5C11 2 12 7 12 7Z" />
+    <path d="M12 7h4.5a2.5 2.5 0 1 0 0-5C13 2 12 7 12 7Z" />
+  </svg>
+);
 
 const WA_1_PERGUNTA = "https://wa.me/5581995827762?text=Ol%C3%A1%21+Quero+fazer+uma+tiragem+de+1+pergunta+objetiva+%F0%9F%94%AE";
 const WA_2_PERGUNTAS = "https://wa.me/5581995827762?text=Ol%C3%A1%21+Quero+fazer+uma+tiragem+de+2+perguntas+objetivas+%F0%9F%94%AE";
