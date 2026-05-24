@@ -137,7 +137,7 @@ export default function Atendimentos() {
     <div className="min-h-screen relative overflow-hidden bg-[#0a0a1f]">
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-violet-950/40 via-[#0a0a1f] to-[#050510]" />
-      <div className="absolute top-0 left-1/2 h-[800px] w-[800px] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,hsl(265_70%_45%_/_0.22)_0%,transparent_68%)]" />
+      <div className="atendimentos-bg-drift absolute top-0 left-1/2 h-[800px] w-[800px] rounded-full bg-[radial-gradient(circle,hsl(265_70%_45%_/_0.22)_0%,transparent_68%)]" style={{ transform: "translateX(-50%)" }} />
       <Stars />
 
       <div className="relative z-10 max-w-xl mx-auto px-4 py-8 sm:px-5 sm:py-14">
