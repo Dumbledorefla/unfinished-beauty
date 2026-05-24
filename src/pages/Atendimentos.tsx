@@ -199,7 +199,7 @@ export default function Atendimentos() {
           <ItemCard
             title="Carta Canalizada"
             subtitle="Mensagem do coração dele(a)"
-            price="R$ 27"
+            price="R$ 25"
             oldPrice="R$ 79"
             badge="68% off"
             href={WHATSAPP}
