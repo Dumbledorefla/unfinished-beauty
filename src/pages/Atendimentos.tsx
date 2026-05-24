@@ -187,13 +187,7 @@ export default function Atendimentos() {
 
 
         {/* Carta Canalizada */}
-        <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mt-10 sm:mt-14"
-        >
+        <section className="atendimentos-fade-up mt-10 sm:mt-14 [animation-delay:180ms]">
           <SectionTitle>Carta Canalizada</SectionTitle>
           <p className="text-center text-white/70 text-[13px] sm:text-sm mb-4 sm:mb-5 max-w-md mx-auto px-2">
             O que ele(a) sente por você mas não tem coragem de dizer.
@@ -206,23 +200,17 @@ export default function Atendimentos() {
             badge="68% off"
             href={WA_CARTA}
           />
-        </motion.section>
+        </section>
 
         {/* Rituais Especiais */}
-        <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mt-10 sm:mt-14"
-        >
+        <section className="atendimentos-fade-up mt-10 sm:mt-14 [animation-delay:240ms]">
           <SectionTitle>Rituais Especiais</SectionTitle>
           <div className="space-y-2.5 sm:space-y-3">
             <ItemCard emoji="🍯" title="Adoçamento" subtitle="Materiais inclusos" price="R$ 300" href={WA_ADOCAMENTO} />
             <ItemCard emoji="✂️" title="Corte de Laços" subtitle="Materiais inclusos" price="R$ 500" href={WA_CORTE} />
             <ItemCard emoji="💖" title="Auto estima e amor próprio" subtitle="Materiais inclusos" price="R$ 350" href={WA_AUTOESTIMA} />
           </div>
-        </motion.section>
+        </section>
 
         {/* Footer */}
         <footer className="mt-12 sm:mt-16 pt-6 sm:pt-8 border-t border-white/10 flex flex-col items-center gap-3 text-center">
