@@ -32,13 +32,15 @@ const Gift = ({ className }: IconProps) => (
   </svg>
 );
 
-const WA_1_PERGUNTA = "https://wa.me/5581995827762?text=Ol%C3%A1%21+Quero+fazer+uma+tiragem+de+1+pergunta+objetiva+%F0%9F%94%AE";
-const WA_2_PERGUNTAS = "https://wa.me/5581995827762?text=Ol%C3%A1%21+Quero+fazer+uma+tiragem+de+2+perguntas+objetivas+%F0%9F%94%AE";
-const WA_3_PERGUNTAS = "https://wa.me/5581995827762?text=Ol%C3%A1%21+Quero+fazer+uma+tiragem+de+3+perguntas+objetivas+%F0%9F%94%AE";
-const WA_CARTA = "https://wa.me/5581995827762?text=Ol%C3%A1%21+Quero+a+Carta+Canalizada+%E2%AD%90";
-const WA_ADOCAMENTO = "https://wa.me/5581995827762?text=Ol%C3%A1%21+Tenho+interesse+no+ritual+de+Ad%C3%A7oamento+%E2%AD%90";
-const WA_CORTE = "https://wa.me/5581995827762?text=Ol%C3%A1%21+Tenho+interesse+no+ritual+de+Corte+de+La%C3%A7os+%E2%AD%90";
-const WA_AUTOESTIMA = "https://wa.me/5581995827762?text=Ol%C3%A1%21+Tenho+interesse+no+ritual+de+Auto+Estima+e+Amor+Pr%C3%B3prio+%E2%AD%90";
+const whatsappLink = (message: string) => `https://wa.me/5581995827762?text=${encodeURIComponent(message)}`;
+
+const WA_1_PERGUNTA = whatsappLink("Olá! Quero fazer uma tiragem de 1 pergunta objetiva");
+const WA_2_PERGUNTAS = whatsappLink("Olá! Quero fazer uma tiragem de 2 perguntas objetivas");
+const WA_3_PERGUNTAS = whatsappLink("Olá! Quero fazer uma tiragem de 3 perguntas objetivas");
+const WA_CARTA = whatsappLink("Olá! Quero a Carta Canalizada");
+const WA_ADOCAMENTO = whatsappLink("Olá! Tenho interesse no ritual de Adoçamento");
+const WA_CORTE = whatsappLink("Olá! Tenho interesse no ritual de Corte de Laços");
+const WA_AUTOESTIMA = whatsappLink("Olá! Tenho interesse no ritual de Auto Estima e Amor Próprio");
 
 const STAR_POSITIONS = Array.from({ length: 26 }, (_, i) => ({
   left: `${(i * 37) % 100}%`,
