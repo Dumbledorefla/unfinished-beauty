@@ -40,32 +40,33 @@ function ItemCard({ emoji, title, subtitle, price, oldPrice, badge, href }: Item
       target="_blank"
       rel="noopener noreferrer"
       whileHover={{ y: -2, scale: 1.01 }}
-      className="group flex items-center justify-between gap-4 rounded-2xl border border-amber-500/20 bg-gradient-to-br from-violet-950/40 to-indigo-950/40 backdrop-blur-md px-5 py-4 transition-all hover:border-amber-400/60 hover:shadow-[0_0_24px_-4px_rgba(201,168,76,0.4)]"
+      className="group flex items-center justify-between gap-3 sm:gap-4 rounded-xl sm:rounded-2xl border border-amber-500/20 bg-gradient-to-br from-violet-950/40 to-indigo-950/40 backdrop-blur-md px-4 sm:px-5 py-3.5 sm:py-4 transition-all hover:border-amber-400/60 hover:shadow-[0_0_24px_-4px_rgba(201,168,76,0.4)]"
     >
-      <div className="flex items-center gap-3 min-w-0">
-        {emoji && <span className="text-2xl shrink-0">{emoji}</span>}
-        <div className="min-w-0">
-          <div className="font-serif text-lg text-white truncate">{title}</div>
-          {subtitle && <div className="text-xs text-amber-200/70">{subtitle}</div>}
+      <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1">
+        {emoji && <span className="text-xl sm:text-2xl shrink-0">{emoji}</span>}
+        <div className="min-w-0 flex-1">
+          <div className="font-serif text-[15px] sm:text-lg text-white leading-tight">{title}</div>
+          {subtitle && <div className="text-[11px] sm:text-xs text-amber-200/70 mt-0.5">{subtitle}</div>}
           {badge && (
-            <div className="mt-1 inline-block text-[10px] uppercase tracking-wider text-amber-300 bg-amber-500/10 border border-amber-500/30 px-2 py-0.5 rounded-full">
+            <div className="mt-1 inline-block text-[9px] sm:text-[10px] uppercase tracking-wider text-amber-300 bg-amber-500/10 border border-amber-500/30 px-1.5 sm:px-2 py-0.5 rounded-full">
               {badge}
             </div>
           )}
         </div>
       </div>
-      <div className="flex items-center gap-3 shrink-0">
+      <div className="flex items-center gap-2 sm:gap-3 shrink-0">
         <div className="text-right">
-          {oldPrice && <div className="text-xs text-white/40 line-through">{oldPrice}</div>}
-          <div className="font-serif text-xl text-amber-300">{price}</div>
+          {oldPrice && <div className="text-[10px] sm:text-xs text-white/40 line-through leading-none">{oldPrice}</div>}
+          <div className="font-serif text-base sm:text-xl text-amber-300 leading-tight">{price}</div>
         </div>
-        <div className="w-9 h-9 rounded-full bg-amber-400 text-slate-900 flex items-center justify-center group-hover:bg-amber-300 transition-colors shrink-0">
-          <ArrowRight className="w-4 h-4" />
+        <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-amber-400 text-slate-900 flex items-center justify-center group-hover:bg-amber-300 transition-colors shrink-0">
+          <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
         </div>
       </div>
     </motion.a>
   );
 }
+
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
@@ -96,7 +97,7 @@ export default function Atendimentos() {
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-violet-700/20 rounded-full blur-[120px]" />
       <Stars />
 
-      <div className="relative z-10 max-w-xl mx-auto px-5 py-10 sm:py-14">
+      <div className="relative z-10 max-w-xl mx-auto px-4 py-8 sm:px-5 sm:py-14">
         {/* Header */}
         <motion.header
           initial={{ opacity: 0, y: -10 }}
@@ -105,7 +106,7 @@ export default function Atendimentos() {
           className="text-center"
         >
           {/* Amanda photo */}
-          <div className="relative w-40 h-40 mx-auto">
+          <div className="relative w-28 h-28 sm:w-40 sm:h-40 mx-auto">
             <div className="absolute inset-0 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 blur-md opacity-60" />
             <div className="relative w-full h-full rounded-full p-[3px] bg-gradient-to-br from-amber-300 via-amber-500 to-amber-700">
               <img
@@ -114,23 +115,24 @@ export default function Atendimentos() {
                 className="w-full h-full rounded-full object-cover"
               />
             </div>
-            <span className="absolute -top-2 -right-1 text-amber-300 text-lg animate-pulse">✦</span>
-            <span className="absolute -bottom-1 -left-2 text-amber-300/70 text-sm">✦</span>
+            <span className="absolute -top-2 -right-1 text-amber-300 text-base sm:text-lg animate-pulse">✦</span>
+            <span className="absolute -bottom-1 -left-2 text-amber-300/70 text-xs sm:text-sm">✦</span>
           </div>
 
-          <h1 className="mt-6 font-serif text-5xl text-amber-300" style={{ fontFamily: "Cinzel, serif" }}>
+          <h1 className="mt-4 sm:mt-6 font-serif text-3xl sm:text-5xl text-amber-300" style={{ fontFamily: "Cinzel, serif" }}>
             Amanda Oráculos
           </h1>
-          <p className="mt-2 text-xs sm:text-sm uppercase tracking-[0.25em] text-white/70">
+          <p className="mt-2 text-[10px] sm:text-sm uppercase tracking-[0.2em] sm:tracking-[0.25em] text-white/70">
             Baralho Cigano · Cartas Canalizadas
           </p>
 
           {/* Promo badge */}
-          <div className="mt-6 inline-flex items-center gap-2 px-4 py-2 rounded-full border border-amber-500/30 bg-violet-900/30 backdrop-blur-md text-amber-200 text-xs sm:text-sm">
-            <Sparkles className="w-3.5 h-3.5" />
-            Promoção de lançamento — por tempo limitado
+          <div className="mt-4 sm:mt-6 inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border border-amber-500/30 bg-violet-900/30 backdrop-blur-md text-amber-200 text-[11px] sm:text-sm">
+            <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5 shrink-0" />
+            <span>Promoção de lançamento — por tempo limitado</span>
           </div>
         </motion.header>
+
 
 
         {/* DESTAQUE — Tiragens */}
@@ -138,36 +140,36 @@ export default function Atendimentos() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.6 }}
-          className="mt-10 relative rounded-3xl p-[1.5px] bg-gradient-to-br from-amber-400 via-amber-500/40 to-amber-600 shadow-[0_0_40px_-10px_rgba(201,168,76,0.5)]"
+          className="mt-8 sm:mt-10 relative rounded-2xl sm:rounded-3xl p-[1.5px] bg-gradient-to-br from-amber-400 via-amber-500/40 to-amber-600 shadow-[0_0_40px_-10px_rgba(201,168,76,0.5)]"
         >
-          <div className="relative rounded-3xl bg-gradient-to-br from-violet-950/90 via-indigo-950/90 to-[#0a0a1f]/95 backdrop-blur-xl p-6 sm:p-8">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-amber-500/40 bg-amber-500/10 text-amber-300 text-[10px] uppercase tracking-[0.25em]">
+          <div className="relative rounded-2xl sm:rounded-3xl bg-gradient-to-br from-violet-950/90 via-indigo-950/90 to-[#0a0a1f]/95 backdrop-blur-xl p-5 sm:p-8">
+            <div className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full border border-amber-500/40 bg-amber-500/10 text-amber-300 text-[10px] uppercase tracking-[0.2em] sm:tracking-[0.25em]">
               <Sparkles className="w-3 h-3" /> Destaque
             </div>
 
-            <h2 className="mt-4 font-serif text-3xl sm:text-4xl text-white" style={{ fontFamily: "Cinzel, serif" }}>
+            <h2 className="mt-3 sm:mt-4 font-serif text-2xl sm:text-4xl text-white leading-tight" style={{ fontFamily: "Cinzel, serif" }}>
               Tiragens <span className="italic text-amber-300">de Tarot</span>
             </h2>
-            <p className="mt-2 text-white/70 text-sm sm:text-base">
+            <p className="mt-2 text-white/70 text-[13px] sm:text-base leading-relaxed">
               Respostas claras e diretas para o que você precisa saber agora.
             </p>
 
             {/* Includes */}
-            <div className="mt-6 rounded-2xl border border-white/10 bg-black/20 p-4 sm:p-5">
-              <div className="text-[11px] uppercase tracking-[0.25em] text-amber-300/90 mb-3">
+            <div className="mt-5 sm:mt-6 rounded-xl sm:rounded-2xl border border-white/10 bg-black/20 p-3.5 sm:p-5">
+              <div className="text-[10px] sm:text-[11px] uppercase tracking-[0.2em] sm:tracking-[0.25em] text-amber-300/90 mb-2.5 sm:mb-3">
                 O que está incluso
               </div>
-              <ul className="space-y-2.5 text-sm text-white/85">
-                <li className="flex gap-2.5"><Check className="w-4 h-4 text-amber-300 shrink-0 mt-0.5" />Leitura personalizada com as cartas do Baralho Cigano</li>
-                <li className="flex gap-2.5"><Check className="w-4 h-4 text-amber-300 shrink-0 mt-0.5" />Explicação completa da tiragem com fotos das cartas</li>
-                <li className="flex gap-2.5"><Gift className="w-4 h-4 text-amber-300 shrink-0 mt-0.5" />Áudio explicativo com a Amanda</li>
-                <li className="flex gap-2.5"><Gift className="w-4 h-4 text-amber-300 shrink-0 mt-0.5" />Interpretação detalhada de cada carta</li>
-                <li className="flex gap-2.5"><Gift className="w-4 h-4 text-amber-300 shrink-0 mt-0.5" />Orientação prática para sua situação</li>
+              <ul className="space-y-2 sm:space-y-2.5 text-[13px] sm:text-sm text-white/85">
+                <li className="flex gap-2 sm:gap-2.5"><Check className="w-4 h-4 text-amber-300 shrink-0 mt-0.5" />Leitura personalizada com as cartas do Baralho Cigano</li>
+                <li className="flex gap-2 sm:gap-2.5"><Check className="w-4 h-4 text-amber-300 shrink-0 mt-0.5" />Explicação completa da tiragem com fotos das cartas</li>
+                <li className="flex gap-2 sm:gap-2.5"><Gift className="w-4 h-4 text-amber-300 shrink-0 mt-0.5" />Áudio explicativo com a Amanda</li>
+                <li className="flex gap-2 sm:gap-2.5"><Gift className="w-4 h-4 text-amber-300 shrink-0 mt-0.5" />Interpretação detalhada de cada carta</li>
+                <li className="flex gap-2 sm:gap-2.5"><Gift className="w-4 h-4 text-amber-300 shrink-0 mt-0.5" />Orientação prática para sua situação</li>
               </ul>
             </div>
 
             {/* Options */}
-            <div className="mt-5 space-y-3">
+            <div className="mt-4 sm:mt-5 space-y-2.5 sm:space-y-3">
               <ItemCard title="1 pergunta objetiva" price="R$ 13" href={WHATSAPP} />
               <ItemCard title="2 perguntas objetivas" price="R$ 26" href={WHATSAPP} />
               <ItemCard
@@ -181,16 +183,17 @@ export default function Atendimentos() {
           </div>
         </motion.section>
 
+
         {/* Carta Canalizada */}
         <motion.section
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mt-14"
+          className="mt-10 sm:mt-14"
         >
           <SectionTitle>Carta Canalizada</SectionTitle>
-          <p className="text-center text-white/70 text-sm mb-5 max-w-md mx-auto">
+          <p className="text-center text-white/70 text-[13px] sm:text-sm mb-4 sm:mb-5 max-w-md mx-auto px-2">
             O que ele(a) sente por você mas não tem coragem de dizer.
           </p>
           <ItemCard
@@ -209,10 +212,10 @@ export default function Atendimentos() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mt-14"
+          className="mt-10 sm:mt-14"
         >
           <SectionTitle>Rituais Especiais</SectionTitle>
-          <div className="space-y-3">
+          <div className="space-y-2.5 sm:space-y-3">
             <ItemCard emoji="🍯" title="Adoçamento" subtitle="Materiais inclusos" price="R$ 300" href={WHATSAPP} />
             <ItemCard emoji="✂️" title="Corte de Laços" subtitle="Materiais inclusos" price="R$ 500" href={WHATSAPP} />
             <ItemCard emoji="💖" title="Auto estima e amor próprio" subtitle="Materiais inclusos" price="R$ 350" href={WHATSAPP} />
@@ -220,12 +223,13 @@ export default function Atendimentos() {
         </motion.section>
 
         {/* Footer */}
-        <footer className="mt-16 pt-8 border-t border-white/10 flex flex-col items-center gap-3 text-center">
-          <img src="/chave-oraculo-logo.png" alt="" className="w-20 h-20 rounded-full opacity-90" />
-          <p className="text-xs text-white/50">
+        <footer className="mt-12 sm:mt-16 pt-6 sm:pt-8 border-t border-white/10 flex flex-col items-center gap-3 text-center">
+          <img src="/chave-oraculo-logo.png" alt="" className="w-16 h-16 sm:w-20 sm:h-20 rounded-full opacity-90" />
+          <p className="text-[11px] sm:text-xs text-white/50 px-4">
             © 2025 Chave do Oráculo · Todos os direitos reservados
           </p>
         </footer>
+
       </div>
     </div>
   );
