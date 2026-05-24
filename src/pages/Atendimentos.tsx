@@ -1,6 +1,36 @@
-import { useEffect } from "react";
-import { motion } from "framer-motion";
-import { Sparkles, ArrowRight, Gift, Check } from "lucide-react";
+import { useEffect, type ReactNode } from "react";
+
+type IconProps = { className?: string };
+
+const Sparkles = ({ className }: IconProps) => (
+  <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M12 3l1.7 5.3L19 10l-5.3 1.7L12 17l-1.7-5.3L5 10l5.3-1.7L12 3Z" />
+    <path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8L19 15Z" />
+  </svg>
+);
+
+const ArrowRight = ({ className }: IconProps) => (
+  <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M5 12h14" />
+    <path d="m12 5 7 7-7 7" />
+  </svg>
+);
+
+const Check = ({ className }: IconProps) => (
+  <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M20 6 9 17l-5-5" />
+  </svg>
+);
+
+const Gift = ({ className }: IconProps) => (
+  <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M20 12v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8" />
+    <path d="M2 7h20v5H2z" />
+    <path d="M12 22V7" />
+    <path d="M12 7H7.5a2.5 2.5 0 1 1 0-5C11 2 12 7 12 7Z" />
+    <path d="M12 7h4.5a2.5 2.5 0 1 0 0-5C13 2 12 7 12 7Z" />
+  </svg>
+);
 
 const WA_1_PERGUNTA = "https://wa.me/5581995827762?text=Ol%C3%A1%21+Quero+fazer+uma+tiragem+de+1+pergunta+objetiva+%F0%9F%94%AE";
 const WA_2_PERGUNTAS = "https://wa.me/5581995827762?text=Ol%C3%A1%21+Quero+fazer+uma+tiragem+de+2+perguntas+objetivas+%F0%9F%94%AE";
@@ -10,20 +40,24 @@ const WA_ADOCAMENTO = "https://wa.me/5581995827762?text=Ol%C3%A1%21+Tenho+intere
 const WA_CORTE = "https://wa.me/5581995827762?text=Ol%C3%A1%21+Tenho+interesse+no+ritual+de+Corte+de+La%C3%A7os+%E2%AD%90";
 const WA_AUTOESTIMA = "https://wa.me/5581995827762?text=Ol%C3%A1%21+Tenho+interesse+no+ritual+de+Auto+Estima+e+Amor+Pr%C3%B3prio+%E2%AD%90";
 
+const STAR_POSITIONS = Array.from({ length: 26 }, (_, i) => ({
+  left: `${(i * 37) % 100}%`,
+  top: `${(i * 53) % 100}%`,
+  delay: `${(i % 8) * 0.45}s`,
+  duration: `${2.8 + (i % 5) * 0.55}s`,
+}));
+
 function Stars() {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {[...Array(50)].map((_, i) => (
-        <motion.span
+      {STAR_POSITIONS.map((star, i) => (
+        <span
           key={i}
-          className="absolute text-amber-300/40 text-xs"
-          style={{ left: `${Math.random() * 100}%`, top: `${Math.random() * 100}%` }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: [0, 0.9, 0] }}
-          transition={{ duration: 2 + Math.random() * 4, repeat: Infinity, delay: Math.random() * 5 }}
+          className="atendimentos-star absolute text-amber-300/40 text-xs"
+          style={{ left: star.left, top: star.top, animationDelay: star.delay, animationDuration: star.duration }}
         >
           ✦
-        </motion.span>
+        </span>
       ))}
     </div>
   );
@@ -41,12 +75,11 @@ interface ItemCardProps {
 
 function ItemCard({ emoji, title, subtitle, price, oldPrice, badge, href }: ItemCardProps) {
   return (
-    <motion.a
+    <a
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      whileHover={{ y: -2, scale: 1.01 }}
-      className="group flex items-center justify-between gap-3 sm:gap-4 rounded-xl sm:rounded-2xl border border-amber-500/20 bg-gradient-to-br from-violet-950/40 to-indigo-950/40 backdrop-blur-md px-4 sm:px-5 py-3.5 sm:py-4 transition-all hover:border-amber-400/60 hover:shadow-[0_0_24px_-4px_rgba(201,168,76,0.4)]"
+      className="group flex transform-gpu items-center justify-between gap-3 sm:gap-4 rounded-xl sm:rounded-2xl border border-amber-500/20 bg-gradient-to-br from-violet-950/70 to-indigo-950/70 px-4 sm:px-5 py-3.5 sm:py-4 transition-all hover:-translate-y-0.5 hover:scale-[1.01] hover:border-amber-400/60 hover:shadow-[0_0_24px_-4px_rgba(201,168,76,0.4)]"
     >
       <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1">
         {emoji && <span className="text-xl sm:text-2xl shrink-0">{emoji}</span>}
@@ -69,12 +102,12 @@ function ItemCard({ emoji, title, subtitle, price, oldPrice, badge, href }: Item
           <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
         </div>
       </div>
-    </motion.a>
+    </a>
   );
 }
 
 
-function SectionTitle({ children }: { children: React.ReactNode }) {
+function SectionTitle({ children }: { children: ReactNode }) {
   return (
     <h2 className="text-center text-sm font-semibold uppercase tracking-[0.3em] text-amber-300/90 mb-5">
       {children}
@@ -100,17 +133,12 @@ export default function Atendimentos() {
     <div className="min-h-screen relative overflow-hidden bg-[#0a0a1f]">
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-violet-950/40 via-[#0a0a1f] to-[#050510]" />
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-violet-700/20 rounded-full blur-[120px]" />
+      <div className="absolute top-0 left-1/2 h-[800px] w-[800px] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,hsl(265_70%_45%_/_0.22)_0%,transparent_68%)]" />
       <Stars />
 
       <div className="relative z-10 max-w-xl mx-auto px-4 py-8 sm:px-5 sm:py-14">
         {/* Header */}
-        <motion.header
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-center"
-        >
+        <header className="atendimentos-fade-up text-center">
           {/* Amanda photo */}
           <div className="relative w-28 h-28 sm:w-40 sm:h-40 mx-auto">
             <div className="absolute inset-0 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 blur-md opacity-60" />
@@ -137,22 +165,17 @@ export default function Atendimentos() {
           </p>
 
           {/* Promo badge */}
-          <div className="mt-4 sm:mt-6 inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border border-amber-500/30 bg-violet-900/30 backdrop-blur-md text-amber-200 text-[11px] sm:text-sm">
+          <div className="mt-4 sm:mt-6 inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border border-amber-500/30 bg-violet-900/60 text-amber-200 text-[11px] sm:text-sm">
             <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5 shrink-0" />
             <span>Promoção de lançamento — por tempo limitado</span>
           </div>
-        </motion.header>
+        </header>
 
 
 
         {/* DESTAQUE — Tiragens */}
-        <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.6 }}
-          className="mt-8 sm:mt-10 relative rounded-2xl sm:rounded-3xl p-[1.5px] bg-gradient-to-br from-amber-400 via-amber-500/40 to-amber-600 shadow-[0_0_40px_-10px_rgba(201,168,76,0.5)]"
-        >
-          <div className="relative rounded-2xl sm:rounded-3xl bg-gradient-to-br from-violet-950/90 via-indigo-950/90 to-[#0a0a1f]/95 backdrop-blur-xl p-5 sm:p-8">
+        <section className="atendimentos-fade-up mt-8 sm:mt-10 relative rounded-2xl sm:rounded-3xl p-[1.5px] bg-gradient-to-br from-amber-400 via-amber-500/40 to-amber-600 shadow-[0_0_40px_-10px_rgba(201,168,76,0.5)] [animation-delay:120ms]">
+          <div className="relative rounded-2xl sm:rounded-3xl bg-gradient-to-br from-violet-950/95 via-indigo-950/95 to-[#0a0a1f] p-5 sm:p-8">
             <div className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full border border-amber-500/40 bg-amber-500/10 text-amber-300 text-[10px] uppercase tracking-[0.2em] sm:tracking-[0.25em]">
               <Sparkles className="w-3 h-3" /> Destaque
             </div>
@@ -191,17 +214,11 @@ export default function Atendimentos() {
               />
             </div>
           </div>
-        </motion.section>
+        </section>
 
 
         {/* Carta Canalizada */}
-        <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mt-10 sm:mt-14"
-        >
+        <section className="atendimentos-fade-up mt-10 sm:mt-14 [animation-delay:180ms]">
           <SectionTitle>Carta Canalizada</SectionTitle>
           <p className="text-center text-white/70 text-[13px] sm:text-sm mb-4 sm:mb-5 max-w-md mx-auto px-2">
             O que ele(a) sente por você mas não tem coragem de dizer.
@@ -214,23 +231,17 @@ export default function Atendimentos() {
             badge="68% off"
             href={WA_CARTA}
           />
-        </motion.section>
+        </section>
 
         {/* Rituais Especiais */}
-        <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mt-10 sm:mt-14"
-        >
+        <section className="atendimentos-fade-up mt-10 sm:mt-14 [animation-delay:240ms]">
           <SectionTitle>Rituais Especiais</SectionTitle>
           <div className="space-y-2.5 sm:space-y-3">
             <ItemCard emoji="🍯" title="Adoçamento" subtitle="Materiais inclusos" price="R$ 300" href={WA_ADOCAMENTO} />
             <ItemCard emoji="✂️" title="Corte de Laços" subtitle="Materiais inclusos" price="R$ 500" href={WA_CORTE} />
             <ItemCard emoji="💖" title="Auto estima e amor próprio" subtitle="Materiais inclusos" price="R$ 350" href={WA_AUTOESTIMA} />
           </div>
-        </motion.section>
+        </section>
 
         {/* Footer */}
         <footer className="mt-12 sm:mt-16 pt-6 sm:pt-8 border-t border-white/10 flex flex-col items-center gap-3 text-center">
