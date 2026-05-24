@@ -104,22 +104,13 @@ export default function Atendimentos() {
           transition={{ duration: 0.6 }}
           className="text-center"
         >
-          {/* Logo small */}
-          <div className="flex justify-center mb-6">
-            <img
-              src="/chave-oraculo-logo.png"
-              alt="Chave do Oráculo"
-              className="w-16 h-16 rounded-full object-cover ring-1 ring-amber-400/40"
-            />
-          </div>
-
           {/* Amanda photo */}
           <div className="relative w-40 h-40 mx-auto">
             <div className="absolute inset-0 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 blur-md opacity-60" />
             <div className="relative w-full h-full rounded-full p-[3px] bg-gradient-to-br from-amber-300 via-amber-500 to-amber-700">
               <img
                 src="/amanda-foto.jpg"
-                alt="Amanda — Taróloga"
+                alt="Amanda Oráculos"
                 className="w-full h-full rounded-full object-cover"
               />
             </div>
@@ -128,7 +119,7 @@ export default function Atendimentos() {
           </div>
 
           <h1 className="mt-6 font-serif text-5xl text-amber-300" style={{ fontFamily: "Cinzel, serif" }}>
-            Amanda
+            Amanda Oráculos
           </h1>
           <p className="mt-2 text-xs sm:text-sm uppercase tracking-[0.25em] text-white/70">
             Baralho Cigano · Cartas Canalizadas
@@ -140,6 +131,7 @@ export default function Atendimentos() {
             Promoção de lançamento — por tempo limitado
           </div>
         </motion.header>
+
 
         {/* DESTAQUE — Tiragens */}
         <motion.section
@@ -229,7 +221,7 @@ export default function Atendimentos() {
 
         {/* Footer */}
         <footer className="mt-16 pt-8 border-t border-white/10 flex flex-col items-center gap-3 text-center">
-          <img src="/chave-oraculo-logo.png" alt="" className="w-10 h-10 rounded-full opacity-80" />
+          <img src="/chave-oraculo-logo.png" alt="" className="w-20 h-20 rounded-full opacity-90" />
           <p className="text-xs text-white/50">
             © 2025 Chave do Oráculo · Todos os direitos reservados
           </p>
