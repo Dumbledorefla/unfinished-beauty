@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { motion } from "framer-motion";
 import { Sparkles, ArrowRight, Gift, Check } from "lucide-react";
 
 const WA_1_PERGUNTA = "https://wa.me/5581995827762?text=Ol%C3%A1%21+Quero+fazer+uma+tiragem+de+1+pergunta+objetiva+%F0%9F%94%AE";
@@ -10,20 +9,24 @@ const WA_ADOCAMENTO = "https://wa.me/5581995827762?text=Ol%C3%A1%21+Tenho+intere
 const WA_CORTE = "https://wa.me/5581995827762?text=Ol%C3%A1%21+Tenho+interesse+no+ritual+de+Corte+de+La%C3%A7os+%E2%AD%90";
 const WA_AUTOESTIMA = "https://wa.me/5581995827762?text=Ol%C3%A1%21+Tenho+interesse+no+ritual+de+Auto+Estima+e+Amor+Pr%C3%B3prio+%E2%AD%90";
 
+const STAR_POSITIONS = Array.from({ length: 26 }, (_, i) => ({
+  left: `${(i * 37) % 100}%`,
+  top: `${(i * 53) % 100}%`,
+  delay: `${(i % 8) * 0.45}s`,
+  duration: `${2.8 + (i % 5) * 0.55}s`,
+}));
+
 function Stars() {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {[...Array(50)].map((_, i) => (
-        <motion.span
+      {STAR_POSITIONS.map((star, i) => (
+        <span
           key={i}
-          className="absolute text-amber-300/40 text-xs"
-          style={{ left: `${Math.random() * 100}%`, top: `${Math.random() * 100}%` }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: [0, 0.9, 0] }}
-          transition={{ duration: 2 + Math.random() * 4, repeat: Infinity, delay: Math.random() * 5 }}
+          className="atendimentos-star absolute text-amber-300/40 text-xs"
+          style={{ left: star.left, top: star.top, animationDelay: star.delay, animationDuration: star.duration }}
         >
           ✦
-        </motion.span>
+        </span>
       ))}
     </div>
   );
@@ -41,12 +44,11 @@ interface ItemCardProps {
 
 function ItemCard({ emoji, title, subtitle, price, oldPrice, badge, href }: ItemCardProps) {
   return (
-    <motion.a
+    <a
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      whileHover={{ y: -2, scale: 1.01 }}
-      className="group flex items-center justify-between gap-3 sm:gap-4 rounded-xl sm:rounded-2xl border border-amber-500/20 bg-gradient-to-br from-violet-950/40 to-indigo-950/40 backdrop-blur-md px-4 sm:px-5 py-3.5 sm:py-4 transition-all hover:border-amber-400/60 hover:shadow-[0_0_24px_-4px_rgba(201,168,76,0.4)]"
+      className="group flex transform-gpu items-center justify-between gap-3 sm:gap-4 rounded-xl sm:rounded-2xl border border-amber-500/20 bg-gradient-to-br from-violet-950/70 to-indigo-950/70 px-4 sm:px-5 py-3.5 sm:py-4 transition-all hover:-translate-y-0.5 hover:scale-[1.01] hover:border-amber-400/60 hover:shadow-[0_0_24px_-4px_rgba(201,168,76,0.4)]"
     >
       <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1">
         {emoji && <span className="text-xl sm:text-2xl shrink-0">{emoji}</span>}
@@ -69,7 +71,7 @@ function ItemCard({ emoji, title, subtitle, price, oldPrice, badge, href }: Item
           <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
         </div>
       </div>
-    </motion.a>
+    </a>
   );
 }
 
