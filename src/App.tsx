@@ -44,6 +44,7 @@ const SpreadsCustom = lazy(() => import("./pages/SpreadsCustom"));
 const RitualDiario = lazy(() => import("./pages/RitualDiario"));
 const PoliticaPrivacidade = lazy(() => import("./pages/PoliticaPrivacidade"));
 const ExclusaoDados = lazy(() => import("./pages/ExclusaoDados"));
+const Atendimentos = lazy(() => import("./pages/Atendimentos"));
 
 // Admin pages
 const AdminLayout = lazy(() => import("./pages/admin/AdminLayout"));
@@ -136,6 +137,7 @@ const App = () => (
                   <Route path="/ritual" element={<RitualDiario />} />
                   <Route path="/politica-de-privacidade" element={<PoliticaPrivacidade />} />
                   <Route path="/exclusao-de-dados" element={<ExclusaoDados />} />
+                  <Route path="/atendimentos" element={<Atendimentos />} />
 
                   {/* Admin routes with sidebar layout */}
                   <Route path="/admin" element={<AdminLayout />}>
