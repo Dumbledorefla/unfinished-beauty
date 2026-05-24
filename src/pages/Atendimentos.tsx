@@ -219,6 +219,7 @@ export default function Atendimentos() {
               />
             </div>
           </div>
+          </div>
         </section>
 
 
