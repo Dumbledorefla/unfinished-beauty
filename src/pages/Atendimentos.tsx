@@ -144,8 +144,8 @@ export default function Atendimentos() {
         {/* Header */}
         <header className="atendimentos-fade-up text-center">
           {/* Amanda photo */}
-          <div className="relative w-28 h-28 sm:w-40 sm:h-40 mx-auto">
-            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 blur-md opacity-60" />
+          <div className="relative w-28 h-28 sm:w-40 sm:h-40 mx-auto atendimentos-float-slow">
+            <div className="atendimentos-halo absolute -inset-2 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 blur-xl" />
             <div className="relative w-full h-full rounded-full p-[3px] bg-gradient-to-br from-amber-300 via-amber-500 to-amber-700">
               <img
                 src="/amanda-foto.webp"
@@ -158,7 +158,7 @@ export default function Atendimentos() {
               />
             </div>
             <span className="absolute -top-2 -right-1 text-amber-300 text-base sm:text-lg animate-pulse">✦</span>
-            <span className="absolute -bottom-1 -left-2 text-amber-300/70 text-xs sm:text-sm">✦</span>
+            <span className="absolute -bottom-1 -left-2 text-amber-300/70 text-xs sm:text-sm atendimentos-star" style={{ animationDuration: "3s" }}>✦</span>
           </div>
 
           <h1 className="mt-4 sm:mt-6 font-serif text-3xl sm:text-5xl text-amber-300" style={{ fontFamily: "Cinzel, serif" }}>
