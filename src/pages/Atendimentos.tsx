@@ -83,7 +83,7 @@ function ItemCard({ emoji, title, subtitle, price, oldPrice, badge, href }: Item
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="group flex transform-gpu items-center justify-between gap-3 sm:gap-4 rounded-xl sm:rounded-2xl border border-amber-500/20 bg-gradient-to-br from-violet-950/70 to-indigo-950/70 px-4 sm:px-5 py-3.5 sm:py-4 transition-all hover:-translate-y-0.5 hover:scale-[1.01] hover:border-amber-400/60 hover:shadow-[0_0_24px_-4px_rgba(201,168,76,0.4)]"
+      className="group relative flex transform-gpu items-center justify-between gap-3 sm:gap-4 rounded-xl sm:rounded-2xl border border-amber-500/20 bg-gradient-to-br from-violet-950/70 to-indigo-950/70 px-4 sm:px-5 py-3.5 sm:py-4 transition-all duration-300 ease-out hover:-translate-y-1 hover:scale-[1.02] hover:border-amber-400/70 hover:shadow-[0_10px_40px_-8px_rgba(201,168,76,0.55)] hover:bg-gradient-to-br hover:from-violet-900/80 hover:to-indigo-900/80"
     >
       <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1">
         {emoji && <span className="text-xl sm:text-2xl shrink-0">{emoji}</span>}
