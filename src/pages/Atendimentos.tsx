@@ -2,7 +2,13 @@ import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { Sparkles, ArrowRight, Gift, Check } from "lucide-react";
 
-const WHATSAPP = "https://wa.me/5500000000000";
+const WA_1_PERGUNTA = "https://wa.me/5581995827762?text=Ol%C3%A1%21+Quero+fazer+uma+tiragem+de+1+pergunta+objetiva+%F0%9F%94%AE";
+const WA_2_PERGUNTAS = "https://wa.me/5581995827762?text=Ol%C3%A1%21+Quero+fazer+uma+tiragem+de+2+perguntas+objetivas+%F0%9F%94%AE";
+const WA_3_PERGUNTAS = "https://wa.me/5581995827762?text=Ol%C3%A1%21+Quero+fazer+uma+tiragem+de+3+perguntas+objetivas+%F0%9F%94%A5";
+const WA_CARTA = "https://wa.me/5581995827762?text=Ol%C3%A1%21+Quero+a+Carta+Canalizada+%F0%9F%92%9C";
+const WA_ADOCAMENTO = "https://wa.me/5581995827762?text=Ol%C3%A1%21+Tenho+interesse+no+ritual+de+Ad%C3%A7oamento+%F0%9F%8D%AF";
+const WA_CORTE = "https://wa.me/5581995827762?text=Ol%C3%A1%21+Tenho+interesse+no+ritual+de+Corte+de+La%C3%A7os+%E2%9C%82%EF%B8%8F";
+const WA_AUTOESTIMA = "https://wa.me/5581995827762?text=Ol%C3%A1%21+Tenho+interesse+no+ritual+de+Auto+Estima+e+Amor+Pr%C3%B3prio+%F0%9F%92%96";
 
 function Stars() {
   return (
@@ -170,14 +176,14 @@ export default function Atendimentos() {
 
             {/* Options */}
             <div className="mt-4 sm:mt-5 space-y-2.5 sm:space-y-3">
-              <ItemCard title="1 pergunta objetiva" price="R$ 13" href={WHATSAPP} />
-              <ItemCard title="2 perguntas objetivas" price="R$ 26" href={WHATSAPP} />
+              <ItemCard title="1 pergunta objetiva" price="R$ 13" href={WA_1_PERGUNTA} />
+              <ItemCard title="2 perguntas objetivas" price="R$ 26" href={WA_2_PERGUNTAS} />
               <ItemCard
                 title="3 perguntas objetivas"
                 subtitle="🔥 melhor custo"
                 price="R$ 29"
                 badge="Mais escolhida"
-                href={WHATSAPP}
+                href={WA_3_PERGUNTAS}
               />
             </div>
           </div>
@@ -202,7 +208,7 @@ export default function Atendimentos() {
             price="R$ 25"
             oldPrice="R$ 79"
             badge="68% off"
-            href={WHATSAPP}
+            href={WA_CARTA}
           />
         </motion.section>
 
@@ -216,9 +222,9 @@ export default function Atendimentos() {
         >
           <SectionTitle>Rituais Especiais</SectionTitle>
           <div className="space-y-2.5 sm:space-y-3">
-            <ItemCard emoji="🍯" title="Adoçamento" subtitle="Materiais inclusos" price="R$ 300" href={WHATSAPP} />
-            <ItemCard emoji="✂️" title="Corte de Laços" subtitle="Materiais inclusos" price="R$ 500" href={WHATSAPP} />
-            <ItemCard emoji="💖" title="Auto estima e amor próprio" subtitle="Materiais inclusos" price="R$ 350" href={WHATSAPP} />
+            <ItemCard emoji="🍯" title="Adoçamento" subtitle="Materiais inclusos" price="R$ 300" href={WA_ADOCAMENTO} />
+            <ItemCard emoji="✂️" title="Corte de Laços" subtitle="Materiais inclusos" price="R$ 500" href={WA_CORTE} />
+            <ItemCard emoji="💖" title="Auto estima e amor próprio" subtitle="Materiais inclusos" price="R$ 350" href={WA_AUTOESTIMA} />
           </div>
         </motion.section>
 
