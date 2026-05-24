@@ -178,7 +178,8 @@ export default function Atendimentos() {
 
 
         {/* DESTAQUE — Tiragens */}
-        <section className="atendimentos-fade-up atendimentos-border-glow mt-8 sm:mt-10 relative overflow-hidden rounded-2xl sm:rounded-3xl p-[1.5px] bg-gradient-to-br from-amber-400 via-amber-500/40 to-amber-600 [animation-delay:120ms,0ms]">
+        <section className="atendimentos-fade-up mt-8 sm:mt-10 [animation-delay:120ms]">
+          <div className="atendimentos-border-glow relative overflow-hidden rounded-2xl sm:rounded-3xl p-[1.5px] bg-gradient-to-br from-amber-400 via-amber-500/40 to-amber-600">
           <div className="atendimentos-shimmer relative overflow-hidden rounded-2xl sm:rounded-3xl bg-gradient-to-br from-violet-950/95 via-indigo-950/95 to-[#0a0a1f] p-5 sm:p-8">
             <div className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full border border-amber-500/40 bg-amber-500/10 text-amber-300 text-[10px] uppercase tracking-[0.2em] sm:tracking-[0.25em]">
               <Sparkles className="w-3 h-3" /> Destaque
