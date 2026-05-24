@@ -107,12 +107,7 @@ export default function Atendimentos() {
 
       <div className="relative z-10 max-w-xl mx-auto px-4 py-8 sm:px-5 sm:py-14">
         {/* Header */}
-        <motion.header
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-center"
-        >
+        <header className="atendimentos-fade-up text-center">
           {/* Amanda photo */}
           <div className="relative w-28 h-28 sm:w-40 sm:h-40 mx-auto">
             <div className="absolute inset-0 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 blur-md opacity-60" />
@@ -139,22 +134,17 @@ export default function Atendimentos() {
           </p>
 
           {/* Promo badge */}
-          <div className="mt-4 sm:mt-6 inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border border-amber-500/30 bg-violet-900/30 backdrop-blur-md text-amber-200 text-[11px] sm:text-sm">
+          <div className="mt-4 sm:mt-6 inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border border-amber-500/30 bg-violet-900/60 text-amber-200 text-[11px] sm:text-sm">
             <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5 shrink-0" />
             <span>Promoção de lançamento — por tempo limitado</span>
           </div>
-        </motion.header>
+        </header>
 
 
 
         {/* DESTAQUE — Tiragens */}
-        <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.6 }}
-          className="mt-8 sm:mt-10 relative rounded-2xl sm:rounded-3xl p-[1.5px] bg-gradient-to-br from-amber-400 via-amber-500/40 to-amber-600 shadow-[0_0_40px_-10px_rgba(201,168,76,0.5)]"
-        >
-          <div className="relative rounded-2xl sm:rounded-3xl bg-gradient-to-br from-violet-950/90 via-indigo-950/90 to-[#0a0a1f]/95 backdrop-blur-xl p-5 sm:p-8">
+        <section className="atendimentos-fade-up mt-8 sm:mt-10 relative rounded-2xl sm:rounded-3xl p-[1.5px] bg-gradient-to-br from-amber-400 via-amber-500/40 to-amber-600 shadow-[0_0_40px_-10px_rgba(201,168,76,0.5)] [animation-delay:120ms]">
+          <div className="relative rounded-2xl sm:rounded-3xl bg-gradient-to-br from-violet-950/95 via-indigo-950/95 to-[#0a0a1f] p-5 sm:p-8">
             <div className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full border border-amber-500/40 bg-amber-500/10 text-amber-300 text-[10px] uppercase tracking-[0.2em] sm:tracking-[0.25em]">
               <Sparkles className="w-3 h-3" /> Destaque
             </div>
@@ -193,7 +183,7 @@ export default function Atendimentos() {
               />
             </div>
           </div>
-        </motion.section>
+        </section>
 
 
         {/* Carta Canalizada */}
