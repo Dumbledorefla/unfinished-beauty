@@ -102,8 +102,8 @@ function ItemCard({ emoji, title, subtitle, price, oldPrice, badge, href }: Item
           {oldPrice && <div className="text-[10px] sm:text-xs text-white/40 line-through leading-none">{oldPrice}</div>}
           <div className="font-serif text-base sm:text-xl text-amber-300 leading-tight">{price}</div>
         </div>
-        <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-amber-400 text-slate-900 flex items-center justify-center group-hover:bg-amber-300 transition-colors shrink-0">
-          <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+        <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-amber-400 text-slate-900 flex items-center justify-center group-hover:bg-amber-300 group-hover:shadow-[0_0_18px_rgba(252,211,77,0.7)] transition-all duration-300 shrink-0">
+          <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform duration-300 group-hover:translate-x-0.5" />
         </div>
       </div>
     </a>
