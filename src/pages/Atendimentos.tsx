@@ -42,11 +42,13 @@ const WA_ADOCAMENTO = whatsappLink("Olá! Tenho interesse no ritual de Adoçamen
 const WA_CORTE = whatsappLink("Olá! Tenho interesse no ritual de Corte de Laços");
 const WA_AUTOESTIMA = whatsappLink("Olá! Tenho interesse no ritual de Auto Estima e Amor Próprio");
 
-const STAR_POSITIONS = Array.from({ length: 26 }, (_, i) => ({
+const STAR_POSITIONS = Array.from({ length: 42 }, (_, i) => ({
   left: `${(i * 37) % 100}%`,
   top: `${(i * 53) % 100}%`,
-  delay: `${(i % 8) * 0.45}s`,
-  duration: `${2.8 + (i % 5) * 0.55}s`,
+  delay: `${(i % 10) * 0.35}s`,
+  duration: `${2.6 + (i % 6) * 0.5}s`,
+  size: i % 5 === 0 ? "text-base" : i % 3 === 0 ? "text-sm" : "text-xs",
+  color: i % 4 === 0 ? "text-amber-200/70" : "text-amber-300/45",
 }));
 
 function Stars() {
@@ -55,7 +57,7 @@ function Stars() {
       {STAR_POSITIONS.map((star, i) => (
         <span
           key={i}
-          className="atendimentos-star absolute text-amber-300/40 text-xs"
+          className={`atendimentos-star absolute ${star.size} ${star.color}`}
           style={{ left: star.left, top: star.top, animationDelay: star.delay, animationDuration: star.duration }}
         >
           ✦
