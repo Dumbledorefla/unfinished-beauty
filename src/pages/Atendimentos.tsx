@@ -40,32 +40,33 @@ function ItemCard({ emoji, title, subtitle, price, oldPrice, badge, href }: Item
       target="_blank"
       rel="noopener noreferrer"
       whileHover={{ y: -2, scale: 1.01 }}
-      className="group flex items-center justify-between gap-4 rounded-2xl border border-amber-500/20 bg-gradient-to-br from-violet-950/40 to-indigo-950/40 backdrop-blur-md px-5 py-4 transition-all hover:border-amber-400/60 hover:shadow-[0_0_24px_-4px_rgba(201,168,76,0.4)]"
+      className="group flex items-center justify-between gap-3 sm:gap-4 rounded-xl sm:rounded-2xl border border-amber-500/20 bg-gradient-to-br from-violet-950/40 to-indigo-950/40 backdrop-blur-md px-4 sm:px-5 py-3.5 sm:py-4 transition-all hover:border-amber-400/60 hover:shadow-[0_0_24px_-4px_rgba(201,168,76,0.4)]"
     >
-      <div className="flex items-center gap-3 min-w-0">
-        {emoji && <span className="text-2xl shrink-0">{emoji}</span>}
-        <div className="min-w-0">
-          <div className="font-serif text-lg text-white truncate">{title}</div>
-          {subtitle && <div className="text-xs text-amber-200/70">{subtitle}</div>}
+      <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1">
+        {emoji && <span className="text-xl sm:text-2xl shrink-0">{emoji}</span>}
+        <div className="min-w-0 flex-1">
+          <div className="font-serif text-[15px] sm:text-lg text-white leading-tight">{title}</div>
+          {subtitle && <div className="text-[11px] sm:text-xs text-amber-200/70 mt-0.5">{subtitle}</div>}
           {badge && (
-            <div className="mt-1 inline-block text-[10px] uppercase tracking-wider text-amber-300 bg-amber-500/10 border border-amber-500/30 px-2 py-0.5 rounded-full">
+            <div className="mt-1 inline-block text-[9px] sm:text-[10px] uppercase tracking-wider text-amber-300 bg-amber-500/10 border border-amber-500/30 px-1.5 sm:px-2 py-0.5 rounded-full">
               {badge}
             </div>
           )}
         </div>
       </div>
-      <div className="flex items-center gap-3 shrink-0">
+      <div className="flex items-center gap-2 sm:gap-3 shrink-0">
         <div className="text-right">
-          {oldPrice && <div className="text-xs text-white/40 line-through">{oldPrice}</div>}
-          <div className="font-serif text-xl text-amber-300">{price}</div>
+          {oldPrice && <div className="text-[10px] sm:text-xs text-white/40 line-through leading-none">{oldPrice}</div>}
+          <div className="font-serif text-base sm:text-xl text-amber-300 leading-tight">{price}</div>
         </div>
-        <div className="w-9 h-9 rounded-full bg-amber-400 text-slate-900 flex items-center justify-center group-hover:bg-amber-300 transition-colors shrink-0">
-          <ArrowRight className="w-4 h-4" />
+        <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-amber-400 text-slate-900 flex items-center justify-center group-hover:bg-amber-300 transition-colors shrink-0">
+          <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
         </div>
       </div>
     </motion.a>
   );
 }
+
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
