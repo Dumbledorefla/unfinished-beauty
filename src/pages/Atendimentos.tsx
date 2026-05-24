@@ -116,8 +116,12 @@ export default function Atendimentos() {
             <div className="absolute inset-0 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 blur-md opacity-60" />
             <div className="relative w-full h-full rounded-full p-[3px] bg-gradient-to-br from-amber-300 via-amber-500 to-amber-700">
               <img
-                src="/amanda-foto.jpg"
+                src="/amanda-foto.webp"
                 alt="Amanda Oráculos"
+                width={400}
+                height={400}
+                fetchPriority="high"
+                decoding="async"
                 className="w-full h-full rounded-full object-cover"
               />
             </div>
