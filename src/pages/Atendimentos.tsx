@@ -234,7 +234,7 @@ export default function Atendimentos() {
 
         {/* Footer */}
         <footer className="mt-12 sm:mt-16 pt-6 sm:pt-8 border-t border-white/10 flex flex-col items-center gap-3 text-center">
-          <img src="/chave-oraculo-logo.png" alt="" className="w-16 h-16 sm:w-20 sm:h-20 rounded-full opacity-90" />
+          <img src="/chave-oraculo-logo.webp" alt="" width={80} height={80} loading="lazy" decoding="async" className="w-16 h-16 sm:w-20 sm:h-20 rounded-full opacity-90" />
           <p className="text-[11px] sm:text-xs text-white/50 px-4">
             © 2025 Chave do Oráculo · Todos os direitos reservados
           </p>
