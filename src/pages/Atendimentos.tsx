@@ -2,7 +2,13 @@ import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { Sparkles, ArrowRight, Gift, Check } from "lucide-react";
 
-const WHATSAPP = "https://wa.me/5500000000000";
+const WA_1_PERGUNTA = "https://wa.me/5581995827762?text=Ol%C3%A1%21+Quero+fazer+uma+tiragem+de+1+pergunta+objetiva+%F0%9F%94%AE";
+const WA_2_PERGUNTAS = "https://wa.me/5581995827762?text=Ol%C3%A1%21+Quero+fazer+uma+tiragem+de+2+perguntas+objetivas+%F0%9F%94%AE";
+const WA_3_PERGUNTAS = "https://wa.me/5581995827762?text=Ol%C3%A1%21+Quero+fazer+uma+tiragem+de+3+perguntas+objetivas+%F0%9F%94%A5";
+const WA_CARTA = "https://wa.me/5581995827762?text=Ol%C3%A1%21+Quero+a+Carta+Canalizada+%F0%9F%92%9C";
+const WA_ADOCAMENTO = "https://wa.me/5581995827762?text=Ol%C3%A1%21+Tenho+interesse+no+ritual+de+Ad%C3%A7oamento+%F0%9F%8D%AF";
+const WA_CORTE = "https://wa.me/5581995827762?text=Ol%C3%A1%21+Tenho+interesse+no+ritual+de+Corte+de+La%C3%A7os+%E2%9C%82%EF%B8%8F";
+const WA_AUTOESTIMA = "https://wa.me/5581995827762?text=Ol%C3%A1%21+Tenho+interesse+no+ritual+de+Auto+Estima+e+Amor+Pr%C3%B3prio+%F0%9F%92%96";
 
 function Stars() {
   return (
