@@ -142,14 +142,24 @@ interface ItemCardProps {
   oldPrice?: string;
   badge?: string;
   href: string;
+  /** Numeric value (R$) — required for Facebook Lead tracking */
+  leadValue: number;
+  /** Human-readable name reported to Meta (defaults to title) */
+  leadName?: string;
 }
 
-function ItemCard({ emoji, title, subtitle, price, oldPrice, badge, href }: ItemCardProps) {
+function ItemCard({ emoji, title, subtitle, price, oldPrice, badge, href, leadValue, leadName }: ItemCardProps) {
+  const handleClick = () => {
+    trackLead({ content_name: leadName || title, value: leadValue });
+  };
   return (
     <a
       href={href}
       target="_blank"
       rel="noopener noreferrer"
+      onClick={handleClick}
+      onAuxClick={handleClick}
+      data-fb-lead-value={leadValue}
       className="group relative flex transform-gpu items-center justify-between gap-3 sm:gap-4 rounded-xl sm:rounded-2xl border border-amber-500/20 bg-gradient-to-br from-violet-950/70 to-indigo-950/70 px-4 sm:px-5 py-3.5 sm:py-4 transition-all duration-300 ease-out hover:-translate-y-1 hover:scale-[1.02] hover:border-amber-400/70 hover:shadow-[0_10px_40px_-8px_rgba(201,168,76,0.55)] hover:bg-gradient-to-br hover:from-violet-900/80 hover:to-indigo-900/80"
     >
       <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1">
@@ -176,6 +186,7 @@ function ItemCard({ emoji, title, subtitle, price, oldPrice, badge, href }: Item
     </a>
   );
 }
+
 
 
 function SectionTitle({ children }: { children: ReactNode }) {
