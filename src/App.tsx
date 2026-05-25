@@ -158,6 +158,7 @@ const App = () => (
                     <Route path="afiliados" element={<AdminAfiliadosPage />} />
                     <Route path="notificacoes" element={<AdminNotificacoesPage />} />
                     <Route path="integracoes" element={<AdminIntegracoesPage />} />
+                    <Route path="facebook" element={<AdminFacebookPage />} />
                     <Route path="config" element={<AdminConfigPage />} />
                     <Route path="auditoria" element={<AdminAuditoriaPage />} />
                     <Route path="debug" element={<AdminDebugPage />} />
