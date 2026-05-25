@@ -67,6 +67,7 @@ const AdminAnalyticsPage = lazy(() => import("./pages/admin/AdminAnalyticsPage")
 const AdminSEOPage = lazy(() => import("./pages/admin/AdminSEOPage"));
 const AdminIntegracoesPage = lazy(() => import("./pages/admin/AdminIntegracoesPage"));
 const AdminNotificacoesPage = lazy(() => import("./pages/admin/AdminNotificacoesPage"));
+const AdminFacebookPage = lazy(() => import("./pages/admin/AdminFacebookPage"));
 
 function PageLoader() {
   return (
