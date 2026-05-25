@@ -39,6 +39,7 @@ const navItems: NavItem[] = [
 
   { label: "Newsletter", icon: Mail, href: "/admin/newsletter", section: "Marketing" },
   { label: "Afiliados", icon: UserPlus, href: "/admin/afiliados", section: "Marketing" },
+  { label: "Facebook Ads", icon: Facebook, href: "/admin/facebook", section: "Marketing" },
   { label: "Notificações", icon: Bell, href: "/admin/notificacoes", section: "Marketing" },
 
   { label: "Integrações", icon: Webhook, href: "/admin/integracoes", section: "Sistema" },
