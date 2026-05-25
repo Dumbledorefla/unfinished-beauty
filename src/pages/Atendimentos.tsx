@@ -316,6 +316,7 @@ export default function Atendimentos() {
             oldPrice="R$ 79"
             badge="68% off"
             href={WA_CARTA}
+            leadValue={25}
           />
         </section>
 
@@ -323,11 +324,12 @@ export default function Atendimentos() {
         <section className="atendimentos-fade-up mt-10 sm:mt-14 [animation-delay:240ms]">
           <SectionTitle>Rituais Especiais</SectionTitle>
           <div className="space-y-2.5 sm:space-y-3">
-            <ItemCard emoji="🍯" title="Adoçamento" subtitle="Materiais inclusos" price="R$ 300" href={WA_ADOCAMENTO} />
-            <ItemCard emoji="✂️" title="Corte de Laços" subtitle="Materiais inclusos" price="R$ 500" href={WA_CORTE} />
-            <ItemCard emoji="💖" title="Auto estima e amor próprio" subtitle="Materiais inclusos" price="R$ 350" href={WA_AUTOESTIMA} />
+            <ItemCard emoji="🍯" title="Adoçamento" subtitle="Materiais inclusos" price="R$ 300" href={WA_ADOCAMENTO} leadValue={300} />
+            <ItemCard emoji="✂️" title="Corte de Laços" subtitle="Materiais inclusos" price="R$ 500" href={WA_CORTE} leadValue={500} />
+            <ItemCard emoji="💖" title="Auto estima e amor próprio" subtitle="Materiais inclusos" price="R$ 350" href={WA_AUTOESTIMA} leadValue={350} />
           </div>
         </section>
+
 
         {/* Footer */}
         <footer className="mt-12 sm:mt-16 pt-6 sm:pt-8 border-t border-white/10 flex flex-col items-center gap-3 text-center">
