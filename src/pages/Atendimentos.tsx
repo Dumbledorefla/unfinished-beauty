@@ -286,16 +286,18 @@ export default function Atendimentos() {
 
             {/* Options */}
             <div className="mt-4 sm:mt-5 space-y-2.5 sm:space-y-3">
-              <ItemCard title="1 pergunta objetiva" price="R$ 13" href={WA_1_PERGUNTA} />
-              <ItemCard title="2 perguntas objetivas" price="R$ 26" href={WA_2_PERGUNTAS} />
+              <ItemCard title="1 pergunta objetiva" price="R$ 13" href={WA_1_PERGUNTA} leadValue={13} />
+              <ItemCard title="2 perguntas objetivas" price="R$ 26" href={WA_2_PERGUNTAS} leadValue={26} />
               <ItemCard
                 title="3 perguntas objetivas"
                 subtitle="🔥 melhor custo"
                 price="R$ 29"
                 badge="Mais escolhida"
                 href={WA_3_PERGUNTAS}
+                leadValue={29}
               />
             </div>
+
           </div>
           </div>
         </section>
