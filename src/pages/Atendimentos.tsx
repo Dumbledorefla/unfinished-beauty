@@ -1,5 +1,72 @@
 import { useEffect, type ReactNode } from "react";
 
+// ============== Facebook Pixel + Conversions API ==============
+const FB_PIXEL_ID = "3545701582264861";
+const CAPI_ENDPOINT = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/facebook-capi`;
+
+declare global {
+  interface Window {
+    fbq?: (...args: unknown[]) => void;
+    _fbq?: unknown;
+  }
+}
+
+function getCookie(name: string): string | undefined {
+  if (typeof document === "undefined") return undefined;
+  const match = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
+  return match ? decodeURIComponent(match[2]) : undefined;
+}
+
+function uuid(): string {
+  if (typeof crypto !== "undefined" && "randomUUID" in crypto) return crypto.randomUUID();
+  return "ev_" + Date.now().toString(36) + "_" + Math.random().toString(36).slice(2, 10);
+}
+
+/**
+ * Fires a Lead event to BOTH Pixel (browser) and Conversions API (server)
+ * using the same event_id so Meta deduplicates.
+ * Non-blocking — never delays navigation to WhatsApp.
+ */
+function trackLead(opts: { content_name: string; value: number; currency?: string }) {
+  const eventId = uuid();
+  const currency = opts.currency || "BRL";
+
+  // 1. Browser Pixel
+  try {
+    window.fbq?.("track", "Lead", {
+      content_name: opts.content_name,
+      value: opts.value,
+      currency,
+    }, { eventID: eventId });
+  } catch (err) {
+    console.warn("fbq track failed", err);
+  }
+
+  // 2. Server CAPI (fire-and-forget, with keepalive so it survives navigation)
+  try {
+    fetch(CAPI_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      keepalive: true,
+      body: JSON.stringify({
+        event_name: "Lead",
+        event_id: eventId,
+        event_source_url: window.location.href,
+        action_source: "website",
+        value: opts.value,
+        currency,
+        content_name: opts.content_name,
+        fbp: getCookie("_fbp"),
+        fbc: getCookie("_fbc"),
+        client_user_agent: navigator.userAgent,
+      }),
+    }).catch((err) => console.warn("CAPI Lead failed", err));
+  } catch (err) {
+    console.warn("CAPI Lead exception", err);
+  }
+}
+
+
 type IconProps = { className?: string };
 
 const Sparkles = ({ className }: IconProps) => (
