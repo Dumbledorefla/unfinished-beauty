@@ -4,7 +4,7 @@ import {
   LayoutDashboard, Users, Package, Star, CreditCard, ShoppingBag,
   MessageSquare, GraduationCap, Settings, Tag, Shield, UserPlus,
   FileText, Mail, Bug, BarChart3, Search, Webhook, Bell,
-  ChevronLeft, ChevronRight, Home, Globe, Menu
+  ChevronLeft, ChevronRight, Home, Globe, Menu, Facebook
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
