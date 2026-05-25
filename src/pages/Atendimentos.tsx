@@ -1,5 +1,72 @@
 import { useEffect, type ReactNode } from "react";
 
+// ============== Facebook Pixel + Conversions API ==============
+const FB_PIXEL_ID = "3545701582264861";
+const CAPI_ENDPOINT = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/facebook-capi`;
+
+declare global {
+  interface Window {
+    fbq?: (...args: unknown[]) => void;
+    _fbq?: unknown;
+  }
+}
+
+function getCookie(name: string): string | undefined {
+  if (typeof document === "undefined") return undefined;
+  const match = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
+  return match ? decodeURIComponent(match[2]) : undefined;
+}
+
+function uuid(): string {
+  if (typeof crypto !== "undefined" && "randomUUID" in crypto) return crypto.randomUUID();
+  return "ev_" + Date.now().toString(36) + "_" + Math.random().toString(36).slice(2, 10);
+}
+
+/**
+ * Fires a Lead event to BOTH Pixel (browser) and Conversions API (server)
+ * using the same event_id so Meta deduplicates.
+ * Non-blocking — never delays navigation to WhatsApp.
+ */
+function trackLead(opts: { content_name: string; value: number; currency?: string }) {
+  const eventId = uuid();
+  const currency = opts.currency || "BRL";
+
+  // 1. Browser Pixel
+  try {
+    window.fbq?.("track", "Lead", {
+      content_name: opts.content_name,
+      value: opts.value,
+      currency,
+    }, { eventID: eventId });
+  } catch (err) {
+    console.warn("fbq track failed", err);
+  }
+
+  // 2. Server CAPI (fire-and-forget, with keepalive so it survives navigation)
+  try {
+    fetch(CAPI_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      keepalive: true,
+      body: JSON.stringify({
+        event_name: "Lead",
+        event_id: eventId,
+        event_source_url: window.location.href,
+        action_source: "website",
+        value: opts.value,
+        currency,
+        content_name: opts.content_name,
+        fbp: getCookie("_fbp"),
+        fbc: getCookie("_fbc"),
+        client_user_agent: navigator.userAgent,
+      }),
+    }).catch((err) => console.warn("CAPI Lead failed", err));
+  } catch (err) {
+    console.warn("CAPI Lead exception", err);
+  }
+}
+
+
 type IconProps = { className?: string };
 
 const Sparkles = ({ className }: IconProps) => (
@@ -75,14 +142,24 @@ interface ItemCardProps {
   oldPrice?: string;
   badge?: string;
   href: string;
+  /** Numeric value (R$) — required for Facebook Lead tracking */
+  leadValue: number;
+  /** Human-readable name reported to Meta (defaults to title) */
+  leadName?: string;
 }
 
-function ItemCard({ emoji, title, subtitle, price, oldPrice, badge, href }: ItemCardProps) {
+function ItemCard({ emoji, title, subtitle, price, oldPrice, badge, href, leadValue, leadName }: ItemCardProps) {
+  const handleClick = () => {
+    trackLead({ content_name: leadName || title, value: leadValue });
+  };
   return (
     <a
       href={href}
       target="_blank"
       rel="noopener noreferrer"
+      onClick={handleClick}
+      onAuxClick={handleClick}
+      data-fb-lead-value={leadValue}
       className="group relative flex transform-gpu items-center justify-between gap-3 sm:gap-4 rounded-xl sm:rounded-2xl border border-amber-500/20 bg-gradient-to-br from-violet-950/70 to-indigo-950/70 px-4 sm:px-5 py-3.5 sm:py-4 transition-all duration-300 ease-out hover:-translate-y-1 hover:scale-[1.02] hover:border-amber-400/70 hover:shadow-[0_10px_40px_-8px_rgba(201,168,76,0.55)] hover:bg-gradient-to-br hover:from-violet-900/80 hover:to-indigo-900/80"
     >
       <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1">
@@ -111,6 +188,7 @@ function ItemCard({ emoji, title, subtitle, price, oldPrice, badge, href }: Item
 }
 
 
+
 function SectionTitle({ children }: { children: ReactNode }) {
   return (
     <h2 className="text-center text-sm font-semibold uppercase tracking-[0.3em] text-amber-300/90 mb-5">
@@ -131,7 +209,24 @@ export default function Atendimentos() {
       m.content = content;
       document.head.appendChild(m);
     }
+
+    // ============== Facebook Pixel snippet ==============
+    if (typeof window !== "undefined" && !window.fbq) {
+      /* eslint-disable */
+      (function (f: any, b, e, v, n?: any, t?: any, s?: any) {
+        if (f.fbq) return;
+        n = f.fbq = function () { n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments); };
+        if (!f._fbq) f._fbq = n;
+        n.push = n; n.loaded = !0; n.version = "2.0"; n.queue = [];
+        t = b.createElement(e); t.async = !0; t.src = v;
+        s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s);
+      })(window, document, "script", "https://connect.facebook.net/en_US/fbevents.js");
+      /* eslint-enable */
+      window.fbq?.("init", FB_PIXEL_ID);
+      window.fbq?.("track", "PageView");
+    }
   }, []);
+
 
   return (
     <div className="min-h-screen relative overflow-hidden bg-[#0a0a1f]">
@@ -208,16 +303,18 @@ export default function Atendimentos() {
 
             {/* Options */}
             <div className="mt-4 sm:mt-5 space-y-2.5 sm:space-y-3">
-              <ItemCard title="1 pergunta objetiva" price="R$ 13" href={WA_1_PERGUNTA} />
-              <ItemCard title="2 perguntas objetivas" price="R$ 26" href={WA_2_PERGUNTAS} />
+              <ItemCard title="1 pergunta objetiva" price="R$ 13" href={WA_1_PERGUNTA} leadValue={13} />
+              <ItemCard title="2 perguntas objetivas" price="R$ 26" href={WA_2_PERGUNTAS} leadValue={26} />
               <ItemCard
                 title="3 perguntas objetivas"
                 subtitle="🔥 melhor custo"
                 price="R$ 29"
                 badge="Mais escolhida"
                 href={WA_3_PERGUNTAS}
+                leadValue={29}
               />
             </div>
+
           </div>
           </div>
         </section>
@@ -236,6 +333,7 @@ export default function Atendimentos() {
             oldPrice="R$ 79"
             badge="68% off"
             href={WA_CARTA}
+            leadValue={25}
           />
         </section>
 
@@ -243,11 +341,12 @@ export default function Atendimentos() {
         <section className="atendimentos-fade-up mt-10 sm:mt-14 [animation-delay:240ms]">
           <SectionTitle>Rituais Especiais</SectionTitle>
           <div className="space-y-2.5 sm:space-y-3">
-            <ItemCard emoji="🍯" title="Adoçamento" subtitle="Materiais inclusos" price="R$ 300" href={WA_ADOCAMENTO} />
-            <ItemCard emoji="✂️" title="Corte de Laços" subtitle="Materiais inclusos" price="R$ 500" href={WA_CORTE} />
-            <ItemCard emoji="💖" title="Auto estima e amor próprio" subtitle="Materiais inclusos" price="R$ 350" href={WA_AUTOESTIMA} />
+            <ItemCard emoji="🍯" title="Adoçamento" subtitle="Materiais inclusos" price="R$ 300" href={WA_ADOCAMENTO} leadValue={300} />
+            <ItemCard emoji="✂️" title="Corte de Laços" subtitle="Materiais inclusos" price="R$ 500" href={WA_CORTE} leadValue={500} />
+            <ItemCard emoji="💖" title="Auto estima e amor próprio" subtitle="Materiais inclusos" price="R$ 350" href={WA_AUTOESTIMA} leadValue={350} />
           </div>
         </section>
+
 
         {/* Footer */}
         <footer className="mt-12 sm:mt-16 pt-6 sm:pt-8 border-t border-white/10 flex flex-col items-center gap-3 text-center">

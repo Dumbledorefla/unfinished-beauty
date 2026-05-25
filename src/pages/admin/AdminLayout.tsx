@@ -4,7 +4,7 @@ import {
   LayoutDashboard, Users, Package, Star, CreditCard, ShoppingBag,
   MessageSquare, GraduationCap, Settings, Tag, Shield, UserPlus,
   FileText, Mail, Bug, BarChart3, Search, Webhook, Bell,
-  ChevronLeft, ChevronRight, Home, Globe, Menu
+  ChevronLeft, ChevronRight, Home, Globe, Menu, Facebook
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -39,6 +39,7 @@ const navItems: NavItem[] = [
 
   { label: "Newsletter", icon: Mail, href: "/admin/newsletter", section: "Marketing" },
   { label: "Afiliados", icon: UserPlus, href: "/admin/afiliados", section: "Marketing" },
+  { label: "Facebook Ads", icon: Facebook, href: "/admin/facebook", section: "Marketing" },
   { label: "Notificações", icon: Bell, href: "/admin/notificacoes", section: "Marketing" },
 
   { label: "Integrações", icon: Webhook, href: "/admin/integracoes", section: "Sistema" },
